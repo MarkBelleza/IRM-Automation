@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results retried="2" ignored="0" total="8" passed="6" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-01-03T09:52:13 EST" name="User Access Tests Cases" finished-at="2025-01-03T09:56:45 EST" duration-ms="271646">
+    <groups>
+      <group name="testing">
+        <method signature="StaffSergeant.createIncidentReport()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant@76a36b71]" name="createIncidentReport" class="ca.IRM.selenium.UserTypeAccess.StaffSergeant"/>
+        <method signature="StaffSergeant.markIncidentReportConfidential()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant@76a36b71]" name="markIncidentReportConfidential" class="ca.IRM.selenium.UserTypeAccess.StaffSergeant"/>
+        <method signature="StaffSergeant2.viewAndUpdate()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant2@319dead1]" name="viewAndUpdate" class="ca.IRM.selenium.UserTypeAccess.StaffSergeant2"/>
+        <method signature="StaffSergeant3.createIncidentReport()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant3@6970140a]" name="createIncidentReport" class="ca.IRM.selenium.UserTypeAccess.StaffSergeant3"/>
+        <method signature="StaffSergeant3.markIncidentReportConfidentialNot()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant3@6970140a]" name="markIncidentReportConfidentialNot" class="ca.IRM.selenium.UserTypeAccess.StaffSergeant3"/>
+        <method signature="StaffSergeant4.viewAndUpdateOnlyIIR()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant4@344344fa]" name="viewAndUpdateOnlyIIR" class="ca.IRM.selenium.UserTypeAccess.StaffSergeant4"/>
+      </group> <!-- testing -->
+    </groups>
+    <test started-at="2025-01-03T09:52:13 EST" name="Functional Testing" finished-at="2025-01-03T09:56:45 EST" duration-ms="271646">
+      <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant">
+        <test-method is-config="true" signature="setUpApplication()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant@76a36b71]" started-at="2025-01-03T09:52:13 EST" name="setUpApplication" finished-at="2025-01-03T09:52:24 EST" duration-ms="11189" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpApplication -->
+        <test-method signature="createIncidentReport()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant@76a36b71]" started-at="2025-01-03T09:53:57 EST" name="createIncidentReport" finished-at="2025-01-03T09:54:25 EST" duration-ms="28528" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createIncidentReport -->
+        <test-method signature="markIncidentReportConfidential()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant@76a36b71]" started-at="2025-01-03T09:54:25 EST" name="markIncidentReportConfidential" finished-at="2025-01-03T09:54:51 EST" duration-ms="25373" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- markIncidentReportConfidential -->
+        <test-method is-config="true" signature="close()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant@76a36b71]" started-at="2025-01-03T09:56:45 EST" name="close" finished-at="2025-01-03T09:56:45 EST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- close -->
+      </class> <!-- ca.IRM.selenium.UserTypeAccess.StaffSergeant -->
+      <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant3">
+        <test-method is-config="true" signature="setUpApplication()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant3@6970140a]" started-at="2025-01-03T09:52:59 EST" name="setUpApplication" finished-at="2025-01-03T09:53:10 EST" duration-ms="11058" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpApplication -->
+        <test-method signature="createIncidentReport()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant3@6970140a]" started-at="2025-01-03T09:55:07 EST" name="createIncidentReport" finished-at="2025-01-03T09:55:43 EST" duration-ms="35759" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createIncidentReport -->
+        <test-method signature="markIncidentReportConfidentialNot()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant3@6970140a]" started-at="2025-01-03T09:55:43 EST" name="markIncidentReportConfidentialNot" finished-at="2025-01-03T09:56:18 EST" duration-ms="35083" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- markIncidentReportConfidentialNot -->
+        <test-method is-config="true" signature="close()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant3@6970140a]" started-at="2025-01-03T09:56:45 EST" name="close" finished-at="2025-01-03T09:56:45 EST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- close -->
+      </class> <!-- ca.IRM.selenium.UserTypeAccess.StaffSergeant3 -->
+      <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant2">
+        <test-method is-config="true" signature="setUpApplication()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant2@319dead1]" started-at="2025-01-03T09:52:24 EST" name="setUpApplication" finished-at="2025-01-03T09:52:59 EST" duration-ms="34388" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpApplication -->
+        <test-method retried="true" signature="viewAndUpdate()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant2@319dead1]" started-at="2025-01-03T09:54:51 EST" name="viewAndUpdate" finished-at="2025-01-03T09:54:53 EST" duration-ms="1899" status="SKIP">
+          <exception class="org.openqa.selenium.StaleElementReferenceException">
+            <message>
+              <![CDATA[stale element reference: stale element not found in the current frame
+  (Session info: MicrosoftEdge=131.0.2903.112)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.26.0', revision: '8ccf0219d7'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.4'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [401a490f3ce1b79727622b1e3ea6417c, actions {actions=[org.openqa.selenium.interactions.Sequence@47629063]}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 131.0.2903.112, fedcm:accounts: true, ms:edgeOptions: {debuggerAddress: localhost:57796}, msedge: {msedgedriverVersion: 131.0.2903.112 (16ab910a6e7..., userDataDir: C:\Users\BELLEZMA\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:57796/devtoo..., se:cdpVersion: 131.0.2903.112, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 401a490f3ce1b79727622b1e3ea6417c]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.StaleElementReferenceException: stale element reference: stale element not found in the current frame
+  (Session info: MicrosoftEdge=131.0.2903.112)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.26.0', revision: '8ccf0219d7'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.4'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [401a490f3ce1b79727622b1e3ea6417c, actions {actions=[org.openqa.selenium.interactions.Sequence@47629063]}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 131.0.2903.112, fedcm:accounts: true, ms:edgeOptions: {debuggerAddress: localhost:57796}, msedge: {msedgedriverVersion: 131.0.2903.112 (16ab910a6e7..., userDataDir: C:\Users\BELLEZMA\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:57796/devtoo..., se:cdpVersion: 131.0.2903.112, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 401a490f3ce1b79727622b1e3ea6417c
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+at org.openqa.selenium.remote.RemoteWebDriver.perform(RemoteWebDriver.java:631)
+at org.openqa.selenium.interactions.Actions$BuiltAction.perform(Actions.java:613)
+at org.openqa.selenium.interactions.Actions.perform(Actions.java:578)
+at ca.IRM.selenium.pages.ReportSearch.openIncidentReport(ReportSearch.java:67)
+at ca.IRM.selenium.UserTypeAccess.StaffSergeant2.viewAndUpdate(StaffSergeant2.java:154)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:794)
+at org.testng.TestRunner.run(TestRunner.java:596)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
+at org.testng.SuiteRunner.run(SuiteRunner.java:276)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
+at org.testng.TestNG.runSuites(TestNG.java:1063)
+at org.testng.TestNG.run(TestNG.java:1031)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.StaleElementReferenceException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- viewAndUpdate -->
+        <test-method signature="viewAndUpdate()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant2@319dead1]" started-at="2025-01-03T09:54:53 EST" name="viewAndUpdate" finished-at="2025-01-03T09:55:07 EST" duration-ms="14244" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- viewAndUpdate -->
+        <test-method is-config="true" signature="close()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant2@319dead1]" started-at="2025-01-03T09:56:45 EST" name="close" finished-at="2025-01-03T09:56:45 EST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- close -->
+      </class> <!-- ca.IRM.selenium.UserTypeAccess.StaffSergeant2 -->
+      <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant4">
+        <test-method is-config="true" signature="setUpApplication()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant4@344344fa]" started-at="2025-01-03T09:53:10 EST" name="setUpApplication" finished-at="2025-01-03T09:53:57 EST" duration-ms="47057" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpApplication -->
+        <test-method retried="true" signature="viewAndUpdateOnlyIIR()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant4@344344fa]" started-at="2025-01-03T09:56:18 EST" name="viewAndUpdateOnlyIIR" finished-at="2025-01-03T09:56:25 EST" duration-ms="7467" status="SKIP">
+          <exception class="org.openqa.selenium.TimeoutException">
+            <message>
+              <![CDATA[Expected condition failed: waiting for visibility of element located by By.xpath: //h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Summary for Incident ID :')] (tried for 5 second(s) with 500 milliseconds interval)
+Build info: version: '4.26.0', revision: '8ccf0219d7'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.4'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 131.0.2903.112, fedcm:accounts: true, ms:edgeOptions: {debuggerAddress: localhost:57860}, msedge: {msedgedriverVersion: 131.0.2903.112 (16ab910a6e7..., userDataDir: C:\Users\BELLEZMA\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:57860/devtoo..., se:cdpVersion: 131.0.2903.112, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: c62490bfdbc0301d4eaec655fd6bf3bb]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Summary for Incident ID :')] (tried for 5 second(s) with 500 milliseconds interval)
+Build info: version: '4.26.0', revision: '8ccf0219d7'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.4'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 131.0.2903.112, fedcm:accounts: true, ms:edgeOptions: {debuggerAddress: localhost:57860}, msedge: {msedgedriverVersion: 131.0.2903.112 (16ab910a6e7..., userDataDir: C:\Users\BELLEZMA\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:57860/devtoo..., se:cdpVersion: 131.0.2903.112, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: c62490bfdbc0301d4eaec655fd6bf3bb
+at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+at ca.IRM.selenium.pages.Summary.verifyPage(Summary.java:37)
+at ca.IRM.selenium.UserTypeAccess.StaffSergeant4.viewAndUpdateOnlyIIR(StaffSergeant4.java:158)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:794)
+at org.testng.TestRunner.run(TestRunner.java:596)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
+at org.testng.SuiteRunner.run(SuiteRunner.java:276)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
+at org.testng.TestNG.runSuites(TestNG.java:1063)
+at org.testng.TestNG.run(TestNG.java:1031)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.TimeoutException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- viewAndUpdateOnlyIIR -->
+        <test-method signature="viewAndUpdateOnlyIIR()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant4@344344fa]" started-at="2025-01-03T09:56:25 EST" name="viewAndUpdateOnlyIIR" finished-at="2025-01-03T09:56:45 EST" duration-ms="19482" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- viewAndUpdateOnlyIIR -->
+        <test-method is-config="true" signature="close()[pri:0, instance:ca.IRM.selenium.UserTypeAccess.StaffSergeant4@344344fa]" started-at="2025-01-03T09:56:45 EST" name="close" finished-at="2025-01-03T09:56:45 EST" duration-ms="15" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- close -->
+      </class> <!-- ca.IRM.selenium.UserTypeAccess.StaffSergeant4 -->
+    </test> <!-- Functional Testing -->
+  </suite> <!-- User Access Tests Cases -->
+</testng-results>

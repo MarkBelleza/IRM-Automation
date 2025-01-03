@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="User Access Tests Cases">
+
+ <!-- Config for retrying Tests that fail-->
+	<listeners>
+	    <listener class-name="ca.IRM.selenium.config.TestRetryListener"/>
+	</listeners>
+
+
+  <test name="Functional Testing"> 
+  
+  <!-- Specify which tests you want to run -->
+	  <groups>
+	    <run>
+	      <include name="testing"/>
+	    </run>
+	  </groups>
+
+ 
+	<classes>
+	   <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant"/>
+	   <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant2"/>
+	   <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant3"/>
+	   <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant4"/>
+	   <!-- <class name="UI.failTest"/> -->
+	</classes>
+
+  </test> <!-- Test -->
+  
+</suite> <!-- Suite -->
