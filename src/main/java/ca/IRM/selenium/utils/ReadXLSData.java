@@ -27,22 +27,22 @@ public class ReadXLSData {
 		Sheet sheetName = wb.getSheet(excelSheetName);
 		
 //		Count the rows of the sheet
-		int totalRows = sheetName.getLastRowNum();
-		System.out.println(totalRows);
+		int totalRows = sheetName.getLastRowNum() + 1;
+		System.out.println("Number of rows: " + totalRows);
 		
 //		Count the col of the sheet
 		Row rowCells = sheetName.getRow(0);
 		int totalCols = rowCells.getLastCellNum();
-		System.out.println(totalCols);
 		
 //		Create the array for that will contain the contents of data.xlsx
 		DataFormatter format = new DataFormatter();
 		String testData[] = new String[totalRows];
 		
-		for (int i = 0; i <= totalRows; i++) {
+		for (int i = 0; i < totalRows; i++) {
 			testData[i] = format.formatCellValue(sheetName.getRow(i).getCell(0));
 			System.out.println(testData[i]);
 		}
+		
 		
 		return testData;
 	}
@@ -60,19 +60,18 @@ public class ReadXLSData {
 		Sheet sheetName = wb.getSheet(excelSheetName);
 		
 //		Count the rows of the sheet
-		int totalRows = sheetName.getLastRowNum();
-		System.out.println(totalRows);
+		int totalRows = sheetName.getLastRowNum() + 1;
+		System.out.println("Number of rows: " + totalRows);
 		
 //		Count the col of the sheet
 		Row rowCells = sheetName.getRow(0);
 		int totalCols = rowCells.getLastCellNum();
-		System.out.println(totalCols);
 		
 //		Create the array for that will contain the contents of data.xlsx
 		DataFormatter format = new DataFormatter();
 		String testData[] = new String[totalRows];
 		
-		for (int i = 0; i <= totalRows; i++) {
+		for (int i = 0; i < totalRows; i++) {
 			testData[i] = format.formatCellValue(sheetName.getRow(i).getCell(0));
 			System.out.println(testData[i]);
 		}
