@@ -40,7 +40,7 @@ public class ReportSearch {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Report Search')]")));
-		System.out.println("In Report Search page");
+//		System.out.println("In Report Search page");
 	}
 	
 	public void searchIncidentReport(String id) {

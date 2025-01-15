@@ -27,7 +27,7 @@ public class SupportingDocuments {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Supporting Documents')]")));
-		System.out.println("In Supporting Documents page");
+//		System.out.println("In Supporting Documents page");
 	}
 	
 	public void clickNext() {

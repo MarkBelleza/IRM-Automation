@@ -48,7 +48,7 @@ public class Notification {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Notification')]")));
-		System.out.println("In Notification page");
+//		System.out.println("In Notification page");
 	}
 	
 	public void selectPriority(String priority) {
@@ -60,16 +60,26 @@ public class Notification {
 	
 	public void selectLocation(String location) {
 		verifyPage();
+		Actions actions = new Actions(driver);
+		
 		wait.until(ExpectedConditions.elementToBeClickable(locationField)).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + location + "']"))).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + location + "']"))))
+				.click().perform();
+//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + location + "']"))).click();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
 	}
 	
 	public void selectArea(String area) {
 		verifyPage();
+		Actions actions = new Actions(driver);
+		
 		wait.until(ExpectedConditions.elementToBeClickable(By.className("mud-picker-input-text"))).click(); //work around
 		wait.until(ExpectedConditions.elementToBeClickable(areaUnitRangeField)).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + area + "']"))).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + area + "']"))))
+				.click().perform();
+//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + area + "']"))).click();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
 	}
 	

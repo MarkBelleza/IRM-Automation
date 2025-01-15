@@ -35,7 +35,7 @@ public class Involved {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]")));
-		System.out.println("In Involved page");
+//		System.out.println("In Involved page");
 	}
 	
 	public void clickNext() {

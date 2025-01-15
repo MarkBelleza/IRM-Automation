@@ -36,7 +36,7 @@ public class Summary {
 	public void verifyPage() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Summary for Incident ID :')]")));
-		System.out.println("In Summary page");
+//		System.out.println("In Summary page");
 	}
 	
 	public boolean editIncidentType() {

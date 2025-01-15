@@ -27,7 +27,7 @@ public class DetailsAndCircumstances {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Details and Circumstances')]")));
-		System.out.println("In Details and Circumstances page");
+//		System.out.println("In Details and Circumstances page");
 	}
 	
 	public void clickNext() {

@@ -48,7 +48,7 @@ public class RegionalOfficeDetails {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Regional Office Details')]")));
 //		wait.until(ExpectedConditions.visibilityOfElementLocated(headerPage)).getText().contains("Regional Office Details");
-		System.out.println("In Regional Office Details page");
+//		System.out.println("In Regional Office Details page");
 	}
 	
 	public String getIncidentID() {

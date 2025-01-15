@@ -39,7 +39,7 @@ public class ReadXLSData {
 		DataFormatter format = new DataFormatter();
 		String testData[] = new String[totalRows];
 		
-		for (int i = 0; i < totalRows; i++) {
+		for (int i = 0; i <= totalRows; i++) {
 			testData[i] = format.formatCellValue(sheetName.getRow(i).getCell(0));
 			System.out.println(testData[i]);
 		}
@@ -72,7 +72,7 @@ public class ReadXLSData {
 		DataFormatter format = new DataFormatter();
 		String testData[] = new String[totalRows];
 		
-		for (int i = 0; i < totalRows; i++) {
+		for (int i = 0; i <= totalRows; i++) {
 			testData[i] = format.formatCellValue(sheetName.getRow(i).getCell(0));
 			System.out.println(testData[i]);
 		}

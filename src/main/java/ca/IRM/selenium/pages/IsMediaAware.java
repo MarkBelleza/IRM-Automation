@@ -34,7 +34,7 @@ public class IsMediaAware {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Media Aware Detail')]")));
 //		wait.until(ExpectedConditions.visibilityOfElementLocated(headerPage)).getText().contains("Media Aware Detail");
-		System.out.println("In Media Aware Detail page");
+//		System.out.println("In Media Aware Detail page");
 	}
 	
 	public void selectYes(String media) {

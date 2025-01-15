@@ -31,6 +31,7 @@ public class User {
 	By clearButton = By.xpath("//span[@class='mud-button-label' and text()='Clear']");
 	By cancelButton = By.xpath("//span[@class='mud-button-label' and text()='Cancel']");
 	By submitButton = By.xpath("//span[@class='mud-button-label' and text()='Submit']");
+	By resetDialogUserTypeButton = By.xpath("(//span[@class='mud-icon-button-label'])[1]");
 
 	By tableBody = By.xpath("//tbody[@class='mud-table-body']");
 	By tableSelectButton = By.xpath("//button[@class='mud-button-root mud-fab mud-fab-primary mud-fab-size-small mud-ripple']");
@@ -38,12 +39,15 @@ public class User {
 	
 	By updateDialog = By.className("mud-dialog-content");
 	By updateDialogDropdown = By.xpath("//div[@class='mud-list mud-list-padding']");
+	By additionalLocationDialog = By.xpath("//div[@class='mud-input mud-input-text mud-input-adorned-end mud-input-underline mud-select-input']");
+	By updateDialogOverlay = By.xpath("//div[@class='mud-overlay']");
 	
 	String tableSelectButtonClass = "mud-button-root mud-fab mud-fab-primary mud-fab-size-small mud-ripple";
 	String labelFields = "mud-input-label mud-input-label-animated mud-input-label-text mud-input-label-inputcontrol";
 	String header = "mud-typography mud-typography-h6";
 	String updateDialogLabel = "mud-input-label mud-input-label-animated mud-input-label-text mud-input-label-margin-dense mud-input-label-inputcontrol";
 	String updateDialogDropdownOptions = "mud-typography mud-typography-body1";
+	String selectedItem = "mud-input-slot mud-input-root mud-input-root-text mud-input-root-adorned-end mud-input-root-margin-dense mud-select-input";
 	
 	public String staff = "Staff Sergeant";
 	public String admin = "Admin to the Superintendent";
@@ -69,7 +73,7 @@ public class User {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'User Search')]")));
-		System.out.println("In User Search page");
+//		System.out.println("In User Search page");
 	}
 	
 	public void changeUserType(String userType, String location) {
@@ -125,6 +129,110 @@ public class User {
 		
 		Assert.assertEquals(actualUserTitle, userType);
 		Assert.assertEquals(actualUserLocation, location.stripTrailing()); //work around for "Data Insights and Strategic Initiatives Division "
+		
+	}
+	
+
+	public void changeUserType(String userType, String primary, String[] secondary) {
+		NavBar nav = new NavBar(driver);
+		nav.navigateNavOption("Administration", "Users");
+		Actions actions = new Actions(driver);
+		
+		verifyPage();
+		searchUser();
+		
+//		Change user type and location
+		wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialog));
+		
+        // Use JavaScript to set zoom level to 80% (workaround to see all locations/user types)
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.body.style.zoom='80%'");
+		
+        //Clear the User type and its locations
+        wait.until(ExpectedConditions.elementToBeClickable(resetDialogUserTypeButton)).click();
+        
+//		Select User Type Drop-down
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@class='" + updateDialogLabel + "' and text()= 'User Type']/.."))).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogDropdown));
+		
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[@class='" + updateDialogDropdownOptions + "' and text()= '" + userType + "']"))))
+				.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		
+//		Select Primary Location Drop-down
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@class='" + updateDialogLabel + "' and text()= 'Primary Location']/.."))).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogDropdown));
+		
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+			By.xpath("//p[@class='" + updateDialogDropdownOptions + "' and text()= '" + primary + "']"))))
+			.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		
+//		Select Secondary Location Drop-down
+		wait.until(ExpectedConditions.elementToBeClickable(additionalLocationDialog)).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogDropdown));
+		
+//		-------------------------------------------------------------------------------------
+		if (secondary.length > 0) {
+			for (String i: secondary) {
+				if (!i.equals(primary)) {
+					actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+							By.xpath("//p[@class='" + updateDialogDropdownOptions + "' and text()= '" + i + "']"))))
+					.click().perform();
+				}
+			}			
+//			Click outside of dropdown to close
+//			actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogOverlay))).click().perform();
+			actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialog))).click().perform();
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		}
+		else {
+//			Click outside of dropdown to close
+			actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialog))).click().perform();
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));			
+		}
+//		-------------------------------------------------------------------------------------
+		
+//		---- TODO: Uncomment this when "Additional Locations not reseting bug" is fixed ----
+//		TODO: Also make this part into its separate method see line 236
+		
+//		for (String i: secondary) {
+//			if (!i.equals(primary)) {
+//				actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+//						By.xpath("//p[@class='" + updateDialogDropdownOptions + "' and text()= '" + i + "']"))))
+//				.click().perform();
+//			}
+//		}			
+////		Click outside of dropdown to close
+//		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogOverlay))).click().perform();
+//		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		
+//		-------------------------------------------------------------------------------------
+		
+//		Submit changes
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(submitButton))).click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialog));
+		
+		driver.navigate().refresh();
+	
+		
+//		Make sure User Type and Location is set to @userType and @location
+		String[] userNavBarInfo = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[3]/header/div/p[1]"))).getText().split(", ");
+		
+		String actualUserTitle = userNavBarInfo[1];
+		String actualUserLocation = userNavBarInfo[2];
+		
+		System.out.println("Actual User Title: " + actualUserTitle);
+		System.out.println("Actual User Location: " + actualUserTitle);
+		
+		Assert.assertEquals(actualUserTitle, userType);
+		Assert.assertEquals(actualUserLocation, primary.stripTrailing()); //work around for "Data Insights and Strategic Initiatives Division "
+		
+	}
+	
+//	TODO: make selecting Aditional Locations (secondary locations) its own method
+	public void selectAditionalLocations(String[] locations) {
 		
 	}
 	
