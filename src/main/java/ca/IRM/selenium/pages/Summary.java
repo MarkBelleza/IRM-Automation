@@ -23,7 +23,10 @@ public class Summary {
 	By button = By.xpath("//button[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-icon']");
 	By buttonIncidentType = By.xpath("/html/body/div[3]/div/div/div[5]/div[1]/div[2]/button");
 	By buttonReportPreparation = By.xpath("/html/body/div[3]/div/div/div[11]/div[1]/div[2]/button");
-	public String header = "mud-typography mud-typography-h6";
+	By buttonRegionalOffice = By.xpath("/html/body/div[3]/div/div/div[3]/div[1]/div[2]/button");
+	By buttonInvolved = By.xpath("/html/body/div[3]/div/div/div[10]/div[1]/div[2]/button");
+	
+	String header = "mud-typography mud-typography-h6";
 	
 	WebDriver driver;
 	WebDriverWait wait;
@@ -57,8 +60,28 @@ public class Summary {
 			return false;
 		}
 		return true;
-		
 	}
+	
+	public boolean editRegionalOfficeDetails() {
+		Actions actions = new Actions(driver);
+		try {
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(buttonRegionalOffice))).click().perform();
+		}catch(TimeoutException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean editInvolved() {
+		Actions actions = new Actions(driver);
+		try {
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(buttonInvolved))).click().perform();
+		}catch(TimeoutException e) {
+			return false;
+		}
+		return true;
+	}
+	
 	
 	public void verifyIncidentTypes(String incidentTypes) {
 		WebElement section = wait.until(ExpectedConditions.visibilityOfElementLocated(

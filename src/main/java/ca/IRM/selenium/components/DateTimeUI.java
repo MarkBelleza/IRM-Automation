@@ -1,4 +1,4 @@
-package ca.IRM.selenium.utils;
+package ca.IRM.selenium.components;
 
 import java.time.Duration;
 import java.time.LocalDate;

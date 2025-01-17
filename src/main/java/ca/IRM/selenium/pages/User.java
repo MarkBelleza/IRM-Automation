@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import ca.IRM.selenium.utils.NavBar;
+import ca.IRM.selenium.components.NavBar;
 
 public class User {
 	WebDriver driver;

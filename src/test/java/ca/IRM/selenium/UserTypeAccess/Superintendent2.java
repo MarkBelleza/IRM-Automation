@@ -9,6 +9,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import ca.IRM.selenium.components.DateTimeUI;
+import ca.IRM.selenium.components.NavBar;
 import ca.IRM.selenium.pages.DetailsAndCircumstances;
 import ca.IRM.selenium.pages.IncidentTypeSelection;
 import ca.IRM.selenium.pages.Involved;
@@ -22,8 +24,6 @@ import ca.IRM.selenium.pages.StandardItemChecklist;
 import ca.IRM.selenium.pages.Summary;
 import ca.IRM.selenium.pages.SupportingDocuments;
 import ca.IRM.selenium.pages.User;
-import ca.IRM.selenium.utils.DateTimeUI;
-import ca.IRM.selenium.utils.NavBar;
 import ca.IRM.selenium.utils.WebUtils;
 
 public class Superintendent2 {

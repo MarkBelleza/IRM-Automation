@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import ca.IRM.selenium.components.SearchTables;
+
 public class RegionalOfficeDetails {
 	
 	WebDriver driver;
@@ -35,6 +37,8 @@ public class RegionalOfficeDetails {
 	
 	By previousButton = By.xpath("//span[@class='mud-button-label' and text()='Previous']");
 	By nextButton = By.xpath("//span[@class='mud-button-label' and text()='Next']");
+	By updateButton = By.xpath("//span[@class='mud-button-label' and text()='Update']");
+	By cancelButton = By.xpath("//span[@class='mud-button-label' and text()='Cancel']");
 	
 	String contactedViaDropdown = "mud-typography";
 	String tableSelectButtonClass = "mud-button-root mud-fab mud-fab-primary mud-fab-size-small mud-ripple";
@@ -73,19 +77,8 @@ public class RegionalOfficeDetails {
 
 		wait.until(ExpectedConditions.elementToBeClickable(searchNameButton)).click();
 		
-		
-//		Wait for the search results (fetching from db)
-		wait.until(ExpectedConditions.visibilityOfElementLocated(tableBody));
-		
-//		Find the row with the appropriate name
-		Actions actions = new Actions(driver);
-		try {			
-			WebElement userTableRow = wait.until(ExpectedConditions.elementToBeClickable(
-					By.xpath("//td[text()='" + first + "']/following-sibling::td[text()='" + last + "']/following-sibling::td//button[@class='" + tableSelectButtonClass + "']")));
-			actions.moveToElement(userTableRow).click().perform();
-		}catch(TimeoutException e) {
-			throw new NoSuchElementException("User with name " + first + " " + last + " not found.");
-		}
+		SearchTables table = new SearchTables(driver);
+		table.selectUserFromTable(first, last);
 		
 //		Verify regional office name is visible and correct
 		String expectedName = first + " " + last;
@@ -110,6 +103,18 @@ public class RegionalOfficeDetails {
 	public void clickPrevious() {
 		Actions actions = new Actions(driver);
 		actions.moveToElement(driver.findElement(previousButton)).click().perform();
+	}
+	
+	public void clickUpdate() {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(updateButton))).click().perform();
+	}
+	
+	public void clickCancel() {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(cancelButton))).click().perform();
 	}
 	
 }

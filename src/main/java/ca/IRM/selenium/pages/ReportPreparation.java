@@ -12,6 +12,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import ca.IRM.selenium.components.SearchTables;
+
 public class ReportPreparation {
 
 	WebDriver driver;
@@ -90,17 +92,8 @@ public class ReportPreparation {
 		
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(searchIconButton))).click().perform();
 		
-//		Wait for the search results (fetching from db)
-		wait.until(ExpectedConditions.visibilityOfElementLocated(tableBody));
-		
-//		Find the row with the appropriate name
-		try {			
-			WebElement userTableRow = wait.until(ExpectedConditions.elementToBeClickable(
-					By.xpath("//td[text()='" + first + "']/following-sibling::td[text()='" + last + "']/following-sibling::td//button[@class='" + tableSelectButtonClass + "']")));
-			actions.moveToElement(userTableRow).click().perform();
-		}catch(TimeoutException e) {
-			throw new NoSuchElementException("User with name " + first + " " + last + " not found.");
-		}
+		SearchTables table = new SearchTables(driver);
+		table.selectUserFromTable(first, last);
 	}
 	
 	public void finalize() {
