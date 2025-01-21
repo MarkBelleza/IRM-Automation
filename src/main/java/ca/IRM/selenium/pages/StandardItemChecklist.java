@@ -27,7 +27,6 @@ public class StandardItemChecklist {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Standard CheckList Items')]")));
-//		System.out.println("In Standard CheckList Items page");
 	}
 	
 	public void clickNext() {

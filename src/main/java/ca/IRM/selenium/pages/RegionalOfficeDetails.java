@@ -85,7 +85,6 @@ public class RegionalOfficeDetails {
 		String actualName = wait.until(ExpectedConditions.visibilityOfElementLocated(regionalOfficeNameField)).getText();
 		
 		Assert.assertEquals(expectedName, actualName);
-//		System.out.println(names);
 	}
 	
 	public void fillAdditionalDetails(String details) {

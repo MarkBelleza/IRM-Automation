@@ -48,7 +48,6 @@ public class Notification {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Notification')]")));
-//		System.out.println("In Notification page");
 	}
 	
 	public void selectPriority(String priority) {
@@ -66,7 +65,6 @@ public class Notification {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + location + "']"))))
 				.click().perform();
-//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + location + "']"))).click();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
 	}
 	
@@ -79,7 +77,6 @@ public class Notification {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + area + "']"))))
 				.click().perform();
-//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + area + "']"))).click();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
 	}
 	

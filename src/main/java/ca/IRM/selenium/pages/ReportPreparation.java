@@ -53,7 +53,6 @@ public class ReportPreparation {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Report Preparation Detail')]")));
-//		System.out.println("In Report Preparation Detail page");
 	}
 	
 	public boolean verifyConfidentialUnmarkable() {

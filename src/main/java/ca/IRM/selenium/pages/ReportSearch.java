@@ -40,7 +40,6 @@ public class ReportSearch {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Report Search')]")));
-//		System.out.println("In Report Search page");
 	}
 	
 	public void searchIncidentReport(String id) {
@@ -54,7 +53,6 @@ public class ReportSearch {
 		
 //		**Search for the Incident Report that we just created
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(radioIncidentIdButton))).click().perform();
-//		wait.until(ExpectedConditions.elementToBeClickable(radioIncidentIdButton)).click();
 		wait.until(ExpectedConditions.elementToBeClickable(incidentIdField)).click();
 		wait.until(ExpectedConditions.elementToBeClickable(incidentIdField)).sendKeys(id);
 		
@@ -65,18 +63,13 @@ public class ReportSearch {
 		Actions actions = new Actions(driver);
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[@class ='mud-table-cell' and text()='" + id + "']"))))
 		.click().perform();
-//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[@class ='mud-table-cell' and text()='" + id + "']"))).click();
 	}
 	
 	public void verifyIncident(String id) {
-//		Actions actions = new Actions(driver);
-//		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[@class ='mud-table-cell' and text()='" + id + "']")))).perform();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[@class ='mud-table-cell' and text()='" + id + "']")));
 	}
 	
 	public void verifyIncident(String id, String incidentType) {
-//		Actions actions = new Actions(driver);
-//		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[@class ='mud-table-cell' and text()='" + id + "']")))).perform();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[@class ='mud-table-cell' and text()='" + id + "']")));
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(

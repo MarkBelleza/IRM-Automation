@@ -33,7 +33,6 @@ public class PoliceContacted {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Police Contacted')]")));
-//		System.out.println("In Police Contacted page");
 	}
 	
 	public void selectReason(String reason) {
