@@ -31,6 +31,10 @@ public class Involved {
 	By employeeFirstNameField = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[4]/div[2]/div/div[1]/div/div/div[3]/div/div/div/input");
 	By employeeSearchButton = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[4]/div[2]/div/div[1]/div/div/div[4]/button/span");
 	
+	By inmateLastNameField = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[1]/div[2]/div[1]/div/div/div[2]/div/div/div/input");
+	By inmateFirstNameField = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[1]/div[2]/div[1]/div/div/div[3]/div/div/div/input");
+	By inmateSearchButton = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[1]/div[2]/div[1]/div/div/div[4]/button");
+	
 	By employeeRow = By.xpath("//td[@data-label='Employee']");
 	By employeeRoleDropdown = By.xpath("//div[@class='mud-input-control mud-input-control-margin-dense mud-select']");
 	By numberDosesField = By.xpath("//div[@class='mud-input mud-input-text mud-input-underline mud-shrink']");
@@ -110,6 +114,59 @@ public class Involved {
 		}
 		
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']")));
+	}
+	
+	public void selectInmateByName(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
+		verifyPage();
+//		Fill in name fields
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(inmateFirstNameField))).click().perform();
+		wait.until(ExpectedConditions.elementToBeClickable(inmateFirstNameField)).sendKeys(firstName);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(inmateLastNameField))).click().perform();
+		wait.until(ExpectedConditions.elementToBeClickable(inmateLastNameField)).sendKeys(lastName);
+		
+		wait.until(ExpectedConditions.elementToBeClickable(inmateSearchButton)).click();
+		
+//		Select the employee from the table
+		SearchTables table = new SearchTables(driver);
+		table.selectUserFromTable(firstName, lastName);
+		
+//		Select the Added Inmate in the table below
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']")))).click().perform();
+		
+//		Fill in the employee information:
+//		Role
+		wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + role + "']"))))
+					.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		
+//		Doses
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesField))).click().sendKeys(dosesNum).perform();
+		
+//		Hospitalized
+		if (hospitalized) {
+			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+		}
+		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
+	}
+	
+	public void deleteInmateByName(String firstName, String lastName) {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		try {			
+			WebElement userTableRow = wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']/ancestor::tr//td[last()-1]/button[@class='" + buttonClass + "']")));
+			actions.moveToElement(userTableRow).perform();
+			actions.moveToElement(userTableRow).click().perform(); 
+			//Work around. When entering Involved section in Update mode, there is a scrolling animation which messes with the script.
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Employee with name " + firstName + " " + lastName + " not found.");
+		}
+		
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']")));
 	}
 	
 	public void clickNext() {
