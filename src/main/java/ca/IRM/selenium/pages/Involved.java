@@ -22,11 +22,6 @@ public class Involved {
 //	WebDriverWait wait;
 	FluentWait<WebDriver> wait;
 	
-	By previousButton = By.xpath("//span[@class='mud-button-label' and text()='Previous']");
-	By nextButton = By.xpath("//span[@class='mud-button-label' and text()='Next']");
-	By updateButton = By.xpath("//span[@class='mud-button-label' and text()='Update']");
-	By cancelButton = By.xpath("//span[@class='mud-button-label' and text()='Cancel']");
-	
 	By employeeLastNameField = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[4]/div[2]/div/div[1]/div/div/div[2]/div/div/div/input");
 	By employeeFirstNameField = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[4]/div[2]/div/div[1]/div/div/div[3]/div/div/div/input");
 	By employeeSearchButton = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[4]/div[2]/div/div[1]/div/div/div[4]/button/span");
@@ -35,14 +30,27 @@ public class Involved {
 	By inmateFirstNameField = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[1]/div[2]/div[1]/div/div/div[3]/div/div/div/input");
 	By inmateSearchButton = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[1]/div[2]/div[1]/div/div/div[4]/button");
 	
+	By otherLastNameField = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[7]/div[2]/div/div[1]/div/div/div/input");
+	By otherFirstNameField = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[7]/div[2]/div/div[2]/div/div/div/input");
+	By otherCategoryField = By.xpath("(//input[@class='mud-input-slot mud-input-root mud-input-root-outlined mud-input-root-adorned-end mud-select-input'])[1]");
+	By otherRoleField = By.xpath("(//input[@class='mud-input-slot mud-input-root mud-input-root-outlined mud-input-root-adorned-end mud-select-input'])[2]");
+	By otherNumberDosesField = By.xpath("//label[@class='mud-input-label mud-input-label-animated mud-input-label-outlined mud-input-label-inputcontrol' and text()='Number Of Anti Opioid Administered']");
+	By otherHospitalizedCheckbox = By.xpath("//span[@class='mud-button-root mud-icon-button mud-default-text hover:mud-default-hover mud-checkbox-dense mud-ripple mud-ripple-checkbox']");
+	
 	By employeeRow = By.xpath("//td[@data-label='Employee']");
 	By employeeRoleDropdown = By.xpath("//div[@class='mud-input-control mud-input-control-margin-dense mud-select']");
-	By numberDosesField = By.xpath("//div[@class='mud-input mud-input-text mud-input-underline mud-shrink']");
+	By numberDosesFieldEdit = By.xpath("//div[@class='mud-input mud-input-text mud-input-underline mud-shrink']");
 	By hospitalizedCheckbox = By.xpath("//span[@class='mud-button-root mud-icon-button mud-default-text hover:mud-default-hover mud-ripple mud-ripple-checkbox']");
 	By commitButton = By.xpath("(//button[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-icon mud-icon-button-size-small pa-0'])[1]");
 	By updateDialogDropdown = By.xpath("//div[@class='mud-list mud-list-padding']");
 	
 	By incrementDose = By.xpath("(//*[@aria-label='Increment' and @class='mud-icon-root mud-svg-icon mud-icon-size-medium'])[1]");
+	
+	By previousButton = By.xpath("//span[@class='mud-button-label' and text()='Previous']");
+	By nextButton = By.xpath("//span[@class='mud-button-label' and text()='Next']");
+	By updateButton = By.xpath("//span[@class='mud-button-label' and text()='Update']");
+	By cancelButton = By.xpath("//span[@class='mud-button-label' and text()='Cancel']");
+	By addToOtherButton = By.xpath("//span[@class='mud-button-label' and text()='Add To Other']");
 	
 	String header = "mud-typography mud-typography-h6";
 	String selectDropdownOption = "mud-typography";
@@ -62,60 +70,15 @@ public class Involved {
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]")));
 	}
 	
-	
-	public void selectEmployee(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
-		verifyPage();
-//		Fill in name fields
-		Actions actions = new Actions(driver);
-		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeFirstNameField))).click().perform();
-		wait.until(ExpectedConditions.elementToBeClickable(employeeFirstNameField)).sendKeys(firstName);
-		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeLastNameField))).click().perform();
-		wait.until(ExpectedConditions.elementToBeClickable(employeeLastNameField)).sendKeys(lastName);
-		
-		wait.until(ExpectedConditions.elementToBeClickable(employeeSearchButton)).click();
-		
-//		Select the employee from the table
-		SearchTables table = new SearchTables(driver);
-		table.selectUserFromTable(firstName, lastName);
-		
-//		Select the Added Employee in the table below
-		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
-				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']")))).click().perform();
-		
-//		Fill in the employee information:
-//		Role
-		wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown)).click();
-		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
-				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + role + "']"))))
-					.click().perform();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
-		
-//		Doses
-		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesField))).click().sendKeys(dosesNum).perform();
-		
-//		Hospitalized
-		if (hospitalized) {
-			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
-		}
-		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
-	}
-	
-	public void deleteEmployee(String firstName, String lastName) {
-		verifyPage();
-		Actions actions = new Actions(driver);
-		try {			
-			WebElement userTableRow = wait.until(ExpectedConditions.elementToBeClickable(
-					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[last()-1]/button[@class='" + buttonClass + "']")));
-			actions.moveToElement(userTableRow).perform();
-			actions.moveToElement(userTableRow).click().perform(); 
-			//Work around. When entering Involved section in Update mode, there is a scrolling animation which messes with the script.
-		}catch(TimeoutException e) {
-			throw new NoSuchElementException("Employee with name " + firstName + " " + lastName + " not found.");
-		}
-		
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']")));
-	}
-	
+	/**
+	  * Add Inmate by name in Involved section
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param role (Witness, Participant, Other)
+	  * @param dosesNum
+	  * @param hospitalized
+	  */
 	public void selectInmateByName(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
 		verifyPage();
 //		Fill in name fields
@@ -144,7 +107,7 @@ public class Involved {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
 		
 //		Doses
-		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesField))).click().sendKeys(dosesNum).perform();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().sendKeys(dosesNum).perform();
 		
 //		Hospitalized
 		if (hospitalized) {
@@ -153,20 +116,167 @@ public class Involved {
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
 	}
 	
+	/**
+	  * Delete Inmate by name in Involved section
+	  *
+	  * @param firstName
+	  * @param lastName
+	  */
 	public void deleteInmateByName(String firstName, String lastName) {
 		verifyPage();
 		Actions actions = new Actions(driver);
 		try {			
 			WebElement userTableRow = wait.until(ExpectedConditions.elementToBeClickable(
-					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']/ancestor::tr//td[last()-1]/button[@class='" + buttonClass + "']")));
+					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']/following-sibling::td[@data-label='OTSID']/ancestor::tr//td[last()-1]/button[@class='" + buttonClass + "']")));
 			actions.moveToElement(userTableRow).perform();
 			actions.moveToElement(userTableRow).click().perform(); 
 			//Work around. When entering Involved section in Update mode, there is a scrolling animation which messes with the script.
 		}catch(TimeoutException e) {
-			throw new NoSuchElementException("Employee with name " + firstName + " " + lastName + " not found.");
+			throw new NoSuchElementException("Inmate with name " + firstName + " " + lastName + " not found in Involved section.");
 		}
 		
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']")));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']/following-sibling::td[@data-label='OTSID']/ancestor::tr//td[last()-1]/button[@class='" + buttonClass + "']")));
+	}
+	
+	
+	/**
+	  * Add employee in Involved section
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param role (Witness, Participant, Other)
+	  * @param dosesNum
+	  * @param hospitalized
+	  */
+	public void selectEmployee(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
+		verifyPage();
+//		Fill in name fields
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeFirstNameField))).click().perform();
+		wait.until(ExpectedConditions.elementToBeClickable(employeeFirstNameField)).sendKeys(firstName);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeLastNameField))).click().perform();
+		wait.until(ExpectedConditions.elementToBeClickable(employeeLastNameField)).sendKeys(lastName);
+		
+		wait.until(ExpectedConditions.elementToBeClickable(employeeSearchButton)).click();
+		
+//		Select the employee from the table
+		SearchTables table = new SearchTables(driver);
+		table.selectUserFromTable(firstName, lastName);
+		
+//		Select the Added Employee in the table below
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']")))).click().perform();
+		
+//		Fill in the employee information:
+//		Role
+		wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + role + "']"))))
+					.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		
+//		Doses
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().sendKeys(dosesNum).perform();
+		
+//		Hospitalized
+		if (hospitalized) {
+			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+		}
+		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
+	}
+	
+	/**
+	  * Delete employee in Involved section
+	  *
+	  * @param firstName
+	  * @param lastName
+	  */
+	public void deleteEmployee(String firstName, String lastName) {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		try {			
+			WebElement userTableRow = wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/following-sibling::td[@data-label='Title']/ancestor::tr//td[last()-1]/button[@class='" + buttonClass + "']")));
+			actions.moveToElement(userTableRow).perform();
+			actions.moveToElement(userTableRow).click().perform(); 
+			//Work around. When entering Involved section in Update mode, there is a scrolling animation which messes with the script.
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Employee with name " + firstName + " " + lastName + " not found in Involved section.");
+		}
+		
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/following-sibling::td[@data-label='OTSID']/ancestor::tr//td[last()-1]/button[@class='" + buttonClass + "']")));
+	}
+	
+	
+	/**
+	  * Add Others in Involved section
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param category (Vendor, Volunteer, FeeForServiceProvider, ContractProvider, Visitor, AgencyStaff, Other)
+	  * @param role (Witness, Participant, Other)
+	  * @param dosesNum
+	  * @param hospitalized
+	  */
+	public void addOthers(String firstName, String lastName, String category, String role, String dosesNum, Boolean hospitalized) {
+//		Fill in the Other information
+//		Last name
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherLastNameField))).click().perform();
+		wait.until(ExpectedConditions.elementToBeClickable(otherLastNameField)).sendKeys(lastName);
+		
+//		First name
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherFirstNameField))).click().perform();
+		wait.until(ExpectedConditions.elementToBeClickable(otherFirstNameField)).sendKeys(firstName);
+		
+//		Category
+		wait.until(ExpectedConditions.visibilityOfElementLocated(otherCategoryField)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + category + "']"))))
+					.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		
+//		Role
+		wait.until(ExpectedConditions.visibilityOfElementLocated(otherRoleField)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + role + "']"))))
+					.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		
+//		Doses
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherNumberDosesField))).click().sendKeys(dosesNum).perform();
+		
+//		Hospitalized
+		if (hospitalized) {
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherHospitalizedCheckbox))).click().perform();
+		}
+		
+//		Click "ADD TO OTHER" button
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(addToOtherButton))).click().perform();
+	}
+	
+	/**
+	  * Delete Other in Involved section
+	  *
+	  * @param firstName 
+	  * @param lastName
+	  */
+	public void deleteOther(String firstName, String lastName) {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		try {			
+			WebElement userTableRow = wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[6]/button[@class='" + buttonClass + "']")));
+			actions.moveToElement(userTableRow).perform();
+			actions.moveToElement(userTableRow).click().perform(); 
+			//Work around. When entering Involved section in Update mode, there is a scrolling animation which messes with the script.
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Other with name " + firstName + " " + lastName + " not found in Involved section.");
+		}
+		
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[6]/button[@class='" + buttonClass + "']")));
 	}
 	
 	public void clickNext() {

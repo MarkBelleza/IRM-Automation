@@ -77,7 +77,7 @@ public class NavBar {
 	  * Select Menu Option
 	  *
 	  * @param option (Home, Incident Report, Randomizer Report, Administrator)
-	  * @param option (Create New Report, Search, Users)
+	  * @param dropDownOption (Create New Report, Search, Users)
 	  */
 	public void navigateNavOption(String option, String dropDownOption) {
 		if(!verifyMenuVisible()) {
