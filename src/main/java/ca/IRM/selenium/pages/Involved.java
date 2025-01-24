@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -36,6 +37,9 @@ public class Involved {
 	By otherRoleField = By.xpath("(//input[@class='mud-input-slot mud-input-root mud-input-root-outlined mud-input-root-adorned-end mud-select-input'])[2]");
 	By otherNumberDosesField = By.xpath("//label[@class='mud-input-label mud-input-label-animated mud-input-label-outlined mud-input-label-inputcontrol' and text()='Number Of Anti Opioid Administered']");
 	By otherHospitalizedCheckbox = By.xpath("//span[@class='mud-button-root mud-icon-button mud-default-text hover:mud-default-hover mud-checkbox-dense mud-ripple mud-ripple-checkbox']");
+	
+	By otherCatEditDropdown = By.xpath("(//div[@class='mud-input-control mud-input-control-margin-dense mud-select'])[1]");
+	By otherRoleEditDropdown = By.xpath("(//div[@class='mud-input-control mud-input-control-margin-dense mud-select'])[2]");
 	
 	By employeeRow = By.xpath("//td[@data-label='Employee']");
 	By employeeRoleDropdown = By.xpath("//div[@class='mud-input-control mud-input-control-margin-dense mud-select']");
@@ -79,7 +83,7 @@ public class Involved {
 	  * @param dosesNum
 	  * @param hospitalized
 	  */
-	public void selectInmateByName(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
+	public void addInmateByName(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
 		verifyPage();
 //		Fill in name fields
 		Actions actions = new Actions(driver);
@@ -114,6 +118,57 @@ public class Involved {
 			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
 		}
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
+		
+//		TODO: Check Inmate is saved
+	}
+	
+	/**
+	  * Edit Inmate information by name in Involved section
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param role (Witness, Participant, Other)
+	  * @param dosesNum
+	  * @param hospitalized (Indicate whether to negate current hospitalized check box, ie. If False keep current check-box)
+	  */
+	public void editInmateByName(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		
+//		Select the Inmate in the 
+		try{
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']")))).perform();
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']")))).click().perform();	
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Inmate with name " + firstName + " " + lastName + " not found in Involved section. (Edit failed)");
+		}
+		
+//		Fill in the employee information:
+//		Role
+		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown))).click().perform();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + role + "']"))))
+					.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		
+//		Doses
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform();          
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().sendKeys(dosesNum).perform();
+		
+//		Hospitalized
+		if (hospitalized) {
+			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+		}
+		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
+		
+//		TODO: Check the changes are saved
 	}
 	
 	/**
@@ -149,7 +204,7 @@ public class Involved {
 	  * @param dosesNum
 	  * @param hospitalized
 	  */
-	public void selectEmployee(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
+	public void addEmployee(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
 		verifyPage();
 //		Fill in name fields
 		Actions actions = new Actions(driver);
@@ -166,7 +221,7 @@ public class Involved {
 		
 //		Select the Added Employee in the table below
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
-				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']")))).click().perform();
+				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/following-sibling::td[@data-label='Title']")))).click().perform();
 		
 //		Fill in the employee information:
 //		Role
@@ -184,6 +239,57 @@ public class Involved {
 			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
 		}
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
+		
+//		TODO: Check the employee is saved
+	}
+	
+	/**
+	  * Edit employee in Involved section
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param role (Witness, Participant, Other)
+	  * @param dosesNum
+	  * @param hospitalized
+	  */
+	public void editEmployee(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		
+//		Select the Added Employee in the table below
+		try {
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/following-sibling::td[@data-label='Title']")))).perform();
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+			By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/following-sibling::td[@data-label='Title']")))).click().perform();
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Employee with name " + firstName + " " + lastName + " not found in Involved section. (Edit failed)");
+		}
+		
+//		Fill in the employee information:
+//		Role
+		wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + role + "']"))))
+					.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		
+//		Doses
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform();          
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().sendKeys(dosesNum).perform();
+		
+//		Hospitalized
+		if (hospitalized) {
+			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+		}
+		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
+		
+//		TODO: Check the changes are saved
 	}
 	
 	/**
@@ -255,7 +361,66 @@ public class Involved {
 		
 //		Click "ADD TO OTHER" button
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(addToOtherButton))).click().perform();
+		
+//		TODO: Check Other is saved
 	}
+	
+	/**
+	  * Edit Others in Involved section
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param category (Vendor, Volunteer, FeeForServiceProvider, ContractProvider, Visitor, AgencyStaff, Other)
+	  * @param role (Witness, Participant, Other)
+	  * @param dosesNum
+	  * @param hospitalized
+	  */
+	public void editOther(String firstName, String lastName, String category, String role, String dosesNum, Boolean hospitalized) {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[6]/button[@class='" + buttonClass + "']/ancestor::tr
+//		Select the Added Employee in the table below
+		try {
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[6]/button[@class='" + buttonClass + "']/ancestor::tr")))).perform();
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[6]/button[@class='" + buttonClass + "']/ancestor::tr")))).click().perform();
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Other with name " + firstName + " " + lastName + " not found in Involved section. (Edit failed)");
+		}
+		
+//		Category
+		wait.until(ExpectedConditions.visibilityOfElementLocated(otherCatEditDropdown)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + category + "']"))))
+					.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		
+//		Role
+		wait.until(ExpectedConditions.visibilityOfElementLocated(otherRoleEditDropdown)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + role + "']"))))
+					.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		
+//		Doses
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform();          
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().sendKeys(dosesNum).perform();
+		
+//		Hospitalized
+		if (hospitalized) {
+			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+		}
+		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
+		
+//		TODO: Check the changes are saved
+	}
+	
 	
 	/**
 	  * Delete Other in Involved section
@@ -278,6 +443,7 @@ public class Involved {
 		
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[6]/button[@class='" + buttonClass + "']")));
 	}
+	
 	
 	public void clickNext() {
 		verifyPage();
