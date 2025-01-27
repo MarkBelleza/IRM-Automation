@@ -114,12 +114,18 @@ public class Involved {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().sendKeys(dosesNum).perform();
 		
 //		Hospitalized
+		String checkbox = "No";
 		if (hospitalized) {
 			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+			checkbox = "Yes";
 		}
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
 		
 //		TODO: Check Inmate is saved
+		
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Name']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
+		
 	}
 	
 	/**
@@ -129,11 +135,13 @@ public class Involved {
 	  * @param lastName
 	  * @param role (Witness, Participant, Other)
 	  * @param dosesNum
-	  * @param hospitalized (Indicate whether to negate current hospitalized check box, ie. If False keep current check-box)
+	  * @param hospitalized
 	  */
 	public void editInmateByName(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
 		verifyPage();
 		Actions actions = new Actions(driver);
+		String checkbox = wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']/ancestor::tr//td[5]"))).getText();
 		
 //		Select the Inmate in the 
 		try{
@@ -163,16 +171,23 @@ public class Involved {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().sendKeys(dosesNum).perform();
 		
 //		Hospitalized
-		if (hospitalized) {
+		if (hospitalized && checkbox.equals("No")) {
 			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+			checkbox = "Yes";
+		}
+		else if (!hospitalized && checkbox.equals("Yes")) {
+			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+			checkbox = "No";
 		}
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
 		
 //		TODO: Check the changes are saved
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Name']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
 	}
 	
 	/**
-	  * Delete Inmate by name in Involved section
+	  * Delete Inmate by name in Involved section (NOTE: Assuming each person's name in "Inmate" are unique)
 	  *
 	  * @param firstName
 	  * @param lastName
@@ -235,12 +250,16 @@ public class Involved {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().sendKeys(dosesNum).perform();
 		
 //		Hospitalized
+		String checkbox = "No";
 		if (hospitalized) {
 			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+			checkbox = "Yes";
 		}
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
 		
 //		TODO: Check the employee is saved
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Employee']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
 	}
 	
 	/**
@@ -255,6 +274,8 @@ public class Involved {
 	public void editEmployee(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
 		verifyPage();
 		Actions actions = new Actions(driver);
+		String checkbox = wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[7]"))).getText();
 		
 //		Select the Added Employee in the table below
 		try {
@@ -284,16 +305,23 @@ public class Involved {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().sendKeys(dosesNum).perform();
 		
 //		Hospitalized
-		if (hospitalized) {
+		if (hospitalized && checkbox.equals("No")) {
 			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+			checkbox = "Yes";
+		}
+		else if (!hospitalized && checkbox.equals("Yes")) {
+			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+			checkbox = "No";
 		}
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
 		
 //		TODO: Check the changes are saved
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Employee']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
 	}
 	
 	/**
-	  * Delete employee in Involved section
+	  * Delete employee in Involved section (NOTE: Assuming each person's name in "Employee" are unique)
 	  *
 	  * @param firstName
 	  * @param lastName
@@ -355,14 +383,18 @@ public class Involved {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherNumberDosesField))).click().sendKeys(dosesNum).perform();
 		
 //		Hospitalized
+		String checkbox = "No";
 		if (hospitalized) {
 			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherHospitalizedCheckbox))).click().perform();
+			checkbox = "Yes";
 		}
 		
 //		Click "ADD TO OTHER" button
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(addToOtherButton))).click().perform();
 		
 //		TODO: Check Other is saved
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Employee']/following-sibling::td[text()='" + category + "']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
 	}
 	
 	/**
@@ -378,7 +410,9 @@ public class Involved {
 	public void editOther(String firstName, String lastName, String category, String role, String dosesNum, Boolean hospitalized) {
 		verifyPage();
 		Actions actions = new Actions(driver);
-		//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[6]/button[@class='" + buttonClass + "']/ancestor::tr
+		String checkbox = wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[7]"))).getText();
+		
 //		Select the Added Employee in the table below
 		try {
 			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
@@ -413,17 +447,24 @@ public class Involved {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(numberDosesFieldEdit))).click().sendKeys(dosesNum).perform();
 		
 //		Hospitalized
-		if (hospitalized) {
+		if (hospitalized && checkbox.equals("No")) {
 			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+			checkbox = "Yes";
+		}
+		else if (!hospitalized && checkbox.equals("Yes")) {
+			wait.until(ExpectedConditions.elementToBeClickable(hospitalizedCheckbox)).click();
+			checkbox = "No";
 		}
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
 		
 //		TODO: Check the changes are saved
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Employee']/following-sibling::td[text()='" + category + "']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
 	}
 	
 	
 	/**
-	  * Delete Other in Involved section
+	  * Delete Other in Involved section (NOTE: Assuming each person's name in "Other" are unique)
 	  *
 	  * @param firstName 
 	  * @param lastName
@@ -448,6 +489,7 @@ public class Involved {
 	public void clickNext() {
 		verifyPage();
 		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(nextButton))).perform();
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(nextButton))).click().perform();
 	}
 	

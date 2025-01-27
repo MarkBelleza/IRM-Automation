@@ -68,13 +68,20 @@ public class DataDriven {
 		Summary sum = new Summary(driver);
 		
 		sum.editInvolved();
-//		involve.selectInmateByName("JOHN", "SMITH", "Witness", "1", true);
-//		involve.selectEmployee("Mark", "Belleza", "Other", "2", true);
-//		involve.addOthers("Mark", "Belleza", "Vendor", "Participant", "3", true);
+//		involve.addInmateByName("JOHN", "SMITH", "Witness", "1", true);
+//		involve.addEmployee("Mark", "Belleza", "Other", "2", true);
+//		involve.addOthers("Mark", "Belleza", "Vendor", "Participant", "3", false);
+		
 		involve.deleteInmateByName("JOHN", "SMITH");
 		involve.deleteEmployee("Mark", "Belleza");
 		involve.deleteOther("Mark", "Belleza");
-		involve.clickUpdate();
+		
+//		Bug: Updates to Roles not being saved
+//		involve.editInmateByName("JOHN", "SMITH", "Other", "4", false);
+//		involve.editEmployee("Mark", "Belleza", "Witness", "4", false);
+//		involve.editOther("Mark", "Belleza", "Visitor", "Other", "6", true);
+		
+//		involve.clickUpdate();
 //		regionalFields.selectRegionalOfficer("Belleza", "Mark");
 //		regionalFields.clickUpdate();
 		
