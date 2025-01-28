@@ -39,7 +39,6 @@ public class Summary {
 	public void verifyPage() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Summary for Incident ID :')]")));
-//		System.out.println("In Summary page");
 	}
 	
 	public boolean editIncidentType() {
@@ -97,7 +96,6 @@ public class Summary {
 		if (!textContent.contains(incidentTypes)) {
 			throw new NoSuchElementException(incidentTypes + " not found.");
 		}
-//		System.out.println(textContent);
 	}
 	
 	public void verifyIncidentTypesNotVisible(String incidentTypes) {
@@ -114,7 +112,48 @@ public class Summary {
 		if (textContent.contains(incidentTypes)) {
 			throw new NoSuchElementException(incidentTypes + " is visible, but should not be.");
 		}
-//		System.out.println(textContent);
+	}
+	
+	/**
+	  * Verify Inmate is visible in summary view (NOTE: Assuming each person's name in "Inmate" are unique)
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param role
+	  */
+	public void verifyInmateByNameInInvolved(String firstName, String lastName, String role) {
+		Actions actions = new Actions(driver);
+		
+		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Name']/following-sibling::td[@data-label='OTSID']/following-sibling::td[text()='" + role + "']/ancestor::tr")))).perform();
+	}
+	
+	/**
+	  * Verify Employee is visible in summary view (NOTE: Assuming each person's name in "Employee" are unique)
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param role
+	  */
+	public void verifyEmployeeInInvolved(String firstName, String lastName, String role) {
+		Actions actions = new Actions(driver);
+		
+		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/following-sibling::td[@data-label='Location']/following-sibling::td[text()='" + role + "']/ancestor::tr")))).perform();
+	}
+	
+	/**
+	  * Verify Other is visible in summary view (NOTE: Assuming each person's name in "Other" are unique)
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param role
+	  */
+	public void verifyOtherInInvolved(String firstName, String lastName, String role) {
+		Actions actions = new Actions(driver);
+		
+		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/ancestor::tr/td[3 and text()='" + role + "']/ancestor::tr")))).perform();
 	}
 	
 
