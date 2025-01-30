@@ -91,7 +91,7 @@ public class InvolvedSection {
 	
 //	TestCase ID: TC0036
 	@Test(groups="testing")
-	public void createIncidentReport() {
+	public void addInvolved() {
 		nav.createNewReport();
 		
 //		Fill in the appropriate fields in Notification (set location to within the user location, ALGOMA)
@@ -128,9 +128,28 @@ public class InvolvedSection {
 		contacted.selectReason(contacted.notPoliceMatter);
 		contacted.clickNext();
 		
-		involve.addInmateByName("JOHN", "SMITH", "Witness", "1", true);
+//		Add multiple Inmates, Employees and Others
+		involve.addInmateByName("JOHN", "SMITH", "Witness", "4", true);
+		involve.addInmateByName("WILLIAM", "BEST", "Other", "3", true);
+		involve.addInmateByName("AARON", "VASSCOUNT", "Participant", "1", true);
+		involve.addInmateByName("SMITH", "TEST", "Witness", "0", false);
+		involve.addInmateByName("KENO", "MARTYN", "Other", "2", false);
+		
+		
 		involve.addEmployee("Mark", "Belleza", "Other", "2", true);
-		involve.addOthers("Will", "Lyan", "Vendor", "Participant", "3", false);
+		involve.addEmployee("Derek", "Dao", "Witness", "3", true);
+		involve.addEmployee("Travis", "Wong", "Participant", "3", false);
+		involve.addEmployee("Roy", "Franck", "Other", "1", true);
+		involve.addEmployee("Cathy", "Marcotte", "Witness", "2", false);
+		
+		
+		involve.addOthers("Will", "Lyan", "Vendor", "Participant", "0", false);
+		involve.addOthers("Jason", "Smith", "AgencyStaff", "Other", "1", true);
+		involve.addOthers("Mark", "Bell", "Visitor", "Witness", "0", false);
+		involve.addOthers("Julian", "Da", "Volunteer", "Participant", "2", true);
+		involve.addOthers("May", "Silva", "Other", "Other", "3", false);
+		
+		
 		involve.clickNext();
 		
 		report.selectContactPerson("Mark", "Belleza");
@@ -144,8 +163,126 @@ public class InvolvedSection {
 //		Verify all involved persons are visible in summary view
 		Summary summary = new Summary(driver);
 		summary.verifyInmateByNameInInvolved("JOHN", "SMITH", "Witness");
+		summary.verifyInmateByNameInInvolved("WILLIAM", "BEST", "Other");
+		summary.verifyInmateByNameInInvolved("AARON", "VASSCOUNT", "Participant");
+		summary.verifyInmateByNameInInvolved("SMITH", "TEST", "Witness");
+		summary.verifyInmateByNameInInvolved("KENO", "MARTYN", "Other");
+		
 		summary.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
+		summary.verifyEmployeeInInvolved("Derek", "Dao", "Witness");
+		summary.verifyEmployeeInInvolved("Travis", "Wong", "Participant");
+		summary.verifyEmployeeInInvolved("Roy", "Franck", "Other");
+		summary.verifyEmployeeInInvolved("Cathy", "Marcotte", "Witness");
+		
 		summary.verifyOtherInInvolved("Will", "Lyan", "Participant");
+		summary.verifyOtherInInvolved("Jason", "Smith", "Other");
+		summary.verifyOtherInInvolved("Mark", "Bell", "Witness");
+		summary.verifyOtherInInvolved("Julian", "Da", "Participant");
+		summary.verifyOtherInInvolved("May", "Silva", "Other");
+	}
+	
+//	TestCase ID: TC0037
+	@Test(groups="testing")
+	public void deleteInvolved() {
+		nav.createNewReport();
+		
+//		Fill in the appropriate fields in Notification (set location to within the user location, ALGOMA)
+		notificationFields.selectPriority("One");
+		notificationFields.selectLocation("ALGOMA TREATMENT & REMAND CTR-ADULT (Institution)");
+		notificationFields.selectArea("Washroom");
+		notificationFields.clickNext();
+		utils.duplicatePopUpCheck();
+		
+//		** Store the Incident Report ID
+		regionalFields.verifyPage();
+		String IncidentID = regionalFields.getIncidentID();
+		System.out.println("Created Incident ID: " + IncidentID);
+		
+		regionalFields.clickNext();
+		
+		mediaFields.clickNext();
+		
+//		Both IIR and EOIR incident type should be visible
+		incidentFields.verifyPage();
+		Assert.assertEquals(incidentFields.verifyIIR(), incidentFields.verifyEOIR());
+		
+//		Select IIR and EOIR incident types
+		incidentFields.selectIIRExample();
+		
+		incidentFields.clickNext();
+		
+		checklist.clickNext();
+		
+		support.clickNext();
+		
+		details.clickNext();
+		
+		contacted.selectReason(contacted.notPoliceMatter);
+		contacted.clickNext();
+		
+//		Add multiple Inmates, Employees and Others
+		involve.addInmateByName("JOHN", "SMITH", "Witness", "4", true);
+		involve.addInmateByName("WILLIAM", "BEST", "Other", "3", true);
+		involve.addInmateByName("AARON", "VASSCOUNT", "Participant", "1", true);
+		involve.addInmateByName("SMITH", "TEST", "Witness", "0", false);
+		involve.addInmateByName("KENO", "MARTYN", "Other", "2", false);
+		
+		
+		involve.addEmployee("Mark", "Belleza", "Other", "2", true);
+		involve.addEmployee("Derek", "Dao", "Witness", "3", true);
+		involve.addEmployee("Travis", "Wong", "Participant", "3", false);
+		involve.addEmployee("Roy", "Franck", "Other", "1", true);
+		involve.addEmployee("Cathy", "Marcotte", "Witness", "2", false);
+		
+		
+		involve.addOthers("Will", "Lyan", "Vendor", "Participant", "0", false);
+		involve.addOthers("Jason", "Smith", "AgencyStaff", "Other", "1", true);
+		involve.addOthers("Mark", "Bell", "Visitor", "Witness", "0", false);
+		involve.addOthers("Julian", "Da", "Volunteer", "Participant", "2", true);
+		involve.addOthers("May", "Silva", "Other", "Other", "3", false);
+		
+//		Delete some Inmates, Employees and Others
+		involve.deleteInmateByName("JOHN", "SMITH");
+		involve.deleteInmateByName("AARON", "VASSCOUNT");
+		involve.deleteInmateByName("KENO", "MARTYN");
+		
+		involve.deleteEmployee("Mark", "Belleza");
+		involve.deleteEmployee("Derek", "Dao");
+		involve.deleteEmployee("Travis", "Wong");
+		
+		involve.deleteOther("Mark", "Bell");
+		involve.deleteOther("Julian", "Da");
+		involve.deleteOther("May", "Silva");
+		
+		involve.clickNext();
+		
+		report.selectContactPerson("Mark", "Belleza");
+		report.finalize(); 
+		report.clickSubmit();
+		
+//		Verify Incident Report is saved
+		search.searchIncidentReport(IncidentID);
+		search.openIncidentReport(IncidentID);
+		
+//		Verify all involved persons are visible in summary view
+		Summary summary = new Summary(driver);
+		summary.verifyInmateByNameNotInvolved("JOHN", "SMITH", "Witness");
+		summary.verifyInmateByNameInInvolved("WILLIAM", "BEST", "Other");
+		summary.verifyInmateByNameNotInvolved("AARON", "VASSCOUNT", "Participant");
+		summary.verifyInmateByNameInInvolved("SMITH", "TEST", "Witness");
+		summary.verifyInmateByNameNotInvolved("KENO", "MARTYN", "Other");
+
+		summary.verifyEmployeeNotInvolved("Mark", "Belleza", "Other");
+		summary.verifyEmployeeNotInvolved("Derek", "Dao", "Witness");
+		summary.verifyEmployeeNotInvolved("Travis", "Wong", "Participant");
+		summary.verifyEmployeeInInvolved("Roy", "Franck", "Other");
+		summary.verifyEmployeeInInvolved("Cathy", "Marcotte", "Witness");
+
+		summary.verifyOtherInInvolved("Will", "Lyan", "Participant");
+		summary.verifyOtherInInvolved("Jason", "Smith", "Other");
+		summary.verifyOtherNotInvolved("Mark", "Bell", "Witness");
+		summary.verifyOtherNotInvolved("Julian", "Da", "Participant");
+		summary.verifyOtherNotInvolved("May", "Silva", "Other");
 	}
 
 }

@@ -34,7 +34,9 @@ public class Involved {
 	By otherLastNameField = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[7]/div[2]/div/div[1]/div/div/div/input");
 	By otherFirstNameField = By.xpath("/html/body/div[3]/div/div/div/div[2]/form/div[7]/div[2]/div/div[2]/div/div/div/input");
 	By otherCategoryField = By.xpath("(//input[@class='mud-input-slot mud-input-root mud-input-root-outlined mud-input-root-adorned-end mud-select-input'])[1]");
+	By otherCategoryFilled = By.xpath("(//div[@class='mud-input-slot mud-input-root mud-input-root-outlined mud-input-root-adorned-end mud-select-input'])[1]");
 	By otherRoleField = By.xpath("(//input[@class='mud-input-slot mud-input-root mud-input-root-outlined mud-input-root-adorned-end mud-select-input'])[2]");
+	By otherRoleFilled = By.xpath("(//div[@class='mud-input-slot mud-input-root mud-input-root-outlined mud-input-root-adorned-end mud-select-input'])[2]");
 	By otherNumberDosesField = By.xpath("//label[@class='mud-input-label mud-input-label-animated mud-input-label-outlined mud-input-label-inputcontrol' and text()='Number Of Anti Opioid Administered']");
 	By otherHospitalizedCheckbox = By.xpath("//span[@class='mud-button-root mud-icon-button mud-default-text hover:mud-default-hover mud-checkbox-dense mud-ripple mud-ripple-checkbox']");
 	
@@ -88,8 +90,19 @@ public class Involved {
 //		Fill in name fields
 		Actions actions = new Actions(driver);
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(inmateFirstNameField))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(inmateFirstNameField)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform();          
 		wait.until(ExpectedConditions.elementToBeClickable(inmateFirstNameField)).sendKeys(firstName);
+		
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(inmateLastNameField))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(inmateLastNameField)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform();          
 		wait.until(ExpectedConditions.elementToBeClickable(inmateLastNameField)).sendKeys(lastName);
 		
 		wait.until(ExpectedConditions.elementToBeClickable(inmateSearchButton)).click();
@@ -104,7 +117,7 @@ public class Involved {
 		
 //		Fill in the employee information:
 //		Role
-		wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown))).click().perform();
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + role + "']"))))
 					.click().perform();
@@ -224,11 +237,22 @@ public class Involved {
 //		Fill in name fields
 		Actions actions = new Actions(driver);
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeFirstNameField))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(employeeFirstNameField)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform(); 
 		wait.until(ExpectedConditions.elementToBeClickable(employeeFirstNameField)).sendKeys(firstName);
+		
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeLastNameField))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(employeeLastNameField)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform(); 
 		wait.until(ExpectedConditions.elementToBeClickable(employeeLastNameField)).sendKeys(lastName);
 		
-		wait.until(ExpectedConditions.elementToBeClickable(employeeSearchButton)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeSearchButton))).click().perform();
 		
 //		Select the employee from the table
 		SearchTables table = new SearchTables(driver);
@@ -240,7 +264,7 @@ public class Involved {
 		
 //		Fill in the employee information:
 //		Role
-		wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown))).click().perform();
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + role + "']"))))
 					.click().perform();
@@ -289,7 +313,7 @@ public class Involved {
 		
 //		Fill in the employee information:
 //		Role
-		wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown))).click().perform();
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + role + "']"))))
 					.click().perform();
@@ -359,10 +383,20 @@ public class Involved {
 //		Last name
 		Actions actions = new Actions(driver);
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherLastNameField))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(otherLastNameField)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform(); 
 		wait.until(ExpectedConditions.elementToBeClickable(otherLastNameField)).sendKeys(lastName);
 		
 //		First name
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherFirstNameField))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(otherFirstNameField)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform(); 
 		wait.until(ExpectedConditions.elementToBeClickable(otherFirstNameField)).sendKeys(firstName);
 		
 //		Category
@@ -380,7 +414,14 @@ public class Involved {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
 		
 //		Doses
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherNumberDosesField))).click().perform();
+		actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(otherNumberDosesField)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform();          
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherNumberDosesField))).click().sendKeys(dosesNum).perform();
+		
 		
 //		Hospitalized
 		String checkbox = "No";
@@ -395,6 +436,26 @@ public class Involved {
 //		TODO: Check Other is saved
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(
 				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Employee']/following-sibling::td[text()='" + category + "']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
+		
+//		Reset the Dropdowns (Otherwise the next time we add others the dropdown will not be selected by the selector)
+//		Category
+		wait.until(ExpectedConditions.visibilityOfElementLocated(otherCategoryFilled)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='Select a Category']"))))
+					.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(otherCategoryFilled));
+		
+//		Role
+		wait.until(ExpectedConditions.visibilityOfElementLocated(otherRoleFilled)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='Select a Involved Role']"))))
+					.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(otherRoleFilled));
+		
+//		Hospitalized
+		if (hospitalized) {
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherHospitalizedCheckbox))).click().perform();
+		}
 	}
 	
 	/**
@@ -424,14 +485,14 @@ public class Involved {
 		}
 		
 //		Category
-		wait.until(ExpectedConditions.visibilityOfElementLocated(otherCatEditDropdown)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(otherCatEditDropdown))).click().perform();
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + category + "']"))))
 					.click().perform();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
 		
 //		Role
-		wait.until(ExpectedConditions.visibilityOfElementLocated(otherRoleEditDropdown)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(otherRoleEditDropdown))).click().perform();
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + role + "']"))))
 					.click().perform();

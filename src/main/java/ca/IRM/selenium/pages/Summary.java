@@ -124,8 +124,28 @@ public class Summary {
 	public void verifyInmateByNameInInvolved(String firstName, String lastName, String role) {
 		Actions actions = new Actions(driver);
 		
+		try {		
 		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Name']/following-sibling::td[@data-label='OTSID']/following-sibling::td[text()='" + role + "']/ancestor::tr")))).perform();
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Inmate with name " + firstName + " " + lastName + " not found in Summary View.");
+		}
+	}
+	
+	/**
+	  * Verify Inmate is NOT visible in summary view (NOTE: Assuming each person's name in "Inmate" are unique)
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param role
+	  */
+	public void verifyInmateByNameNotInvolved(String firstName, String lastName, String role) {
+		try {
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Name']/following-sibling::td[@data-label='OTSID']/following-sibling::td[text()='" + role + "']/ancestor::tr")));
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Inmate with name " + firstName + " " + lastName + " found in Summary view, but expected to not be visible.");
+		}
 	}
 	
 	/**
@@ -138,8 +158,28 @@ public class Summary {
 	public void verifyEmployeeInInvolved(String firstName, String lastName, String role) {
 		Actions actions = new Actions(driver);
 		
+		try {			
 		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/following-sibling::td[@data-label='Location']/following-sibling::td[text()='" + role + "']/ancestor::tr")))).perform();
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Employee with name " + firstName + " " + lastName + " not found in Summary View.");
+		}
+	}
+	
+	/**
+	  * Verify Employee is NOT visible in summary view (NOTE: Assuming each person's name in "Employee" are unique)
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param role
+	  */
+	public void verifyEmployeeNotInvolved(String firstName, String lastName, String role) {	
+		try {			
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/following-sibling::td[@data-label='Location']/following-sibling::td[text()='" + role + "']/ancestor::tr")));
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Employee with name " + firstName + " " + lastName + " found in Summary view, but expected to not be visible.");
+		}
 	}
 	
 	/**
@@ -152,8 +192,29 @@ public class Summary {
 	public void verifyOtherInInvolved(String firstName, String lastName, String role) {
 		Actions actions = new Actions(driver);
 		
+		try {
+			
 		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/ancestor::tr/td[3 and text()='" + role + "']/ancestor::tr")))).perform();
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Other with name " + firstName + " " + lastName + " not found.");
+		}
+	}
+	
+	/**
+	  * Verify Other is NOT visible in summary view (NOTE: Assuming each person's name in "Other" are unique)
+	  *
+	  * @param firstName
+	  * @param lastName
+	  * @param role
+	  */
+	public void verifyOtherNotInvolved(String firstName, String lastName, String role) {
+		try {
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/ancestor::tr/td[3 and text()='" + role + "']/ancestor::tr")));
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Other with name " + firstName + " " + lastName + " found in Summary view, but expected to not be visible.");	
+		}
 	}
 	
 

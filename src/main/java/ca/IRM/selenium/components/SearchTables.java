@@ -38,7 +38,9 @@ public class SearchTables {
 		try {			
 			WebElement userTableRow = wait.until(ExpectedConditions.elementToBeClickable(
 					By.xpath("//td[text()='" + first + "']/following-sibling::td[text()='" + last + "']/following-sibling::td//button[@class='" + tableSelectButtonClass + "']")));
+			actions.moveToElement(userTableRow).perform();
 			actions.moveToElement(userTableRow).click().perform();
+			wait.until(ExpectedConditions.invisibilityOf(userTableRow));
 		}catch(TimeoutException e) {
 			throw new NoSuchElementException("User with name " + first + " " + last + " not found.");
 		}
