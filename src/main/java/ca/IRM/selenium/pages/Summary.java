@@ -121,12 +121,10 @@ public class Summary {
 	  * @param lastName
 	  * @param role
 	  */
-	public void verifyInmateByNameInInvolved(String firstName, String lastName, String role) {
-		Actions actions = new Actions(driver);
-		
+	public void verifyInmateByNameInInvolved(String firstName, String lastName, String role) {		
 		try {		
-		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Name']/following-sibling::td[@data-label='OTSID']/following-sibling::td[text()='" + role + "']/ancestor::tr")))).perform();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Name']/following-sibling::td[@data-label='OTSID']/following-sibling::td[text()='" + role + "']/ancestor::tr")));
 		}catch(TimeoutException e) {
 			throw new NoSuchElementException("Inmate with name " + firstName + " " + lastName + " not found in Summary View.");
 		}
@@ -156,11 +154,9 @@ public class Summary {
 	  * @param role
 	  */
 	public void verifyEmployeeInInvolved(String firstName, String lastName, String role) {
-		Actions actions = new Actions(driver);
-		
 		try {			
-		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/following-sibling::td[@data-label='Location']/following-sibling::td[text()='" + role + "']/ancestor::tr")))).perform();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/following-sibling::td[@data-label='Location']/following-sibling::td[text()='" + role + "']/ancestor::tr")));
 		}catch(TimeoutException e) {
 			throw new NoSuchElementException("Employee with name " + firstName + " " + lastName + " not found in Summary View.");
 		}
@@ -190,12 +186,10 @@ public class Summary {
 	  * @param role
 	  */
 	public void verifyOtherInInvolved(String firstName, String lastName, String role) {
-		Actions actions = new Actions(driver);
 		
 		try {
-			
-		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/ancestor::tr/td[3 and text()='" + role + "']/ancestor::tr")))).perform();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/ancestor::tr/td[3 and text()='" + role + "']/ancestor::tr")));
 		}catch(TimeoutException e) {
 			throw new NoSuchElementException("Other with name " + firstName + " " + lastName + " not found.");
 		}

@@ -437,6 +437,7 @@ public class Involved {
 //		Hospitalized
 		String checkbox = "No";
 		if (hospitalized) {
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherHospitalizedCheckbox))).perform();
 			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(otherHospitalizedCheckbox))).click().perform();
 			checkbox = "Yes";
 		}
