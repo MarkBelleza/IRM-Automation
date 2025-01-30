@@ -61,6 +61,8 @@ public class Involved {
 	String header = "mud-typography mud-typography-h6";
 	String selectDropdownOption = "mud-typography";
 	String buttonClass = "mud-button-root mud-icon-button mud-ripple mud-ripple-icon mud-icon-button-size-small";
+	String alertErrorClass = "mud-snackbar mud-alert-filled-error";
+	String alertErrorMessageClass = "mud-snackbar-content-message";
 	
 	public Involved(WebDriver driver) {
 		this.driver = driver;
@@ -74,6 +76,16 @@ public class Involved {
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]")));
+	}
+	
+	public void inmateSearchButtonClick() {
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(inmateSearchButton))).click().perform();
+	}
+	
+	public void employeeSearchButtonClick() {
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeSearchButton))).click().perform();
 	}
 	
 	/**
@@ -135,9 +147,8 @@ public class Involved {
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
 		
 //		TODO: Check Inmate is saved
-		
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Name']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Name']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
 		
 	}
 	
@@ -195,8 +206,8 @@ public class Involved {
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
 		
 //		TODO: Check the changes are saved
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Name']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Name']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
 	}
 	
 	/**
@@ -282,8 +293,8 @@ public class Involved {
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
 		
 //		TODO: Check the employee is saved
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Employee']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
 	}
 	
 	/**
@@ -340,8 +351,8 @@ public class Involved {
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
 		
 //		TODO: Check the changes are saved
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Employee']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
 	}
 	
 	/**
@@ -434,8 +445,8 @@ public class Involved {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(addToOtherButton))).click().perform();
 		
 //		TODO: Check Other is saved
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Employee']/following-sibling::td[text()='" + category + "']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/following-sibling::td[text()='" + category + "']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
 		
 //		Reset the Dropdowns (Otherwise the next time we add others the dropdown will not be selected by the selector)
 //		Category
@@ -472,7 +483,7 @@ public class Involved {
 		verifyPage();
 		Actions actions = new Actions(driver);
 		String checkbox = wait.until(ExpectedConditions.elementToBeClickable(
-				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[7]"))).getText();
+				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[5]"))).getText();
 		
 //		Select the Added Employee in the table below
 		try {
@@ -519,8 +530,8 @@ public class Involved {
 		wait.until(ExpectedConditions.elementToBeClickable(commitButton)).click();
 		
 //		TODO: Check the changes are saved
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and data-label='Employee']/following-sibling::td[text()='" + category + "']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/following-sibling::td[text()='" + category + "']/following-sibling::td[text()='" + role + "']/following-sibling::td[text()='" + dosesNum + "' and @data-label='Sign']/following-sibling::td[text()='" + checkbox + "']/ancestor::tr")));
 	}
 	
 	
@@ -546,6 +557,19 @@ public class Involved {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/ancestor::tr//td[6]/button[@class='" + buttonClass + "']")));
 	}
 	
+	public void verifyDuplicateInmateAlert() {
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(3)); //Otherwise test will wait 10 seconds if the test is failing
+		
+		wait2.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//div[@class='" + alertErrorClass + "']//div[@class='" + alertErrorMessageClass + "' and text()='This inmate is already in the list.']")));
+	}
+	
+	public void verifyDuplicateEmployeeAlert() {
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(3)); //Otherwise test will wait 10 seconds if the test is failing
+		
+		wait2.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//div[@class='" + alertErrorClass + "']//div[@class='" + alertErrorMessageClass + "' and text()='This employee is already in the list.']")));
+	}
 	
 	public void clickNext() {
 		verifyPage();
