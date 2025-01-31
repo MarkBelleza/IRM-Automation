@@ -84,8 +84,20 @@ public class StaffSergeant2 {
 		WebUtils.setUpIrmPage(driver);
 		
 //		Set user to Staff Sergeant and ALGOMA
-		user.changeUserType(user.staff, user.algo);
-		
+		user.changeUserType(user.staff, user.algo);		
+		System.out.println("Before Test");		
+	}
+	
+	
+	@AfterTest(groups="testing")
+	public void close() {
+//		driver.quit();
+		System.out.println("After Test");
+	}
+	
+//	TestCase ID: TC0002
+	@Test(groups="testing")
+	public void viewAndUpdate() {
 		nav.createNewReport();
 		
 //		Fill in the appropriate fields in Notification (set location to within the user location, ALGOMA)
@@ -134,20 +146,6 @@ public class StaffSergeant2 {
 		report.selectContactPerson("Mark", "Belleza");
 		report.finalize(); 
 		report.clickSubmit();
-		
-		System.out.println("Before Test");		
-	}
-	
-	
-	@AfterTest(groups="testing")
-	public void close() {
-//		driver.quit();
-		System.out.println("After Test");
-	}
-	
-//	TestCase ID: TC0002
-	@Test(groups="testing")
-	public void viewAndUpdate() {
 		
 //		Verify Incident Report is saved
 		search.searchIncidentReport(IncidentID);
