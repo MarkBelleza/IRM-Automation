@@ -2,9 +2,7 @@ package ca.IRM.selenium.Sections;
 
 import java.time.Duration;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -13,7 +11,6 @@ import org.testng.annotations.Test;
 
 import ca.IRM.selenium.components.DateTimeUI;
 import ca.IRM.selenium.components.NavBar;
-import ca.IRM.selenium.components.SearchTables;
 import ca.IRM.selenium.pages.DetailsAndCircumstances;
 import ca.IRM.selenium.pages.IncidentTypeSelection;
 import ca.IRM.selenium.pages.Involved;
@@ -29,8 +26,7 @@ import ca.IRM.selenium.pages.SupportingDocuments;
 import ca.IRM.selenium.pages.User;
 import ca.IRM.selenium.utils.WebUtils;
 
-public class InvolvedSection2 {
-	
+public class InvolvedSection4 {
 	private NavBar nav;
 	private Notification notificationFields;
 	private DateTimeUI date;
@@ -50,7 +46,7 @@ public class InvolvedSection2 {
 	
 	private EdgeDriver driver = new EdgeDriver();
 	private WebUtils utils = new WebUtils(driver);
-	
+	String IncidentID;
 	
 	
 	@BeforeTest(groups="testing")
@@ -78,7 +74,6 @@ public class InvolvedSection2 {
 		
 //		Set user to Staff Sergeant and ALGOMA
 		user.changeUserType(user.staff, user.algo);
-		System.out.println("Before Test USKJDSFJFFSD");		
 	}
 	
 	
@@ -87,10 +82,12 @@ public class InvolvedSection2 {
 //		driver.quit();
 		System.out.println("After Test");
 	}
+
 	
-//	TestCase ID: TC0038
+	
+//	TestCase ID: TC0040
 	@Test(groups="testing")
-	public void duplicateInCreationModeInvolvedSection() {
+	public void editInvolvedInformationInUpdateMode() {
 		nav.createNewReport();
 		
 //		Fill in the appropriate fields in Notification (set location to within the user location, ALGOMA)
@@ -102,7 +99,7 @@ public class InvolvedSection2 {
 		
 //		** Store the Incident Report ID
 		regionalFields.verifyPage();
-		String IncidentID = regionalFields.getIncidentID();
+		IncidentID = regionalFields.getIncidentID();
 		System.out.println("Created Incident ID: " + IncidentID);
 		
 		regionalFields.clickNext();
@@ -127,51 +124,61 @@ public class InvolvedSection2 {
 		contacted.selectReason(contacted.notPoliceMatter);
 		contacted.clickNext();
 		
-//		Add Inmate
+//		Add multiple Inmates, Employees and Others
 		involve.addInmateByName("JOHN", "SMITH", "Witness", "4", true);
+		involve.addInmateByName("WILLIAM", "BEST", "Other", "3", true);
 		
-//		Add same Inmate again
-		involve.inmateSearchButtonClick();
-		SearchTables table = new SearchTables(driver);
-		table.selectUserFromTable("JOHN", "SMITH");
-		
-//		Verify Duplicate Alert Message visible and no duplicate
-		involve.verifyDuplicateInmateAlert();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("(//td[text()='JOHN' and text()='SMITH' and @data-label='Name']/ancestor::tr)[2]")));
-
-//		Add Employee
 		involve.addEmployee("Mark", "Belleza", "Other", "2", true);
+		involve.addEmployee("Derek", "Dao", "Witness", "3", true);
 		
-//		Add same Employee again
-		involve.employeeSearchButtonClick();
-		table.selectUserFromTable("Mark", "Belleza");
+		involve.addOthers("Will", "Lyan", "Vendor", "Participant", "0", false);
+		involve.addOthers("Jason", "Smith", "AgencyStaff", "Other", "1", true);
 		
-//		Verify Duplicate Alert Message visible and no duplicate
-		involve.verifyDuplicateEmployeeAlert();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("(//td[text()='Mark' and text()='Belleza' and @data-label='Employee']/ancestor::tr)[2]")));
-
 		involve.clickNext();
 		
 		report.selectContactPerson("Mark", "Belleza");
 		report.finalize(); 
 		report.clickSubmit();
 		
-//		Verify Incident Report is saved
+//		Open the Incident report in Summary View
 		search.searchIncidentReport(IncidentID);
 		search.openIncidentReport(IncidentID);
 		
 //		Verify all involved persons are visible in summary view
 		Summary summary = new Summary(driver);
 		summary.verifyInmateByNameInInvolved("JOHN", "SMITH", "Witness");
-		summary.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
+		summary.verifyInmateByNameInInvolved("WILLIAM", "BEST", "Other");
 		
-//		Verify the duplicates don't exist
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("(//td[text()='JOHN' and text()='SMITH' and @data-label='Name']/ancestor::tr)[2]")));
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("(//td[text()='Mark' and text()='Belleza' and @data-label='Employee']/ancestor::tr)[2]")));
-	}
+		summary.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
+		summary.verifyEmployeeInInvolved("Derek", "Dao", "Witness");
+		
+		summary.verifyOtherInInvolved("Will", "Lyan", "Participant");
+		summary.verifyOtherInInvolved("Jason", "Smith", "Other");
+		
+//		Edit the Involved section in Update mode
+		summary.editInvolved();
+		
+//		Edit information of Inmates, Employees and Others
+		involve.editInmateByName("JOHN", "SMITH", "Other", "1", true);
+		involve.editInmateByName("WILLIAM", "BEST", "Witness", "0", true);
 	
+		involve.editEmployee("Mark", "Belleza", "Participant", "1", true);
+		involve.editEmployee("Derek", "Dao", "Other", "0", false);
+		
+		involve.editOther("Will", "Lyan", "AgencyStaff", "Witness", "1", false);
+		involve.editOther("Jason", "Smith", "Vendor", "Participant", "1", true);
+		
+		involve.clickUpdate();
+	
+		
+//		Verify the Inmates, Employee & Others that were updated
+		summary.verifyInmateByNameInInvolved("JOHN", "SMITH", "Other");
+		summary.verifyInmateByNameInInvolved("WILLIAM", "BEST", "Witness");
+		
+		summary.verifyEmployeeInInvolved("Mark", "Belleza", "Participant");
+		summary.verifyEmployeeInInvolved("Derek", "Dao", "Other");
+		
+		summary.verifyOtherInInvolved("Will", "Lyan", "Witness");
+		summary.verifyOtherInInvolved("Jason", "Smith", "Participant");
+	}
 }

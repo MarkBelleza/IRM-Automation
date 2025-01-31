@@ -88,6 +88,29 @@ public class Involved {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeSearchButton))).click().perform();
 	}
 	
+	public void searchInmate(String firstName, String lastName) {
+		verifyPage();
+//		Fill in name fields
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(inmateFirstNameField))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(inmateFirstNameField)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform();          
+		wait.until(ExpectedConditions.elementToBeClickable(inmateFirstNameField)).sendKeys(firstName);
+		
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(inmateLastNameField))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(inmateLastNameField)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform();          
+		wait.until(ExpectedConditions.elementToBeClickable(inmateLastNameField)).sendKeys(lastName);
+		
+		wait.until(ExpectedConditions.elementToBeClickable(inmateSearchButton)).click();
+	}
+	
 	/**
 	  * Add Inmate by name in Involved section
 	  *
@@ -233,6 +256,28 @@ public class Involved {
 				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']/following-sibling::td[@data-label='OTSID']/ancestor::tr//td[last()-1]/button[@class='" + buttonClass + "']")));
 	}
 	
+	public void searchEmployee(String firstName, String lastName) {
+		verifyPage();
+//		Fill in name fields
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeFirstNameField))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(employeeFirstNameField)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform(); 
+		wait.until(ExpectedConditions.elementToBeClickable(employeeFirstNameField)).sendKeys(firstName);
+		
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeLastNameField))).click().perform();
+        actions.keyDown(wait.until(ExpectedConditions.elementToBeClickable(employeeLastNameField)), Keys.CONTROL)  // Press CTRL
+        .sendKeys("A")                   // Press A (to select all)
+        .sendKeys(Keys.BACK_SPACE)           // Press BACKSPACE (to delete the text)
+        .keyUp(Keys.CONTROL)                // Release CTRL
+        .perform(); 
+		wait.until(ExpectedConditions.elementToBeClickable(employeeLastNameField)).sendKeys(lastName);
+		
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(employeeSearchButton))).click().perform();
+	}
 	
 	/**
 	  * Add employee in Involved section

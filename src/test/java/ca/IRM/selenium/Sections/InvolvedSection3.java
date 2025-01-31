@@ -87,7 +87,7 @@ public class InvolvedSection3 {
 	
 //	TestCase ID: TC0039
 	@Test(groups="testing")
-	public void addDeleteInvolved() {
+	public void addDeleteInUpdateModeInvolved() {
 		nav.createNewReport();
 		
 //		Fill in the appropriate fields in Notification (set location to within the user location, ALGOMA)
