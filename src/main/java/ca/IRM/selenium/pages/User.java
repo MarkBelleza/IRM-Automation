@@ -63,7 +63,8 @@ public class User {
 	public String central = "Central Regional Office"; 
 	public String eastern = "Eastern Regional Office"; 
 	public String northern = "Northern Regional Office"; //Within Algoma
-	
+	public String western = "Western Regional Office";
+	public String toronto = "Toronto Regional Office";
 	
 	public User(WebDriver driver) {
 		this.driver = driver;

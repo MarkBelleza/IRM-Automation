@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -18,7 +19,6 @@ public class Notification {
 	
 	WebDriver driver;
 	WebDriverWait wait;
-//	FluentWait<WebDriver> wait;
 	
 	By headerPage = By.xpath("//h6[@class='mud-typography mud-typography-h6']");
 	By priorityField = By.xpath("//div[contains(@class, 'mud-input-slot') and text()='Select Priority']");
@@ -26,9 +26,10 @@ public class Notification {
 	By areaUnitRangeField = By.xpath("//div[@class='mud-input mud-input-outlined mud-input-adorned-end mud-select-input']");
 	By othersField = By.xpath("//textarea[contains(@class, 'mud-input-slot') and @rows='3']");
 	By updateDialogDropdown = By.xpath("//div[@class='mud-list mud-list-padding']");
+	By dropDownItems = By.xpath("//div[@class='mud-list-item mud-list-item-gutters mud-list-item-clickable mud-ripple']");
+	
 	By cancelButton = By.xpath("//span[@class='mud-button-label' and text()='Cancel']");
 	By nextButton = By.xpath("//span[@class='mud-button-label' and text()='Next']");
-//	By nextButton = By.xpath("//button[@class='mud-button-root mud-button mud-button-filled mud-button-filled-primary mud-button-filled-size-medium mud-ripple' and @type='submit']");
 	
 	String selectDropdownOption = "mud-typography";
 	
@@ -39,10 +40,6 @@ public class Notification {
 	public Notification(WebDriver driver) {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//		this.wait = new FluentWait<>(driver)
-//			    .withTimeout(Duration.ofSeconds(10))
-//			    .pollingEvery(Duration.ofMillis(500))
-//			    .ignoring(NoSuchElementException.class);
 	}
 	
 	public void verifyPage(){
@@ -78,6 +75,39 @@ public class Notification {
 				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + area + "']"))))
 				.click().perform();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+	}
+	
+	public void selectUnitRange(String unitRange) {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		
+		wait.until(ExpectedConditions.elementToBeClickable(By.className("mud-picker-input-text"))).click(); //work around
+		wait.until(ExpectedConditions.elementToBeClickable(areaUnitRangeField)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + unitRange + "']"))))
+				.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+	}
+	
+	public void clickAreaUnitRangeDropdown() {
+		wait.until(ExpectedConditions.elementToBeClickable(areaUnitRangeField)).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogDropdown));
+	}
+	
+	public void verifyDropDownVisible() {
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(dropDownItems));
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Dropdown items are NOT visible.");
+		}
+	}
+	
+	public void verifyDropDownNotVisible() {
+		try {
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(dropDownItems));
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Dropdown items are visible.");
+		}
 	}
 	
 	public void fillLocationDetails(String detail) {
