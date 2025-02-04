@@ -79,7 +79,7 @@ public class RegionalOffice5 {
 	
 	@AfterTest(groups="testing")
 	public void close() {
-//		user.changeUserType(user.staff, user.algo);
+		user.changeUserType(user.staff, user.algo);
 //		driver.quit();
 		System.out.println("After Test");
 	}
