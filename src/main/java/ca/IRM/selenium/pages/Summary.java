@@ -25,6 +25,11 @@ public class Summary {
 	By buttonReportPreparation = By.xpath("/html/body/div[3]/div/div/div[11]/div[1]/div[2]/button");
 	By buttonRegionalOffice = By.xpath("/html/body/div[3]/div/div/div[3]/div[1]/div[2]/button");
 	By buttonInvolved = By.xpath("/html/body/div[3]/div/div/div[10]/div[1]/div[2]/button");
+	By buttonNotification = By.xpath("/html/body/div[3]/div/div/div[2]/div[1]/div[2]/button");
+	
+	By notificationArea = By.xpath("/html/body/div[3]/div/div/div[2]/div[2]/div/div[7]/p");
+	By notificationLocation = By.xpath("/html/body/div[3]/div/div/div[2]/div[2]/div/div[5]/p");
+	By notificationUnitRange = By.xpath("/html/body/div[3]/div/div/div[2]/div[2]/div/div[8]/p");
 	
 	String header = "mud-typography mud-typography-h6";
 	
@@ -39,6 +44,16 @@ public class Summary {
 	public void verifyPage() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Summary for Incident ID :')]")));
+	}
+	
+	public boolean editNotification() {
+		Actions actions = new Actions(driver);
+		try {
+			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(buttonNotification))).click().perform();
+		}catch(TimeoutException e) {
+			return false;
+		}
+		return true;
 	}
 	
 	public boolean editIncidentType() {
@@ -79,6 +94,45 @@ public class Summary {
 			return false;
 		}
 		return true;
+	}
+	
+	public void verifyNotificationLocation(String location) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Notification')]/../../..")));
+		
+		String content = wait.until(ExpectedConditions.visibilityOfElementLocated(notificationLocation)).getText();
+		System.out.println(content);
+		if (!content.equals("Facility : " + location)) {
+			throw new NoSuchElementException("Location: " + location + " not found in Notification.");
+		}
+	}
+	
+	public void verifyNotificationArea(String area) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Notification')]/../../..")));
+		
+		String content = wait.until(ExpectedConditions.visibilityOfElementLocated(notificationArea)).getText();
+		System.out.println(content);
+		if (!content.equals("Area : " + area)) {
+			throw new NoSuchElementException("Area: " + area + " not found in Notification.");
+		}
+	}
+	
+	public void verifyNotificationUnitRange(String unit) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Notification')]/../../..")));
+		
+		String content = wait.until(ExpectedConditions.visibilityOfElementLocated(notificationUnitRange)).getText();
+		System.out.println(content);
+		
+		String header = "Unit Range : ";
+		if (unit.length() == 0) {
+			header = "Unit Range :";
+		}
+
+		if (!content.equals(header + unit)) {
+			throw new NoSuchElementException("Unit Range: " + unit + " not found in Notification.");
+		}
 	}
 	
 	

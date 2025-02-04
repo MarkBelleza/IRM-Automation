@@ -28,8 +28,12 @@ public class Notification {
 	By updateDialogDropdown = By.xpath("//div[@class='mud-list mud-list-padding']");
 	By dropDownItems = By.xpath("//div[@class='mud-list-item mud-list-item-gutters mud-list-item-clickable mud-ripple']");
 	
+	By updateLocation = By.xpath("(//div[@class='mud-input mud-input-outlined mud-input-adorned-end mud-shrink mud-select-input'])[2]");
+	By updateArea = By.xpath("(//div[@class='mud-input mud-input-outlined mud-input-adorned-end mud-shrink mud-select-input'])[3]");
+	
 	By cancelButton = By.xpath("//span[@class='mud-button-label' and text()='Cancel']");
 	By nextButton = By.xpath("//span[@class='mud-button-label' and text()='Next']");
+	By updateButton = By.xpath("//span[@class='mud-button-label' and text()='Update']");
 	
 	String selectDropdownOption = "mud-typography";
 	
@@ -110,6 +114,29 @@ public class Notification {
 		}
 	}
 	
+	public void updateLocation(String location) {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		
+		wait.until(ExpectedConditions.elementToBeClickable(updateLocation)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + location + "']"))))
+				.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+	}
+	
+	public void updateArea(String area) {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		
+		wait.until(ExpectedConditions.elementToBeClickable(By.className("mud-picker-input-text"))).click(); //work around
+		wait.until(ExpectedConditions.elementToBeClickable(areaUnitRangeField)).click();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + area + "']"))))
+				.click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+	}
+	
 	public void fillLocationDetails(String detail) {
 		verifyPage();
 		wait.until(ExpectedConditions.elementToBeClickable(By.className("mud-picker-input-text"))).click(); //work around
@@ -127,6 +154,12 @@ public class Notification {
 		verifyPage();
 		Actions actions = new Actions(driver);
 		actions.moveToElement(driver.findElement(cancelButton)).click().perform();
+	}
+	
+	public void clickUpdate() {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(updateButton))).click().perform();
 	}
 
 	
