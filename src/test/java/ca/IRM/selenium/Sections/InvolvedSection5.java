@@ -11,7 +11,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import ca.IRM.selenium.components.DateTimeUI;
 import ca.IRM.selenium.components.NavBar;
 import ca.IRM.selenium.components.SearchTables;
 import ca.IRM.selenium.pages.DetailsAndCircumstances;
@@ -32,7 +31,6 @@ import ca.IRM.selenium.utils.WebUtils;
 public class InvolvedSection5 {
 	private NavBar nav;
 	private Notification notificationFields;
-	private DateTimeUI date;
 	private RegionalOfficeDetails regionalFields;
 	private IsMediaAware mediaFields;
 	private IncidentTypeSelection incidentFields;
@@ -58,7 +56,6 @@ public class InvolvedSection5 {
 //		WebDriverManager.edgedriver().setup();
 		nav = new NavBar(driver);
 		notificationFields = new Notification(driver);
-		date = new DateTimeUI(driver);
 		regionalFields = new RegionalOfficeDetails(driver);
 		mediaFields = new IsMediaAware(driver);
 		incidentFields = new IncidentTypeSelection(driver);

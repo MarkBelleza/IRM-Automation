@@ -1,15 +1,11 @@
 package ca.IRM.selenium.Sections;
 
-import java.time.Duration;
-
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import ca.IRM.selenium.components.DateTimeUI;
 import ca.IRM.selenium.components.NavBar;
 import ca.IRM.selenium.pages.DetailsAndCircumstances;
 import ca.IRM.selenium.pages.IncidentTypeSelection;
@@ -29,7 +25,6 @@ import ca.IRM.selenium.utils.WebUtils;
 public class InvolvedSection4 {
 	private NavBar nav;
 	private Notification notificationFields;
-	private DateTimeUI date;
 	private RegionalOfficeDetails regionalFields;
 	private IsMediaAware mediaFields;
 	private IncidentTypeSelection incidentFields;
@@ -42,11 +37,9 @@ public class InvolvedSection4 {
 	private User user;
 	private ReportSearch search;
 	
-	private WebDriverWait wait;
-	
 	private EdgeDriver driver = new EdgeDriver();
 	private WebUtils utils = new WebUtils(driver);
-	String IncidentID;
+	private String IncidentID;
 	
 	
 	@BeforeTest(groups="testing")
@@ -55,7 +48,6 @@ public class InvolvedSection4 {
 //		WebDriverManager.edgedriver().setup();
 		nav = new NavBar(driver);
 		notificationFields = new Notification(driver);
-		date = new DateTimeUI(driver);
 		regionalFields = new RegionalOfficeDetails(driver);
 		mediaFields = new IsMediaAware(driver);
 		incidentFields = new IncidentTypeSelection(driver);
@@ -67,8 +59,6 @@ public class InvolvedSection4 {
 		report = new ReportPreparation(driver);		
 		user = new User(driver);
 		search = new ReportSearch(driver);
-		
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		
 		WebUtils.setUpIrmPage(driver);
 		

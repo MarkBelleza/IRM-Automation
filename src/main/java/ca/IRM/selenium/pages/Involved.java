@@ -412,7 +412,7 @@ public class Involved {
 		try {			
 			WebElement userTableRow = wait.until(ExpectedConditions.elementToBeClickable(
 					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/following-sibling::td[@data-label='Title']/ancestor::tr//td[last()-1]/button[@class='" + buttonClass + "']")));
-			actions.moveToElement(userTableRow).perform();
+//			actions.moveToElement(userTableRow).perform();
 			actions.moveToElement(userTableRow).click().perform(); 
 			//Work around. When entering Involved section in Update mode, there is a scrolling animation which messes with the script.
 		}catch(TimeoutException e) {
