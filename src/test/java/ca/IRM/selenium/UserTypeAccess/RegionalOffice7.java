@@ -9,7 +9,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import ca.IRM.selenium.components.DateTimeUI;
 import ca.IRM.selenium.components.NavBar;
 import ca.IRM.selenium.pages.DetailsAndCircumstances;
 import ca.IRM.selenium.pages.IncidentTypeSelection;
@@ -26,7 +25,7 @@ import ca.IRM.selenium.pages.SupportingDocuments;
 import ca.IRM.selenium.pages.User;
 import ca.IRM.selenium.utils.WebUtils;
 
-public class RegionalOffice6 {
+public class RegionalOffice7 {
 
 	private NavBar nav;
 	private Notification notificationFields;
@@ -78,13 +77,13 @@ public class RegionalOffice6 {
 	
 	@AfterTest(groups="testing")
 	public void close() {
-		user.changeUserType(user.staff, user.algo);
-		driver.quit();
+//		user.changeUserType(user.staff, user.algo);
+//		driver.quit();
 	}
 	
-//	TestCase ID: TC0043
+//	TestCase ID: TC0045
 	@Test(groups="testing")
-	public void regionalOfficeLocationInNotificationUpdateMode() {
+	public void regionalOfficeLocationUnitRangeInNotificationUpdateMode() {
 //		Set user to Regional Office and Northern
 		user.changeUserType(user.regional, user.northern);
 		
@@ -163,8 +162,17 @@ public class RegionalOffice6 {
 		sum.editNotification();
 		
 		notificationFields.updateLocation(user.northern + " (RegionalOffice)");
-		notificationFields.selectArea("Washroom");
+		notificationFields.selectArea("Unit Range");
+		notificationFields.clickAreaUnitRangeDropdown(); //Click the Unit Range Drop-down
+		notificationFields.verifyDropDownNotVisible(); //Verify there is no item drop-down for Unit Range
+		
+		notificationFields.clickUpdate(); //Close the Unit Range Drop-down
 		notificationFields.clickUpdate();
+		
+//		In Summary view, the location and area changes in the Notification section are visible
+		sum.verifyNotificationLocation(user.northern);
+		sum.verifyNotificationArea("Unit Range");
+		sum.verifyNotificationUnitRange("");
 		
 //		In summary view, the IIR and EOIR are still visible
 		sum.verifyPage();
