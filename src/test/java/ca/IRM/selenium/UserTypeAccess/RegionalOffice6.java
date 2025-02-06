@@ -1,15 +1,11 @@
 package ca.IRM.selenium.UserTypeAccess;
 
-import java.time.Duration;
-
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import ca.IRM.selenium.components.DateTimeUI;
 import ca.IRM.selenium.components.NavBar;
 import ca.IRM.selenium.pages.DetailsAndCircumstances;
 import ca.IRM.selenium.pages.IncidentTypeSelection;
@@ -42,8 +38,6 @@ public class RegionalOffice6 {
 	private User user;
 	private ReportSearch search;
 	
-	private WebDriverWait wait;
-	
 	private String IncidentID;
 	
 	private EdgeDriver driver = new EdgeDriver();
@@ -70,8 +64,6 @@ public class RegionalOffice6 {
 		user = new User(driver);
 		search = new ReportSearch(driver);
 		
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		
 		WebUtils.setUpIrmPage(driver);
 	}
 	
@@ -79,7 +71,7 @@ public class RegionalOffice6 {
 	@AfterTest(groups="testing")
 	public void close() {
 		user.changeUserType(user.staff, user.algo);
-		driver.quit();
+//		driver.quit();
 	}
 	
 //	TestCase ID: TC0043
