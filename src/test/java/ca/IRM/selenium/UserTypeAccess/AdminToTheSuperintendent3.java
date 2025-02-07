@@ -40,7 +40,7 @@ public class AdminToTheSuperintendent3 {
 	public void close() {
 		driver.navigate().to("http://jtsazistcirm01/");
 		user.changeUserType(user.staff, user.algo);
-//		driver.quit();
+		driver.quit();
 		System.out.println("After Test");
 	}
 	

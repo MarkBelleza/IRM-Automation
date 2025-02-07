@@ -39,7 +39,7 @@ public class InvolvedSection3 {
 	
 	private EdgeDriver driver = new EdgeDriver();
 	private WebUtils utils = new WebUtils(driver);
-	String IncidentID;
+	private String IncidentID;
 	
 	
 	@BeforeTest(groups="testing")
@@ -69,7 +69,7 @@ public class InvolvedSection3 {
 	
 	@AfterTest(groups="testing")
 	public void close() {
-//		driver.quit();
+		driver.quit();
 		System.out.println("After Test");
 	}
 

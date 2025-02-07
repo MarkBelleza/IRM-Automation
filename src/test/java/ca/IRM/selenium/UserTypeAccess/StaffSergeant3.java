@@ -1,17 +1,11 @@
 package ca.IRM.selenium.UserTypeAccess;
 
-import java.time.Duration;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import ca.IRM.selenium.components.DateTimeUI;
 import ca.IRM.selenium.components.NavBar;
 import ca.IRM.selenium.pages.DetailsAndCircumstances;
 import ca.IRM.selenium.pages.IncidentTypeSelection;
@@ -30,7 +24,6 @@ import ca.IRM.selenium.utils.WebUtils;
 public class StaffSergeant3 {
 	private NavBar nav;
 	private Notification notificationFields;
-	private DateTimeUI date;
 	private RegionalOfficeDetails regionalFields;
 	private IsMediaAware mediaFields;
 	private IncidentTypeSelection incidentFields;
@@ -41,10 +34,7 @@ public class StaffSergeant3 {
 	private Involved involve;
 	private ReportPreparation report;	
 	private User user;
-	ReportSearch search;
-	
-	WebDriverWait wait;
-//	FluentWait<EdgeDriver> wait;
+	private ReportSearch search;
 	
 	private EdgeDriver driver = new EdgeDriver();
 	private WebUtils utils = new WebUtils(driver);
@@ -57,7 +47,6 @@ public class StaffSergeant3 {
 //		WebDriverManager.edgedriver().setup();
 		nav = new NavBar(driver);
 		notificationFields = new Notification(driver);
-		date = new DateTimeUI(driver);
 		regionalFields = new RegionalOfficeDetails(driver);
 		mediaFields = new IsMediaAware(driver);
 		incidentFields = new IncidentTypeSelection(driver);
@@ -70,12 +59,6 @@ public class StaffSergeant3 {
 		user = new User(driver);
 		search = new ReportSearch(driver);
 		
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//		wait = new FluentWait<>(driver)
-//			    .withTimeout(Duration.ofSeconds(10))
-//			    .pollingEvery(Duration.ofMillis(500))
-//			    .ignoring(NoSuchElementException.class);
-		
 		WebUtils.setUpIrmPage(driver);
 		
 //		Set user to Staff Sergeant and ALGOMA
@@ -86,7 +69,7 @@ public class StaffSergeant3 {
 	
 	@AfterTest(groups="testing")
 	public void close() {
-//		driver.quit();
+		driver.quit();
 		System.out.println("After Test");
 	}
 	

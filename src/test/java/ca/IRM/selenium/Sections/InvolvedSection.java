@@ -71,7 +71,7 @@ public class InvolvedSection {
 	
 	@AfterTest(groups="testing")
 	public void close() {
-//		driver.quit();
+		driver.quit();
 		System.out.println("After Test");
 	}
 

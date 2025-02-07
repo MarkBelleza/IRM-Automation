@@ -31,7 +31,6 @@ import ca.IRM.selenium.utils.WebUtils;
 public class StaffSergeant5 {
 	private NavBar nav;
 	private Notification notificationFields;
-	private DateTimeUI date;
 	private RegionalOfficeDetails regionalFields;
 	private IsMediaAware mediaFields;
 	private IncidentTypeSelection incidentFields;
@@ -43,10 +42,6 @@ public class StaffSergeant5 {
 	private ReportPreparation report;	
 	private User user;
 	private ReportSearch search;
-	private ReadXLSData loc;
-	private String[] secondary;
-	private WebDriverWait wait;
-//	FluentWait<EdgeDriver> wait;
 	
 	private EdgeDriver driver;
 	private WebUtils utils;
@@ -60,7 +55,6 @@ public class StaffSergeant5 {
 		utils = new WebUtils(driver);
 		nav = new NavBar(driver);
 		notificationFields = new Notification(driver);
-		date = new DateTimeUI(driver);
 		regionalFields = new RegionalOfficeDetails(driver);
 		mediaFields = new IsMediaAware(driver);
 		incidentFields = new IncidentTypeSelection(driver);
@@ -72,8 +66,6 @@ public class StaffSergeant5 {
 		report = new ReportPreparation(driver);		
 		user = new User(driver);
 		search = new ReportSearch(driver);
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		loc = new ReadXLSData();
 		
 		WebUtils.setUpIrmPage(driver);
 	}
@@ -81,7 +73,7 @@ public class StaffSergeant5 {
 	
 	@AfterTest(groups="testing")
 	public void close() {
-//		driver.quit();
+		driver.quit();
 		user.changeUserType(user.staff, user.algo, new String[0]); // work around to remove secondary locations
 		System.out.println("After Test");
 	}

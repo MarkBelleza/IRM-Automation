@@ -71,7 +71,7 @@ public class RegionalOffice7 {
 	@AfterTest(groups="testing")
 	public void close() {
 		user.changeUserType(user.staff, user.algo);
-//		driver.quit();
+		driver.quit();
 	}
 	
 //	TestCase ID: TC0045
