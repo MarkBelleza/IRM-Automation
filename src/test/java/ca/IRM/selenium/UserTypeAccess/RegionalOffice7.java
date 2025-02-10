@@ -157,7 +157,8 @@ public class RegionalOffice7 {
 		notificationFields.updateLocation(user.northern + " (RegionalOffice)");
 		notificationFields.selectArea("Unit Range");
 		notificationFields.clickAreaUnitRangeDropdown(); //Click the Unit Range Drop-down
-		notificationFields.verifyDropDownNotVisible(); //Verify there is no item drop-down for Unit Range
+		notificationFields.verifyDropDownVisible();
+		notificationFields.verifyDropDownItemsNotVisible(); //Verify there is no item drop-down for Unit Range
 		
 		notificationFields.clickUpdate(); //Close the Unit Range Drop-down
 		notificationFields.clickUpdate();

@@ -1,6 +1,11 @@
 package ca.IRM.selenium.UserTypeAccess;
 
+import java.time.Duration;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -38,8 +43,7 @@ public class RegionalOffice5 {
 
 	
 	private EdgeDriver driver = new EdgeDriver();
-	private WebUtils utils = new WebUtils(driver);
-	
+	private WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	
 	
 	@BeforeTest(groups="testing")
@@ -141,10 +145,12 @@ public class RegionalOffice5 {
 		notificationFields.selectPriority("One");
 		notificationFields.selectLocation(user.northern + " (RegionalOffice)");
 		notificationFields.selectArea("Unit Range");
-		notificationFields.clickAreaUnitRangeDropdown(); //Click the Unit Range Drop-down
-		notificationFields.verifyDropDownNotVisible(); //Verify there is no item drop-down for Unit Range
+		notificationFields.clickAreaUnitRangeDropdown(); //Open the Unit Range Drop-down
+		notificationFields.verifyDropDownVisible();
+		notificationFields.verifyDropDownItemsNotVisible(); //Verify there is no item drop-down for Unit Range
 		
-		notificationFields.clickNext(); //Close the Unit Range Drop-down
+		notificationFields.clickAreaUnitRangeDropdown(); //Close the Unit Range Drop-down
+		notificationFields.verifyDropDownNotVisible();
 		notificationFields.clickNext(); 
 		
 		

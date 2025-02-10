@@ -28,7 +28,7 @@ public class Notification {
 	By othersField = By.xpath("//textarea[contains(@class, 'mud-input-slot') and @rows='3']");
 	By updateDialogDropdown = By.xpath("//div[@class='mud-list mud-list-padding']");
 	By dropDownItems = By.xpath("//div[@class='mud-list-item mud-list-item-gutters mud-list-item-clickable mud-ripple']");
-	
+		
 	By updateLocation = By.xpath("(//div[@class='mud-input mud-input-outlined mud-input-adorned-end mud-shrink mud-select-input'])[2]");
 	By updateArea = By.xpath("(//div[@class='mud-input mud-input-outlined mud-input-adorned-end mud-shrink mud-select-input'])[3]");
 	
@@ -36,6 +36,7 @@ public class Notification {
 	By nextButton = By.xpath("//span[@class='mud-button-label' and text()='Next']");
 	By updateButton = By.xpath("//span[@class='mud-button-label' and text()='Update']");
 	
+	String selectedAreaField = "mud-input-slot mud-input-root mud-input-root-outlined mud-input-root-adorned-end mud-select-input";
 	String selectDropdownOption = "mud-typography";
 	
 	public static String[] locations = {"ALGOMA TREATMENT & REMAND CTR-ADULT (Institution)", "BROCKVILLE JAIL - ADULT (Institution)"};
@@ -80,6 +81,7 @@ public class Notification {
 				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + area + "']"))))
 				.click().perform();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='" + selectedAreaField + "' and text()='" + area + "']")));
 	}
 	
 	public void selectUnitRange(String unitRange) {
@@ -95,11 +97,11 @@ public class Notification {
 	}
 	
 	public void clickAreaUnitRangeDropdown() {
-		wait.until(ExpectedConditions.elementToBeClickable(areaUnitRangeField)).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogDropdown));
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(areaUnitRangeField))).click().perform();
 	}
 	
-	public void verifyDropDownVisible() {
+	public void verifyDropDownItemsVisible() {
 		try {
 			wait.until(ExpectedConditions.elementToBeClickable(dropDownItems));
 		}catch(TimeoutException e) {
@@ -107,11 +109,27 @@ public class Notification {
 		}
 	}
 	
-	public void verifyDropDownNotVisible() {
+	public void verifyDropDownItemsNotVisible() {
 		try {
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(dropDownItems));
 		}catch(TimeoutException e) {
 			throw new NoSuchElementException("Dropdown items are visible.");
+		}
+	}
+	
+	public void verifyDropDownNotVisible() {
+		try {
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Dropdown is visible.");
+		}
+	}
+	
+	public void verifyDropDownVisible() {
+		try {
+			wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogDropdown));
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Dropdown is not visible.");
 		}
 	}
 	
