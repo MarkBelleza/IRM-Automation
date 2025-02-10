@@ -86,7 +86,7 @@ public class RegionalOffice5 {
 		notificationFields.selectLocation(user.northern + " (RegionalOffice)");
 		notificationFields.selectArea("Washroom");
 		notificationFields.clickNext();
-		utils.duplicatePopUpCheck();
+		
 		
 //		** Store the Incident Report ID
 		regionalFields.verifyPage();
@@ -146,7 +146,7 @@ public class RegionalOffice5 {
 		
 		notificationFields.clickNext(); //Close the Unit Range Drop-down
 		notificationFields.clickNext(); 
-		utils.duplicatePopUpCheck();
+		
 		
 //		** Store the Incident Report ID
 		regionalFields.verifyPage();

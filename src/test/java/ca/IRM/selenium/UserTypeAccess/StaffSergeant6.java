@@ -66,8 +66,18 @@ public class StaffSergeant6 {
 		search = new ReportSearch(driver);
 		
 		WebUtils.setUpIrmPage(driver);
-		
-		
+	}
+	
+	
+	@AfterTest(groups="testing")
+	public void close() {
+		user.changeUserType(user.staff, user.algo, new String[0]); // work around to remove secondary locations
+		driver.quit();
+	}
+	
+//	TestCase ID: TC0035
+	@Test(groups="testing")
+	public void viewAndUpdate() {
 //		Set user to Staff Sergeant, primary location as ALGOMA and secondary location as BROCK
 		user.changeUserType(user.staff, user.algo, new String[] {user.brock});
 		
@@ -78,7 +88,7 @@ public class StaffSergeant6 {
 		notificationFields.selectLocation(user.brock + " (Institution)");
 		notificationFields.selectArea("Washroom");
 		notificationFields.clickNext();
-		utils.duplicatePopUpCheck();
+		
 		
 //		** Store the Incident Report ID
 		regionalFields.verifyPage();
@@ -118,22 +128,7 @@ public class StaffSergeant6 {
 		
 		report.selectContactPerson("Mark", "Belleza");
 		report.finalize(); 
-		report.clickSubmit();
-		
-		System.out.println("Before Test");		
-	}
-	
-	
-	@AfterTest(groups="testing")
-	public void close() {
-//		driver.quit();
-		user.changeUserType(user.staff, user.algo, new String[0]); // work around to remove secondary locations
-		System.out.println("After Test");
-	}
-	
-//	TestCase ID: TC0035
-	@Test(groups="testing")
-	public void viewAndUpdate() {
+		report.clickSubmit();	
 		
 //		Verify Incident Report is saved
 		search.searchIncidentReport(IncidentID);

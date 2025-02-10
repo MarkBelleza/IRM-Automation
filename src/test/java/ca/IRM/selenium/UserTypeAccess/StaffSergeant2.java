@@ -88,7 +88,7 @@ public class StaffSergeant2 {
 		notificationFields.selectLocation("ALGOMA TREATMENT & REMAND CTR-ADULT (Institution)");
 		notificationFields.selectArea("Washroom");
 		notificationFields.clickNext();
-		utils.duplicatePopUpCheck();
+		
 		
 //		** Store the Incident Report ID
 		regionalFields.verifyPage();

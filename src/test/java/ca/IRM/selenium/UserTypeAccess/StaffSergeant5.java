@@ -100,7 +100,7 @@ public class StaffSergeant5 {
 		notificationFields.selectLocation(location + " (Institution)");
 		notificationFields.selectArea("Washroom");
 		notificationFields.clickNext();
-		utils.duplicatePopUpCheck();
+		
 		
 //		** Store the Incident Report ID
 		regionalFields.verifyPage();

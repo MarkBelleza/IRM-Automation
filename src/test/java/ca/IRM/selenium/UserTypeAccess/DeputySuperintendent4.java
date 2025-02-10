@@ -76,7 +76,7 @@ public class DeputySuperintendent4 {
 		notificationFields.selectLocation("BROCKVILLE JAIL - ADULT (Institution)");
 		notificationFields.selectArea("Washroom");
 		notificationFields.clickNext();
-		utils.duplicatePopUpCheck();
+		
 		
 //		** Store the Incident Report ID
 		regionalFields.verifyPage();

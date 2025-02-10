@@ -55,7 +55,7 @@ public class AdminToTheSuperintendent3 {
 		notificationFields.selectLocation("BROCKVILLE JAIL - ADULT (Institution)");
 		notificationFields.selectArea("Washroom");
 		notificationFields.clickNext();
-		utils.duplicatePopUpCheck();
+		
 
 //		Verify access denied (cannot make incident reports NOT within user location)
 		utils.accessDeniedVerify();

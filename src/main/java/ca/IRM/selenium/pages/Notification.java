@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -144,10 +145,47 @@ public class Notification {
 		wait.until(ExpectedConditions.elementToBeClickable(othersField)).sendKeys(detail);
 	}
 	
+	public void duplicatePopUpCheck() {
+		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(3));
+		
+		try {
+		    WebElement dialog = wait1.until(ExpectedConditions.visibilityOfElementLocated(
+		            By.xpath("//div[contains(@class, 'mud-dialog-title') and contains(text(), 'Duplicate Incident')]")));
+		    
+		    // Check if the dialog is displayed and click the 'Proceed' button
+		    if (dialog.isDisplayed()) {
+		    	wait1.until(ExpectedConditions.elementToBeClickable(
+		                By.xpath("//span[contains(@class, 'mud-button-label') and text()='Proceed']"))).click();
+		        System.out.println("Duplicate found, Proceed button clicked.");
+		    }
+		} catch (TimeoutException e) {
+		    System.out.println("No Duplicate Incident found");
+		}
+	}
+	
+	public void confirmConsentForChangeJorunal() {
+		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(3));
+		
+		try {
+		    WebElement dialog = wait1.until(ExpectedConditions.visibilityOfElementLocated(
+		            By.xpath("//div[@class='mud-dialog-title']/b[text()='Consent for Change Journal']")));
+		    
+		    // Check if the dialog is displayed and click the 'Proceed' button
+		    if (dialog.isDisplayed()) {
+		    	wait1.until(ExpectedConditions.elementToBeClickable(
+		                By.xpath("//span[contains(@class, 'mud-button-label') and text()='Yes, Continue']"))).click();
+		    }
+		} catch (TimeoutException e) {
+			throw new NoSuchElementException("Consent for Change Journal Pop up is not present");
+		}
+	}
+	
 	public void clickNext() {
 		verifyPage();
 		Actions actions = new Actions(driver);
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(nextButton))).click().perform();
+		duplicatePopUpCheck();
+		confirmConsentForChangeJorunal();
 	}
 
 	public void clickCancel() {
