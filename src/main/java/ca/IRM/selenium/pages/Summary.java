@@ -47,9 +47,13 @@ public class Summary {
 	}
 	
 	public boolean editNotification() {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Notification')]/../../..")));
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(2));
 		Actions actions = new Actions(driver);
 		try {
-			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(buttonNotification))).click().perform();
+			actions.moveToElement(wait2.until(ExpectedConditions.elementToBeClickable(buttonNotification))).click().perform();
 		}catch(TimeoutException e) {
 			return false;
 		}
@@ -57,9 +61,13 @@ public class Summary {
 	}
 	
 	public boolean editIncidentType() {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Incident Type Selection Summary')]/../../..")));
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(2));
 		Actions actions = new Actions(driver);
 		try {
-			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(buttonIncidentType))).click().perform();
+			actions.moveToElement(wait2.until(ExpectedConditions.elementToBeClickable(buttonIncidentType))).click().perform();
 		}catch(TimeoutException e) {
 			return false;
 		}
@@ -67,9 +75,13 @@ public class Summary {
 	}
 	
 	public boolean editReportPreparation() {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Report Preparation')]/../../..")));
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(2));
 		Actions actions = new Actions(driver);
 		try {
-			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(buttonReportPreparation))).click().perform();
+			actions.moveToElement(wait2.until(ExpectedConditions.elementToBeClickable(buttonReportPreparation))).click().perform();
 		}catch(TimeoutException e) {
 			return false;
 		}
@@ -77,9 +89,13 @@ public class Summary {
 	}
 	
 	public boolean editRegionalOfficeDetails() {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Regional Office Details')]/../../..")));
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(2));
 		Actions actions = new Actions(driver);
 		try {
-			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(buttonRegionalOffice))).click().perform();
+			actions.moveToElement(wait2.until(ExpectedConditions.elementToBeClickable(buttonRegionalOffice))).click().perform();
 		}catch(TimeoutException e) {
 			return false;
 		}
@@ -87,9 +103,13 @@ public class Summary {
 	}
 	
 	public boolean editInvolved() {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]/../../..")));
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(2));
 		Actions actions = new Actions(driver);
 		try {
-			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(buttonInvolved))).click().perform();
+			actions.moveToElement(wait2.until(ExpectedConditions.elementToBeClickable(buttonInvolved))).click().perform();
 		}catch(TimeoutException e) {
 			return false;
 		}
@@ -175,7 +195,10 @@ public class Summary {
 	  * @param lastName
 	  * @param role
 	  */
-	public void verifyInmateByNameInInvolved(String firstName, String lastName, String role) {		
+	public void verifyInmateByNameInInvolved(String firstName, String lastName, String role) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]/../../..")));
+		
 		try {		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Name']/following-sibling::td[@data-label='OTSID']/following-sibling::td[text()='" + role + "']/ancestor::tr")));
@@ -192,6 +215,9 @@ public class Summary {
 	  * @param role
 	  */
 	public void verifyInmateByNameNotInvolved(String firstName, String lastName, String role) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]/../../..")));
+		
 		try {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(
 				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Name']/following-sibling::td[@data-label='OTSID']/following-sibling::td[text()='" + role + "']/ancestor::tr")));
@@ -208,6 +234,9 @@ public class Summary {
 	  * @param role
 	  */
 	public void verifyEmployeeInInvolved(String firstName, String lastName, String role) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]/../../..")));
+		
 		try {			
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/following-sibling::td[@data-label='Location']/following-sibling::td[text()='" + role + "']/ancestor::tr")));
@@ -224,6 +253,9 @@ public class Summary {
 	  * @param role
 	  */
 	public void verifyEmployeeNotInvolved(String firstName, String lastName, String role) {	
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]/../../..")));
+		
 		try {			
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(
 				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/following-sibling::td[@data-label='Location']/following-sibling::td[text()='" + role + "']/ancestor::tr")));
@@ -240,6 +272,8 @@ public class Summary {
 	  * @param role
 	  */
 	public void verifyOtherInInvolved(String firstName, String lastName, String role) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]/../../..")));
 		
 		try {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
@@ -257,6 +291,9 @@ public class Summary {
 	  * @param role
 	  */
 	public void verifyOtherNotInvolved(String firstName, String lastName, String role) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]/../../..")));
+		
 		try {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(
 				By.xpath("//td[text()='" + firstName + "' and text()='" + lastName + "' and @data-label='Employee']/ancestor::tr/td[3 and text()='" + role + "']/ancestor::tr")));
