@@ -186,7 +186,7 @@ public class Notification {
 		
 		try {
 		    WebElement dialog = wait1.until(ExpectedConditions.visibilityOfElementLocated(
-		            By.xpath("//div[@class='mud-dialog-title']/b[text()='Consent for Change Journal']")));
+		            By.xpath("//div[@class='mud-dialog-title']/b[text()='Change Journal Notification']")));
 		    
 		    // Check if the dialog is displayed and click the 'Proceed' button
 		    if (dialog.isDisplayed()) {
