@@ -57,8 +57,10 @@ public class ReportPreparation {
 	
 	public boolean verifyConfidentialUnmarkable() {
 		verifyPage();
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(3));
 		try{
-			wait.until(ExpectedConditions.visibilityOfElementLocated(radioButtonConfidentialUnmarkable));
+			wait2.until(ExpectedConditions.visibilityOfElementLocated(radioButtonConfidentialUnmarkable));
 		}catch(TimeoutException e) {
 			return false;
 		}
@@ -74,8 +76,10 @@ public class ReportPreparation {
 	
 	public boolean confidentialPromptCheck() {
 		verifyPage();
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(3));
 		try {
-			wait.until(ExpectedConditions.visibilityOfElementLocated(confidentialPrompt));
+			wait2.until(ExpectedConditions.visibilityOfElementLocated(confidentialPrompt));
 		}
 		catch(TimeoutException e) {
 			return false;

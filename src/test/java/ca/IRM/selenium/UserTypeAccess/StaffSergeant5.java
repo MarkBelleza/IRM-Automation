@@ -73,8 +73,8 @@ public class StaffSergeant5 {
 	
 	@AfterTest(groups="testing")
 	public void close() {
-		driver.quit();
 		user.changeUserType(user.staff, user.algo, new String[0]); // work around to remove secondary locations
+		driver.quit();
 		System.out.println("After Test");
 	}
 	
