@@ -2,6 +2,7 @@ package ca.IRM.selenium.components;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -31,18 +32,37 @@ public class DateTimeUI {
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
 	
+	public static String getCurrentTime(String format) {
+	    GregorianCalendar c = new GregorianCalendar();
+	    LocalTime now = LocalTime.of(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), c.get(Calendar.SECOND));
+	    DateTimeFormatter formatter;
+	    
+	    if (format.equals("full")) {
+	    	formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	    } else {
+	    	formatter = DateTimeFormatter.ofPattern("HH:mm");
+	    }
+	    return now.format(formatter);
+	}
 	
-	public static String getCurrentDate() {
+	
+	public static String getCurrentDate(String format) {
 	    GregorianCalendar c = new GregorianCalendar();
 	    LocalDate today = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");
+	    DateTimeFormatter formatter;
+	    
+	    if (format.equals("full")) {
+	    	formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");	    	
+	    }else {	    	
+	    	formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	    }
 	    return today.format(formatter);
 	}
 	
 	
 	public void selectCurrentDate() {
 		wait.until(ExpectedConditions.elementToBeClickable(calendarButton)).click();
-		String current = getCurrentDate();
+		String current = getCurrentDate("full");
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@aria-label='" + current + "']"))).click();
 	}
 
