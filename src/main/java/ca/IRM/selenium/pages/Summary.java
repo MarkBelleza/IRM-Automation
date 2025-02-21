@@ -26,6 +26,7 @@ public class Summary {
 	By buttonRegionalOffice = By.xpath("/html/body/div[3]/div/div/div[3]/div[1]/div[2]/button");
 	By buttonInvolved = By.xpath("/html/body/div[3]/div/div/div[10]/div[1]/div[2]/button");
 	By buttonNotification = By.xpath("/html/body/div[3]/div/div/div[2]/div[1]/div[2]/button");
+	By changeJournalButton = By.xpath("//button[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-icon' and @title='Open Change Journal']");
 	
 	By notificationArea = By.xpath("/html/body/div[3]/div/div/div[2]/div[2]/div/div[7]/p");
 	By notificationLocation = By.xpath("/html/body/div[3]/div/div/div[2]/div[2]/div/div[5]/p");
@@ -302,5 +303,11 @@ public class Summary {
 		}
 	}
 	
+	public void openChangeJournal() {
+		verifyPage();
+		
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(changeJournalButton))).click().perform();
+	}
 
 }
