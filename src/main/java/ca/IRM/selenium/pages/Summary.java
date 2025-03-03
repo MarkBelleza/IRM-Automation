@@ -25,6 +25,7 @@ public class Summary {
 	By buttonReportPreparation = By.xpath("/html/body/div[3]/div/div/div[11]/div[1]/div[2]/button");
 	By buttonRegionalOffice = By.xpath("/html/body/div[3]/div/div/div[3]/div[1]/div[2]/button");
 	By buttonInvolved = By.xpath("/html/body/div[3]/div/div/div[10]/div[1]/div[2]/button");
+	By buttonStandItemChecklist = By.xpath("/html/body/div[3]/div/div/div[6]/div[1]/div[2]/button");
 	By buttonNotification = By.xpath("/html/body/div[3]/div/div/div[2]/div[1]/div[2]/button");
 	By changeJournalButton = By.xpath("//button[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-icon' and @title='Open Change Journal']");
 	
@@ -111,6 +112,20 @@ public class Summary {
 		Actions actions = new Actions(driver);
 		try {
 			actions.moveToElement(wait2.until(ExpectedConditions.elementToBeClickable(buttonInvolved))).click().perform();
+		}catch(TimeoutException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean editStandardItemChecklist() {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Standard Item Checklist')]/../../..")));
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(2));
+		Actions actions = new Actions(driver);
+		try {
+			actions.moveToElement(wait2.until(ExpectedConditions.elementToBeClickable(buttonStandItemChecklist))).click().perform();
 		}catch(TimeoutException e) {
 			return false;
 		}
