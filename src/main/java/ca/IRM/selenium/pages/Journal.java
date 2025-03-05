@@ -206,7 +206,7 @@ public class Journal {
 	}
 	
 	/**
-	  * Verify new value in RegionalOfficeContacted row
+	  * Verify new value in MediaAware row
 	  *
 	  * @param dateUpdated (String: the date of the report change)
 	  * @param timeUpdated (String: the time of the report change)
@@ -244,6 +244,14 @@ public class Journal {
 		}
 	}
 
+	/**
+	  * Verify new value in InvolvedIncidentTypes row
+	  *
+	  * @param dateUpdated (String: the date of the report change)
+	  * @param timeUpdated (String: the time of the report change)
+	  * @param incident (String: ie. "Assault")
+	  *  
+	  */
 	public void verifyInvolvedIncidentTypes(String dateUpdated, String timeUpdated, String incident) {
 		String incidentRowNewVal = "/following-sibling::td[text()='InvolvedIncidentTypes' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue']";
 		String newVal;
@@ -269,9 +277,19 @@ public class Journal {
 		
 	}
 	
+	/**
+	  * Verify new value in InvolvedIncidentTypes row
+	  *
+	  * @param dateUpdated (String: the date of the report change)
+	  * @param timeUpdated (String: the time of the report change)
+	  * @param incident (String: ie. "Assault")
+	  * @param question (String: ie. "CCRL notified if racially motivated")
+	  *  
+	  */
 	public void verifyIncidentTypeAnswers(String dateUpdated, String timeUpdated, String incident, String question) {
 		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(3));
 		String newVal = "IncidentType:" + incident + "; Question:" + question;
+		
 		String incidentRowNewVal = "/following-sibling::td[text()='IncidentTypeAnswers' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue' and text()='" + newVal + "']";
 		String xpathExpression = "//td[text()='" + dateUpdated 
 		        + "' and @data-label='Date Modified']/following-sibling::td[contains(text(), '" 
@@ -285,8 +303,50 @@ public class Journal {
 		}
 	}
 	
-	public void verifySupportingDocument() {
+	/**
+	  * Verify new value in verifySupportingDocument row
+	  *
+	  * @param dateUpdated (String: the date of the report change)
+	  * @param timeUpdated (String: the time of the report change)
+	  * @param incidentType (String: ie. "Death of Staff"/"Labour Activities"/"Employee Medical Emergency"/"External Media Inquiries")
+	  * @param documentName (String: ie. "Mol Order"/"Field Visit Report"/"Copy of media article")
+	  * @param supportingDocumentDescription (String: name of the document uploaded ie. "someName.pdf")
+	  *  
+	  */
+	public void verifySupportingDocument(String dateUpdated, String timeUpdated, String incidentType, String documentName, String supportingDocumentDescription) {
+		String incidentRowNewVal = "/following-sibling::td[text()='SupportingDocument' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue']";
+		String newVal;
 		
+//		Get the new value
+		try {			
+			WebElement incidentTableRow = wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + dateUpdated + "' and @data-label='Date Modified']/following-sibling::td[contains(text(), '" + timeUpdated + "') and @data-label='Time Modified']" + incidentRowNewVal)));
+			newVal = incidentTableRow.getText();
+
+			System.out.println(newVal);
+			
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Journal row with Date: " + dateUpdated + ", Time: " + timeUpdated + " and field name of SupportingDocument not found.");
+		}
+		
+//		Verify all the given info (the parameters) are present in the newVal string variable
+		if (incidentType.length() != 0) {
+			if (!newVal.contains(incidentType)) {
+				throw new NoSuchElementException("Incident Type: \"" + incidentType + "\" not found in Journal's SupportingDocument row.");
+			}
+		}
+		
+		if (documentName.length() != 0) {
+			if (!newVal.contains(documentName)) {
+				throw new NoSuchElementException("Document Name: \"" + documentName + "\" not found in Journal's SupportingDocument row.");
+			}
+		}
+		
+		if (supportingDocumentDescription.length() != 0) {
+			if (!newVal.contains(supportingDocumentDescription)) {
+				throw new NoSuchElementException("Supporting Document Description: \"" + supportingDocumentDescription + "\" not found in Journal's SupportingDocument row.");
+			}
+		}
 	}
 	
 	public void verifyPoliceContacted() {
