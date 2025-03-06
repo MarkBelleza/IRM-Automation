@@ -30,6 +30,28 @@ public class SupportingDocuments {
 //		System.out.println("In Supporting Documents page");
 	}
 	
+	/**
+	  * Upload file in Supporting Documents page 
+	  *
+	  * @param incident (String: "Death of Staff"/"Labour Activities"/"Employee Medical Emergency"/"External Media Inquiries")
+	  * @param uploadName (String: "Field Visit Report"/"MOL Order"/"Copy of media article")
+	  * @param fileName (String: "UploadFileTest.docx"/"UploadFileTest2.docx"/ ... "UploadFileTest6.docx")
+	  */
+	public void uploadFile(String incident, String uploadName, String fileName) {
+		Actions actions = new Actions(driver);
+		
+		String filePath = System.getProperty("user.dir") + "\\src\\test\\resources\\" + fileName;
+		String deathofStaffRow = "//td[text()='" + incident + "' and @data-label='Incident Type']/following-sibling::td[@class='justify-begin mud-table-cell']";
+		String selectorMolOrder = deathofStaffRow + "//span[@class='mud-button-label' and text()='" + uploadName + "']";
+		String selectorDeathofStaff = selectorMolOrder + "/../preceding-sibling::input[@type='file']";
+		
+		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(selectorMolOrder)))).perform();
+		driver.findElement(By.xpath(selectorDeathofStaff)).sendKeys(filePath);
+		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(deathofStaffRow + "//a[text()='" + fileName + "']")));
+	}
+	
+	
 	public void clickNext() {
 		verifyPage();
 		Actions actions = new Actions(driver);
