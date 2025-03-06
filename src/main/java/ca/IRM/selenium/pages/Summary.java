@@ -28,6 +28,7 @@ public class Summary {
 	By buttonStandItemChecklist = By.xpath("/html/body/div[3]/div/div/div[6]/div[1]/div[2]/button");
 	By buttonNotification = By.xpath("/html/body/div[3]/div/div/div[2]/div[1]/div[2]/button");
 	By buttonSupportingDocuments = By.xpath("/html/body/div[3]/div/div/div[7]/div[1]/div[2]/button");
+	By buttonPoliceContacted = By.xpath("/html/body/div[3]/div/div/div[9]/div[1]/div[2]/button");
 	By changeJournalButton = By.xpath("//button[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-icon' and @title='Open Change Journal']");
 	
 	By notificationArea = By.xpath("/html/body/div[3]/div/div/div[2]/div[2]/div/div[7]/p");
@@ -141,6 +142,20 @@ public class Summary {
 		Actions actions = new Actions(driver);
 		try {
 			actions.moveToElement(wait2.until(ExpectedConditions.elementToBeClickable(buttonSupportingDocuments))).click().perform();
+		}catch(TimeoutException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean editPoliceContacted() {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Police Contacted')]/../../..")));
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(2));
+		Actions actions = new Actions(driver);
+		try {
+			actions.moveToElement(wait2.until(ExpectedConditions.elementToBeClickable(buttonPoliceContacted))).click().perform();
 		}catch(TimeoutException e) {
 			return false;
 		}
