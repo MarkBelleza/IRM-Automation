@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+
+  	<!-- Config for retrying Tests that fail-->
+	<listeners>
+		<listener class-name="ca.IRM.selenium.config.TestRetryListener" />
+	</listeners>
+
+  <test thread-count="5" name="Test">
+  
+	<!-- Specify which tests you want to run -->
+	<groups>
+		<run>
+			<include name="testing" />
+		</run>
+	</groups>
+	
+    <classes>
+      <class name="ca.IRM.selenium.UserTypeAccess.Department123"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

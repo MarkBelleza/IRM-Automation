@@ -20,6 +20,7 @@
 			<class name="ca.IRM.selenium.Sections.InvolvedSection3" />
 			<class name="ca.IRM.selenium.Sections.InvolvedSection4" />
 			<class name="ca.IRM.selenium.Sections.InvolvedSection5" />
+
 		</classes>
 	</test> <!--
 	Test -->

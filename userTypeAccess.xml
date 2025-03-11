@@ -20,11 +20,16 @@
 
 
 		<classes>
-			
-			<class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant" />
-			<class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant2" />
-			<class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant3" />
-			<class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant4" />
+
+			<class name="ca.IRM.selenium.UserTypeAccess.Superintendent" />
+			<class name="ca.IRM.selenium.UserTypeAccess.Superintendent2" />
+			<class name="ca.IRM.selenium.UserTypeAccess.Superintendent3" />
+			<class name="ca.IRM.selenium.UserTypeAccess.Superintendent4" />
+
+
+
+
+
 
 
 			<!-- <class name="UI.failTest"/> -->
