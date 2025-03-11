@@ -304,7 +304,7 @@ public class Journal {
 	}
 	
 	/**
-	  * Verify new value in verifySupportingDocument row
+	  * Verify new value in SupportingDocument row
 	  *
 	  * @param dateUpdated (String: the date of the report change)
 	  * @param timeUpdated (String: the time of the report change)
@@ -331,26 +331,156 @@ public class Journal {
 		
 //		Verify all the given info (the parameters) are present in the newVal string variable
 		if (incidentType.length() != 0) {
-			if (!newVal.contains(incidentType)) {
+			if (!newVal.contains("IncidentType:" + incidentType)) {
 				throw new NoSuchElementException("Incident Type: \"" + incidentType + "\" not found in Journal's SupportingDocument row.");
 			}
 		}
 		
 		if (documentName.length() != 0) {
-			if (!newVal.contains(documentName)) {
+			if (!newVal.contains("DocumentName:" + documentName)) {
 				throw new NoSuchElementException("Document Name: \"" + documentName + "\" not found in Journal's SupportingDocument row.");
 			}
 		}
 		
 		if (supportingDocumentDescription.length() != 0) {
-			if (!newVal.contains(supportingDocumentDescription)) {
+			if (!newVal.contains("SupportingDocumentDescription:" + supportingDocumentDescription)) {
 				throw new NoSuchElementException("Supporting Document Description: \"" + supportingDocumentDescription + "\" not found in Journal's SupportingDocument row.");
 			}
 		}
 	}
 	
-	public void verifyPoliceContacted() {
+	/**
+	  * Verify new value in PoliceContacted row (Part 1. Note: This method has been divided to two parts as there is too many parameters)
+	  *
+	  * @param dateUpdated (String: the date of the report change)
+	  * @param timeUpdated (String: the time of the report change)
+	  * @param isPoliceContacted (String: "Yes"/"No" or "" if no change)
+	  * @param reasonPoliceNotContactedId (String: "Not a Police matter"/"Decision not to lay charges" or "" if no change) TODO: currently a bug, does not show the actual text only "0" or "1"
+	  * @param willPoliceBeAttenting (String: "Yes"/"No" or "" if no change)
+	  * @param criminalCharges (String: "Yes"/"No"/"Unknown" or "" if no change
+	  * @param policeContactedDate (String: ie. "19/02/2025" or "" if PoliceContactedDate was not updated)
+	  * @param policeContactedTime (String: ie. "12:00:00" or "" if IncidentTime was not updated. Note: policeContactedDatepoliceContactedDate must also be provided along policeContactedTime)
+	  *  
+	  */
+	public void verifyPoliceContacted(String dateUpdated, String timeUpdated, String isPoliceContacted, String reasonPoliceNotContactedId, String willPoliceBeAttenting, String criminalCharges, String policeContactedDate, String policeContactedTime) {
+		String incidentRowNewVal = "/following-sibling::td[text()='PoliceContacted' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue']";
+		String newVal;
 		
+//		Get the new value
+		try {			
+			WebElement incidentTableRow = wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + dateUpdated + "' and @data-label='Date Modified']/following-sibling::td[contains(text(), '" + timeUpdated + "') and @data-label='Time Modified']" + incidentRowNewVal)));
+			newVal = incidentTableRow.getText();
+
+			System.out.println(newVal);
+			
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Journal row with Date: " + dateUpdated + ", Time: " + timeUpdated + " and field name of PoliceContacted not found.");
+		}
+		
+//		Verify all the given info (the parameters) are present in the newVal string variable
+		if (isPoliceContacted.length() != 0) {
+			if (!newVal.contains("IsPoliceContacted:" + isPoliceContacted)) {
+				throw new NoSuchElementException("IsPoliceContacted:\"" + isPoliceContacted + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
+		
+		if (reasonPoliceNotContactedId.length() != 0) {
+			if (!newVal.contains("ReasonPoliceNotContactedId:" + reasonPoliceNotContactedId)) {
+				throw new NoSuchElementException("ReasonPoliceNotContactedId:\"" + reasonPoliceNotContactedId + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
+		
+		if (willPoliceBeAttenting.length() != 0) {
+			if (!newVal.contains("WillPoliceBeAttenting:" + willPoliceBeAttenting)) {
+				throw new NoSuchElementException("WillPoliceBeAttenting:\"" + willPoliceBeAttenting + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
+		
+		if (criminalCharges.length() != 0) {
+			if (!newVal.contains("CriminalCharges:" + criminalCharges)) {
+				throw new NoSuchElementException("CriminalCharges:\"" + criminalCharges + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
+		
+		if (policeContactedDate.length() != 0) {
+			if (!newVal.contains("PoliceContactedDate:" + policeContactedDate)) {
+				throw new NoSuchElementException("PoliceContactedDate:\"" + policeContactedDate + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
+		
+		if (policeContactedTime.length() != 0) {
+			if (!newVal.contains("PoliceContactedTime:" + policeContactedDate + " " + policeContactedTime)) {
+				throw new NoSuchElementException("PoliceContactedTime:\"" + policeContactedTime + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
+	}
+	
+	/**
+	  * Verify new value in PoliceContacted row (Part 2. Note: This method has been divided to two parts as there is too many parameters)
+	  *
+	  * @param dateUpdated (String: the date of the report change)
+	  * @param timeUpdated (String: the time of the report change)
+	  * @param personContacted (String: some name or "" if no change)
+	  * @param policeContactedBy (String: some name or "" if no change)
+	  * @param policeService (String: some service or "" if no change)
+	  * @param policeContactedMetnod (String: service or "" if no change)
+	  * @param policeTelephone (String: ie. "6471112222" or "" if no change)
+	  * @param policeCaseOccurance (String: some number or "" if no change)
+	  *  
+	  */
+	public void verifyPoliceContacted2(String dateUpdated, String timeUpdated, String personContacted, String policeContactedBy, String policeService, String policeContactedMetnod, String policeTelephone, String policeCaseOccurance) {
+		String incidentRowNewVal = "/following-sibling::td[text()='PoliceContacted' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue']";
+		String newVal;
+		
+//		Get the new value
+		try {			
+			WebElement incidentTableRow = wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + dateUpdated + "' and @data-label='Date Modified']/following-sibling::td[contains(text(), '" + timeUpdated + "') and @data-label='Time Modified']" + incidentRowNewVal)));
+			newVal = incidentTableRow.getText();
+
+			System.out.println(newVal);
+			
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Journal row with Date: " + dateUpdated + ", Time: " + timeUpdated + " and field name of PoliceContacted not found.");
+		}
+		
+//		Verify all the given info (the parameters) are present in the newVal string variable
+		if (personContacted.length() != 0) {
+			if (!newVal.contains("PersonContacted:" + personContacted)) {
+				throw new NoSuchElementException("PersonContacted:\"" + personContacted + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
+		
+		if (policeContactedBy.length() != 0) {
+			if (!newVal.contains("PoliceContactedBy:" + policeContactedBy)) {
+				throw new NoSuchElementException("PoliceContactedBy:\"" + policeContactedBy + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
+		
+		if (policeService.length() != 0) {
+			if (!newVal.contains("PoliceService:" + policeService)) {
+				throw new NoSuchElementException("PoliceService:\"" + policeService + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
+		
+		if (policeContactedMetnod.length() != 0) {
+			if (!newVal.contains("PoliceContactedMetnod:" + policeContactedMetnod)) {
+				throw new NoSuchElementException("PoliceContactedMetnod:\"" + policeContactedMetnod + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
+		
+		if (policeTelephone.length() != 0) {
+			if (!newVal.contains("PoliceTelephone:" + policeTelephone)) {
+				throw new NoSuchElementException("PoliceTelephone:\"" + policeTelephone + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
+		
+		if (policeCaseOccurance.length() != 0) {
+			if (!newVal.contains("PoliceCaseOccurance:" + policeCaseOccurance)) {
+				throw new NoSuchElementException("PoliceCaseOccurance:\"" + policeCaseOccurance + "\" not found in Journal's PoliceContacted row.");
+			}
+		}
 	}
 	
 	public void verifyInvolvedEmployee() {
