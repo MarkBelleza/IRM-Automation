@@ -21,16 +21,35 @@
 
 		<classes>
 
+			<class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant" />
+			<class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant2" />
+			<class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant3" />
+			<class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant4" />
+			<class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant5" />
+			<class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant6" />
+			
 			<class name="ca.IRM.selenium.UserTypeAccess.Superintendent" />
 			<class name="ca.IRM.selenium.UserTypeAccess.Superintendent2" />
 			<class name="ca.IRM.selenium.UserTypeAccess.Superintendent3" />
 			<class name="ca.IRM.selenium.UserTypeAccess.Superintendent4" />
-
-
-
-
-
-
+			
+			<class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice" />
+			<class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice2" />
+			<class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice3" />
+			<class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice4" />
+			<class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice5" />
+			<class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice6" />
+			<class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice7" />
+			
+			<class name="ca.IRM.selenium.UserTypeAccess.DeputySuperintendent" />
+			<class name="ca.IRM.selenium.UserTypeAccess.DeputySuperintendent2" />
+			<class name="ca.IRM.selenium.UserTypeAccess.DeputySuperintendent3" />
+			<class name="ca.IRM.selenium.UserTypeAccess.DeputySuperintendent4" />
+			
+			<class name="ca.IRM.selenium.UserTypeAccess.AdminToTheSuperintendent" />
+			<class name="ca.IRM.selenium.UserTypeAccess.AdminToTheSuperintendent2" />
+			<class name="ca.IRM.selenium.UserTypeAccess.AdminToTheSuperintendent3" />
+			<class name="ca.IRM.selenium.UserTypeAccess.AdminToTheSuperintendent4" />
 
 			<!-- <class name="UI.failTest"/> -->
 		</classes>
