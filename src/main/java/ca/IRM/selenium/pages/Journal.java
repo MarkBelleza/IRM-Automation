@@ -1,7 +1,10 @@
 package ca.IRM.selenium.pages;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -483,15 +486,233 @@ public class Journal {
 		}
 	}
 	
-	public void verifyInvolvedEmployee() {
+	/**
+	  * Verify new value in verifyInvolvedEmployee row
+	  *
+	  * @param dateUpdated (String: the date of the report change)
+	  * @param timeUpdated (String: the time of the report change)
+	  * @param numberOfAntiOpioidAdministered (String: "1" or any number)
+	  * @param hospitalized (String: "True"/"False or "" if no change/not provided)
+	  * @param involvedRole (String: "Witness" or "" if no change/not provided)
+	  *  
+	  */
+	public void verifyInvolvedEmployeeDetails(String dateUpdated, String timeUpdated, String numberOfAntiOpioidAdministered, String hospitalized, String involvedRole) {
+		String incidentRowNewVal = "/following-sibling::td[text()='InvolvedEmployee' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue']";
+		String newVal;
 		
+//		Get the new value
+		try {			
+			WebElement incidentTableRow = wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + dateUpdated + "' and @data-label='Date Modified']/following-sibling::td[contains(text(), '" + timeUpdated + "') and @data-label='Time Modified']" + incidentRowNewVal)));
+			newVal = incidentTableRow.getText();
+
+			System.out.println(newVal);
+			
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Journal row with Date: " + dateUpdated + ", Time: " + timeUpdated + " and field name of InvolvedEmployee not found.");
+		}
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("NumberOfAntiOpioidAdministered:", numberOfAntiOpioidAdministered);
+		params.put("Hospitalized:", hospitalized);
+		params.put("InvolvedRole:", involvedRole);
+		
+//		Verify all the given info (the parameters) are present in the newVal string variable
+		for  (Entry<String, String> entry : params.entrySet()) {
+		    String titleName = entry.getKey();
+		    String param = entry.getValue();
+		    
+		    if (param.length() != 0) {
+				if (!newVal.contains(titleName + param)) {
+					throw new NoSuchElementException(titleName + "\"" + param + "\" not found in Journal's InvolvedEmployee row.");
+				}
+			}
+		}
 	}
 	
-	public void verifyInvolvedInmate() {
+	/**
+	  * Verify new value in verifyInvolvedEmployee row
+	  *
+	  * @param dateUpdated (String: the date of the report change)
+	  * @param timeUpdated (String: the time of the report change)
+	  * @param name (String: some name or "" if no change)
+	  * @param title (String: some title or "" or "" if no change/not provided)
+	  * @param department (String: some department name or "" if no change/not provided)
+	  * @param location (String: some location or "" if no change/not provided)
+	  *  
+	  */
+	public void verifyInvolvedEmployee(String dateUpdated, String timeUpdated, String name, String title, String department, String location) {
+		String incidentRowNewVal = "/following-sibling::td[text()='InvolvedEmployee' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue']";
+		String newVal;
 		
+//		Get the new value
+		try {			
+			WebElement incidentTableRow = wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + dateUpdated + "' and @data-label='Date Modified']/following-sibling::td[contains(text(), '" + timeUpdated + "') and @data-label='Time Modified']" + incidentRowNewVal)));
+			newVal = incidentTableRow.getText();
+
+			System.out.println(newVal);
+			
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Journal row with Date: " + dateUpdated + ", Time: " + timeUpdated + " and field name of InvolvedEmployee not found.");
+		}
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("Name:", name);
+		params.put("Title:", title);
+		params.put("Department:", title);
+		params.put("Location:", location);
+		
+		
+//		Verify all the given info (the parameters) are present in the newVal string variable
+		for  (Entry<String, String> entry : params.entrySet()) {
+		    String titleName = entry.getKey();
+		    String param = entry.getValue();
+		    
+		    if (param.length() != 0) {
+				if (!newVal.contains(titleName + param)) {
+					throw new NoSuchElementException(titleName + "\"" + param + "\" not found in Journal's InvolvedEmployee row.");
+				}
+			}
+		}
 	}
 	
-	public void verifyInvolvedOthers() {
+	/**
+	  * Verify new total value in InvolvedInmates row
+	  *
+	  * @param dateUpdated (String: the date of the report change)
+	  * @param timeUpdated (String: the time of the report change)
+	  * @param numberOfAntiOpioidAdministered (String: "1" or any number)
+	  * @param hospitalized (String: "True"/"False or "" if no change/not provided)
+	  * @param involvedRole (String: "Witness" or "" if no change/not provided)
+	  *  
+	  */
+	public void verifyInvolvedInmateDetails(String dateUpdated, String timeUpdated, String numberOfAntiOpioidAdministered, String hospitalized, String involvedRole) {
+		String incidentRowNewVal = "/following-sibling::td[text()='InvolvedInmates' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue']";
+		String newVal;
+		
+//		Get the new value
+		try {			
+			WebElement incidentTableRow = wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + dateUpdated + "' and @data-label='Date Modified']/following-sibling::td[contains(text(), '" + timeUpdated + "') and @data-label='Time Modified']" + incidentRowNewVal)));
+			newVal = incidentTableRow.getText();
+
+			System.out.println(newVal);
+			
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Journal row with Date: " + dateUpdated + ", Time: " + timeUpdated + " and field name of InvolvedInmates not found.");
+		}
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("NumberOfAntiOpioidAdministered:", numberOfAntiOpioidAdministered);
+		params.put("Hospitalized:", hospitalized);
+		params.put("InvolvedRole:", involvedRole);
+		
+//		Verify all the given info (the parameters) are present in the newVal string variable
+		for  (Entry<String, String> entry : params.entrySet()) {
+		    String titleName = entry.getKey();
+		    String param = entry.getValue();
+		    
+		    if (param.length() != 0) {
+				if (!newVal.contains(titleName + param)) {
+					throw new NoSuchElementException(titleName + "\"" + param + "\" not found in Journal's InvolvedInmates row.");
+				}
+			}
+		}
+	}
+	
+	/**
+	  * Verify new value in InvolvedInmates row
+	  *
+	  * @param dateUpdated (String: the date of the report change)
+	  * @param timeUpdated (String: the time of the report change)
+	  * @param name (String: some name or "" if no change)
+	  * @param otisId (String: some id number ie. "12131431" or "" if no change/not provided)
+	  *  
+	  */
+	public void verifyInvolvedInmate(String dateUpdated, String timeUpdated, String name, String otisId) {
+		String incidentRowNewVal = "/following-sibling::td[text()='InvolvedInmates' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue']";
+		String newVal;
+		
+//		Get the new value
+		try {			
+			WebElement incidentTableRow = wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + dateUpdated + "' and @data-label='Date Modified']/following-sibling::td[contains(text(), '" + timeUpdated + "') and @data-label='Time Modified']" + incidentRowNewVal)));
+			newVal = incidentTableRow.getText();
+
+			System.out.println(newVal);
+			
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Journal row with Date: " + dateUpdated + ", Time: " + timeUpdated + " and field name of InvolvedInmates not found.");
+		}
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("Name:", name);
+		params.put("OTISID:", otisId);
+		
+		
+//		Verify all the given info (the parameters) are present in the newVal string variable
+		for  (Entry<String, String> entry : params.entrySet()) {
+		    String titleName = entry.getKey();
+		    String param = entry.getValue();
+		    
+		    if (param.length() != 0) {
+				if (!newVal.contains(titleName + param)) {
+					throw new NoSuchElementException(titleName + "\"" + param + "\" not found in Journal's InvolvedInmates row.");
+				}
+			}
+		}
+	}
+	
+	/**
+	  * Verify new value in InvolvedOthers row
+	  *
+	  * @param dateUpdated (String: the date of the report change)
+	  * @param timeUpdated (String: the time of the report change)
+	  * @param name (String: some name or "" if no change)
+	  * @param numberOfAntiOpioidAdministered (String: "1" or any number)
+	  * @param hospitalized (String: "True"/"False or "" if no change/not provided)
+	  * @param involvedRole (String: "Witness" or "" if no change/not provided)
+	  * @param involvedCategory (String: "Volunteer"  or "" if no change/not provided)
+	  *  
+	  */
+	public void verifyInvolvedOthers(String dateUpdated, String timeUpdated, String name,  String numberOfAntiOpioidAdministered, String hospitalized, String involvedRole, String involvedCategory) {
+		String incidentRowNewVal = "/following-sibling::td[text()='InvolvedOthers' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue']";
+		String newVal;
+		
+//		Get the new value
+		try {			
+			WebElement incidentTableRow = wait.until(ExpectedConditions.elementToBeClickable(
+					By.xpath("//td[text()='" + dateUpdated + "' and @data-label='Date Modified']/following-sibling::td[contains(text(), '" + timeUpdated + "') and @data-label='Time Modified']" + incidentRowNewVal)));
+			newVal = incidentTableRow.getText();
+
+			System.out.println(newVal);
+			
+		}catch(TimeoutException e) {
+			throw new NoSuchElementException("Journal row with Date: " + dateUpdated + ", Time: " + timeUpdated + " and field name of InvolvedOthers not found.");
+		}
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("Name:", name);
+		params.put("Number Of Anti Opioid Administered:", numberOfAntiOpioidAdministered);
+		params.put("Hospitalized:", hospitalized);
+		params.put("InvolvedRole:", involvedRole);
+		params.put("InvolvedCategory:", involvedCategory);
+		
+//		Verify all the given info (the parameters) are present in the newVal string variable
+		for  (Entry<String, String> entry : params.entrySet()) {
+		    String titleName = entry.getKey();
+		    String param = entry.getValue();
+		    
+		    if (param.length() != 0) {
+				if (!newVal.contains(titleName + param)) {
+					throw new NoSuchElementException(titleName + "\"" + param + "\" not found in Journal's InvolvedOthers row.");
+				}
+			}
+		}
+	}
+	
+	public void verifyTotalInvolved() {
 		
 	}
 }
