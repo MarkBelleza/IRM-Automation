@@ -53,7 +53,11 @@ public class DateTimeUI {
 	    
 	    if (format.equals("full")) {
 	    	formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");	    	
-	    }else {	    	
+	    }
+	    if(format.equals("calendar")) {
+	    	formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");	  
+	    }
+	    else {	    	
 	    	formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	    }
 	    return today.format(formatter);
