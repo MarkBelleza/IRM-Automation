@@ -168,7 +168,7 @@ public class Journal {
 //		Get the new value
 		try {			
 			WebElement incidentTableRow = wait.until(ExpectedConditions.elementToBeClickable(
-					By.xpath("//td[text()='" + dateUpdated + "' and @data-label='Date Modified']/following-sibling::td[text()='" + timeUpdated + "' and @data-label='Time Modified']" + incidentRowNewVal)));
+					By.xpath("//td[text()='" + dateUpdated + "' and @data-label='Date Modified']/following-sibling::td[contains(text(), '" + timeUpdated + "') and @data-label='Time Modified']" + incidentRowNewVal)));
 			newVal = incidentTableRow.getText();
 			System.out.println(newVal);
 			
