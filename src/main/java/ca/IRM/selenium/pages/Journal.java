@@ -300,7 +300,8 @@ public class Journal {
 
 		// Get the new value
 		try {            
-			wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathExpression)));
+			String check = wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathExpression))).getText();
+			System.out.println(check);
 		}catch(TimeoutException e) {
 			throw new NoSuchElementException("Journal row with Date: " + dateUpdated + ", Time: " + timeUpdated + " and field name of InvolvedIncidentTypes with the newVal:'" + newVal + "' not found.");
 		}
@@ -357,10 +358,10 @@ public class Journal {
 	  *
 	  * @param dateUpdated (String: the date of the report change)
 	  * @param timeUpdated (String: the time of the report change)
-	  * @param isPoliceContacted (String: "Yes"/"No" or "" if no change)
+	  * @param isPoliceContacted (String: "True"/"False" or "" if no change)
 	  * @param reasonPoliceNotContactedId (String: "Not a Police matter"/"Decision not to lay charges" or "" if no change) TODO: currently a bug, does not show the actual text only "0" or "1"
-	  * @param willPoliceBeAttenting (String: "Yes"/"No" or "" if no change)
-	  * @param criminalCharges (String: "Yes"/"No"/"Unknown" or "" if no change
+	  * @param willPoliceBeAttenting (String: "True"/"False" or "" if no change)
+	  * @param criminalCharges (String: "True"/"False" or "" if no change or Unknown) TODO: may need to double check if "" is expected when "Unknown" is selected 
 	  * @param policeContactedDate (String: ie. "19/02/2025" or "" if PoliceContactedDate was not updated)
 	  * @param policeContactedTime (String: ie. "12:00:00" or "" if IncidentTime was not updated. Note: policeContactedDatepoliceContactedDate must also be provided along policeContactedTime)
 	  *  
@@ -474,8 +475,23 @@ public class Journal {
 		}
 		
 		if (policeTelephone.length() != 0) {
-			if (!newVal.contains("PoliceTelephone:" + policeTelephone)) {
-				throw new NoSuchElementException("PoliceTelephone:\"" + policeTelephone + "\" not found in Journal's PoliceContacted row.");
+			String teleFormat = "";
+			for (int i = 0; i < policeTelephone.length(); i++) {
+			    char c = policeTelephone.charAt(i);
+			    if (i == 0) {
+			    	teleFormat = teleFormat + '(';
+			    }
+			    else if (i == 3) {
+			    	teleFormat = teleFormat + ") ";
+			    }
+			    else if (i == 6) {
+			    	teleFormat = teleFormat + ' ';
+			    }
+			    teleFormat = teleFormat + c;
+			}
+			System.out.println(teleFormat);
+			if (!newVal.contains("PoliceTelephone:" + teleFormat)) {
+				throw new NoSuchElementException("PoliceTelephone:\"" + teleFormat + "\" not found in Journal's PoliceContacted row.");
 			}
 		}
 		

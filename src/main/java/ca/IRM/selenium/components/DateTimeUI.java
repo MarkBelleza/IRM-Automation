@@ -40,7 +40,7 @@ public class DateTimeUI {
 	    if (format.equals("full")) {
 	    	formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	    } else {
-	    	formatter = DateTimeFormatter.ofPattern("HH:mm");
+	    	formatter = DateTimeFormatter.ofPattern("hh:mm");
 	    }
 	    return now.format(formatter);
 	}
