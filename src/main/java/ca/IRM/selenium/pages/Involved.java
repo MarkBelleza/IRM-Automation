@@ -142,7 +142,7 @@ public class Involved {
 		
 		wait.until(ExpectedConditions.elementToBeClickable(inmateSearchButton)).click();
 		
-//		Select the employee from the table
+//		Select the Inmate from the table
 		SearchTables table = new SearchTables(driver);
 		table.selectUserFromTable(firstName, lastName);
 		
@@ -150,7 +150,7 @@ public class Involved {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']")))).click().perform();
 		
-//		Fill in the employee information:
+//		Fill in the Inmate information:
 //		Role
 		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(employeeRoleDropdown))).click().perform();
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
@@ -182,7 +182,7 @@ public class Involved {
 	  * @param lastName
 	  * @param role (Witness, Participant, Other)
 	  * @param dosesNum
-	  * @param hospitalized
+	  * @param hospitalized (Yes, No)
 	  */
 	public void editInmateByName(String firstName, String lastName, String role, String dosesNum, Boolean hospitalized) {
 		verifyPage();
@@ -190,7 +190,7 @@ public class Involved {
 		String checkbox = wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']/ancestor::tr//td[5]"))).getText();
 		
-//		Select the Inmate in the 
+//		Select the Inmate in the table below
 		try{
 			actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
 					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Name']")))).perform();
@@ -412,7 +412,7 @@ public class Involved {
 		try {			
 			WebElement userTableRow = wait.until(ExpectedConditions.elementToBeClickable(
 					By.xpath("//td[text()='" + lastName + "' and text()='" + firstName + "' and @data-label='Employee']/following-sibling::td[@data-label='Title']/ancestor::tr//td[last()-1]/button[@class='" + buttonClass + "']")));
-//			actions.moveToElement(userTableRow).perform();
+			actions.moveToElement(userTableRow).perform();
 			actions.moveToElement(userTableRow).click().perform(); 
 			//Work around. When entering Involved section in Update mode, there is a scrolling animation which messes with the script.
 		}catch(TimeoutException e) {
