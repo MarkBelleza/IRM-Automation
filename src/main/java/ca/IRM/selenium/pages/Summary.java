@@ -249,6 +249,43 @@ public class Summary {
 		}
 	}
 	
+	public void verifyChecklistItem(String incident, String question) {
+		String section = "//h6[@class='" + header + "' and contains(text(), 'Standard Item Checklist')]/../../..";
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(section)));
+		
+//		Verify Incident
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(section + "//th[text()='" + incident + "']")));
+
+//		Verify its corresponding question
+		String questionLoc = "/../..//following-sibling::tr[@class='mud-table-row']//td[@data-label='Question' and text()='" + question + "']";
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(section + "//th[text()='" + incident + "']" + questionLoc)));
+	}
+	
+	public void verifySupportingDocument(String incident, String description) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Supporting Documents')]/../../..")));
+		
+		try {		
+			wait.until(ExpectedConditions.visibilityOfElementLocated(
+					By.xpath("//td[text()='" + incident + "'  and @data-label='Incident Type Name']/following-sibling::td[@data-label='Description' and text()='" + description + "']/ancestor::tr")));
+			}catch(TimeoutException e) {
+				throw new NoSuchElementException("Incident type " + incident + " with document " + description + " not found in Summary View.");
+			}
+	}
+	
+	public void verifyDetailsCircumstances(String incident, String details) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Details and Circumstances of Incident')]/../../..")));
+		
+		String incidentType = "//p[@class='mud-typography mud-typography-body1 pt-5' and text()='" + incident + "']/../following-sibling::div[@class='mud-grid-item mud-grid-item-md-12']";
+		try {		
+			wait.until(ExpectedConditions.visibilityOfElementLocated(
+					By.xpath(incidentType + "//td[text()='" + details + "' and @data-label='Details']/ancestor::tr")));
+			}catch(TimeoutException e) {
+				throw new NoSuchElementException("Incident " + incident + " with details " + details + " not found in Summary View.");
+			}
+	}
+
 	/**
 	  * Verify Inmate is visible in summary view (NOTE: Assuming each person's name in "Inmate" are unique)
 	  *
