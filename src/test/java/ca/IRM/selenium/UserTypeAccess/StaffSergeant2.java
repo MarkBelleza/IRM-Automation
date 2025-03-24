@@ -74,7 +74,7 @@ public class StaffSergeant2 {
 	
 	@AfterTest(groups="testing")
 	public void close() {
-//		driver.quit();
+		driver.quit();
 		System.out.println("After Test");
 	}
 	
