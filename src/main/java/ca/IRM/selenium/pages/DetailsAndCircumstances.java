@@ -23,6 +23,8 @@ public class DetailsAndCircumstances {
 	
 	By previousButton = By.xpath("//span[@class='mud-button-label' and text()='Previous']");
 	By nextButton = By.xpath("//span[@class='mud-button-label' and text()='Next']");
+	By updateButton = By.xpath("//span[@class='mud-button-label' and text()='Update']");
+	By cancelButton = By.xpath("//span[@class='mud-button-label' and text()='Cancel']");;
 	
 	String textArea= "mud-input-slot mud-input-root mud-input-root-outlined";
 	String header = "mud-typography mud-typography-h6";
@@ -68,6 +70,18 @@ public class DetailsAndCircumstances {
 		verifyPage();
 		Actions actions = new Actions(driver);
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(nextButton))).click().perform();
+	}
+	
+	public void clickUpdate() {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(updateButton))).click().perform();
+	}
+	
+	public void clickCancel() {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(cancelButton))).click().perform();
 	}
 	
 	public void clickPrevious() {

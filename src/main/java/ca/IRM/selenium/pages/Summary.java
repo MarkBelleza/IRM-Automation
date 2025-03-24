@@ -261,6 +261,19 @@ public class Summary {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(section + "//th[text()='" + incident + "']" + questionLoc)));
 	}
 	
+	public void verifyChecklistItemNotVisible(String question) {
+		String section = "//h6[@class='" + header + "' and contains(text(), 'Standard Item Checklist')]/../../..";
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(section)));
+
+//		Verify question not visible
+		try {
+			String questionLoc = "/../..//following-sibling::tr[@class='mud-table-row']//td[@data-label='Question' and text()='" + question + "']";
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(section + questionLoc)));
+			}catch(TimeoutException e) {
+				throw new NoSuchElementException("Question " + question + " found in Summary view, but expected to not be visible.");
+		}
+	}
+	
 	public void verifySupportingDocument(String incident, String description) {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Supporting Documents')]/../../..")));
@@ -270,6 +283,18 @@ public class Summary {
 					By.xpath("//td[text()='" + incident + "'  and @data-label='Incident Type Name']/following-sibling::td[@data-label='Description' and text()='" + description + "']/ancestor::tr")));
 			}catch(TimeoutException e) {
 				throw new NoSuchElementException("Incident type " + incident + " with document " + description + " not found in Summary View.");
+			}
+	}
+	
+	public void verifySupportingDocumentNotVisible(String incident, String description) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Supporting Documents')]/../../..")));
+		
+		try {		
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(
+					By.xpath("//td[text()='" + incident + "'  and @data-label='Incident Type Name']/following-sibling::td[@data-label='Description' and text()='" + description + "']/ancestor::tr")));
+			}catch(TimeoutException e) {
+				throw new NoSuchElementException("Incident type " + incident + " with document " + description + " found in Summary View, but expected to be invisible.");
 			}
 	}
 	
@@ -330,6 +355,8 @@ public class Summary {
 	  * @param firstName
 	  * @param lastName
 	  * @param role
+	  * 
+	  * TODO: Apparently a bug, must also display number of  doses and if hospitalized
 	  */
 	public void verifyEmployeeInInvolved(String firstName, String lastName, String role) {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(

@@ -17,6 +17,8 @@ public class StandardItemChecklist {
 	
 	By previousButton = By.xpath("//span[@class='mud-button-label' and text()='Previous']");
 	By nextButton = By.xpath("//span[@class='mud-button-label' and text()='Next']");
+	By updateButton = By.xpath("//span[@class='mud-button-label' and text()='Update']");
+	By cancelButton = By.xpath("//span[@class='mud-button-label' and text()='Cancel']");;
 	
 	String incidentNames = "mud-typography mud-typography-body1";
 	String buttonClass = "mud-button-root mud-icon-button mud-ripple mud-ripple-icon mud-treeview-item-arrow-expand";
@@ -46,6 +48,19 @@ public class StandardItemChecklist {
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(By.xpath(getItemSelector(incident) + arrowButton)))).click().perform();
 	}
 	
+	public boolean verifyItem(String incident) {
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(3));
+		String arrowButton = "/../preceding-sibling::div[@class='mud-treeview-item-arrow']/button[@class='" + buttonClass + "']";
+		
+		// NOTE: Using this way to make sure page has fully loaded
+		try {
+			wait2.until(ExpectedConditions.elementToBeClickable(By.xpath(getItemSelector(incident) + arrowButton)));
+			return true;
+		}catch(Exception e){
+			return false;
+		}
+	}
 	/**
 	  * Select Standard Checklist Item 
 	  *
@@ -75,6 +90,18 @@ public class StandardItemChecklist {
 		verifyPage();
 		Actions actions = new Actions(driver);
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(nextButton))).click().perform();
+	}
+	
+	public void clickUpdate() {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(updateButton))).click().perform();
+	}
+	
+	public void clickCancel() {
+		verifyPage();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(cancelButton))).click().perform();
 	}
 	
 	public void clickPrevious() {
