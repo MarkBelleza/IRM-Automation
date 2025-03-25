@@ -13,6 +13,8 @@ public class SupportingDocuments {
 	WebDriver driver;
 	WebDriverWait wait;
 	
+	By alertMessage = By.xpath("//div[@role='alert']//p[text()='Incident Types applicable for uploading supporting documents not selected. ']");
+	
 	By previousButton = By.xpath("//span[@class='mud-button-label' and text()='Previous']");
 	By nextButton = By.xpath("//span[@class='mud-button-label' and text()='Next']");
 	By updateButton = By.xpath("//span[@class='mud-button-label' and text()='Update']");
@@ -30,6 +32,16 @@ public class SupportingDocuments {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Supporting Documents')]")));
 //		System.out.println("In Supporting Documents page");
+	}
+	
+	public boolean verifySupportDocumentUnavalilable() {
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(3));
+		try {
+			wait2.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
 	}
 	
 	/**

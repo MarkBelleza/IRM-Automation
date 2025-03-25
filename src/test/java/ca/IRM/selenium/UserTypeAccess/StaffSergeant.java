@@ -128,20 +128,25 @@ public class StaffSergeant {
 		incidentFields.clickNext();
 		
 		checklist.verifyPage();
+		Assert.assertEquals(true, checklist.verifyItem("IIR"));
 		checklist.expandItem("IIR");
 		checklist.expandItem("Assault");
 		checklist.selectChecklistItem("CCRL notified if racially motivated", "Yes");
 		
+		Assert.assertEquals(true, checklist.verifyItem("EOIR"));
 		checklist.expandItem("EOIR");
 		checklist.expandItem("Death of Staff");
 		checklist.selectChecklistItem("Details and circumstances of incident", "Yes");
 		checklist.clickNext();
 		
 		support.verifyPage();
+		Assert.assertEquals(false, support.verifySupportDocumentUnavalilable());
 		support.uploadFile("Death of Staff", "MOL Order", "UploadFileTest.docx");
 		support.clickNext();
 		
 		details.verifyPage();
+		Assert.assertEquals(true, details.verifyIIRDetails());
+		Assert.assertEquals(true, details.verifyEOIRDetails());
 		details.addIIRDetails("IIR details 1");
 		details.addEOIRDetails("EOIR details 1");
 		details.clickNext();

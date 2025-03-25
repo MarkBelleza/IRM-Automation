@@ -16,6 +16,8 @@ public class DetailsAndCircumstances {
 	By iirDetailsTextField = By.xpath("//p[@class='mud-typography mud-typography-body1 pt-5' and text()='IIR']/../following-sibling::div[@class='mud-grid-item mud-grid-item-md-6']//div[@class='mud-input-control mud-input-input-control mt-2 mb-2']");
 	By iirAddButton = By.xpath("//p[@class='mud-typography mud-typography-body1 pt-5' and text()='IIR']/../following-sibling::div[@class='mud-grid-item mud-grid-item-md-6']//span[text()='Add']/..");
 	By iirClearButton = By.xpath("//p[@class='mud-typography mud-typography-body1 pt-5' and text()='IIR']/../following-sibling::div[@class='mud-grid-item mud-grid-item-md-6']//span[text()='Clear']/..");
+	By iirTitle = By.xpath("//p[@class='mud-typography mud-typography-body1 pt-5' and text()='IIR']");
+	By eoirTitle = By.xpath("//p[@class='mud-typography mud-typography-body1 pt-5' and text()='EOIR']");
 	
 	By eoirDetailsTextField = By.xpath("//p[@class='mud-typography mud-typography-body1 pt-5' and text()='EOIR']/../following-sibling::div[@class='mud-grid-item mud-grid-item-md-6']//div[@class='mud-input-control mud-input-input-control mt-2 mb-2']");
 	By eoirAddButton = By.xpath("//p[@class='mud-typography mud-typography-body1 pt-5' and text()='EOIR']/../following-sibling::div[@class='mud-grid-item mud-grid-item-md-6']//span[text()='Add']/..");
@@ -64,6 +66,28 @@ public class DetailsAndCircumstances {
 		
 //		Verify text is visible
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(textView)));
+	}
+	
+	public boolean verifyIIRDetails() {
+		
+		WebDriverWait wait2 =  new WebDriverWait(driver, Duration.ofSeconds(3));
+		try {			
+			wait2.until(ExpectedConditions.visibilityOfElementLocated(iirTitle));
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
+	}
+	
+	public boolean verifyEOIRDetails() {
+		
+		WebDriverWait wait2 =  new WebDriverWait(driver, Duration.ofSeconds(3));
+		try {			
+			wait2.until(ExpectedConditions.visibilityOfElementLocated(eoirTitle));
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
 	}
 	
 	public void clickNext() {
