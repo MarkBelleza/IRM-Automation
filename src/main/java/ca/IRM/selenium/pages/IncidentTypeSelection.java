@@ -47,8 +47,9 @@ public class IncidentTypeSelection {
 	}
 	
 	public boolean verifyIIR() {
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(3));
 		try {			
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getItemSelector("IIR"))));
+			wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getItemSelector("IIR"))));
 		}catch(TimeoutException e) {
 			return false;
 		}
@@ -56,8 +57,9 @@ public class IncidentTypeSelection {
 	}
 	
 	public boolean verifyEOIR() {
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(3));
 		try {			
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getItemSelector("EOIR"))));
+			wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getItemSelector("EOIR"))));
 		}catch(TimeoutException e) {
 			return false;
 		}
