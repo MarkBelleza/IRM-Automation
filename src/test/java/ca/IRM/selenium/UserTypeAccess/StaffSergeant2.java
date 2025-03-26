@@ -239,6 +239,7 @@ public class StaffSergeant2 {
 		
 //		Verify Supporting documents is editable
 		sum.editSupportingDocuments();
+		Assert.assertEquals(false, support.verifySupportDocumentUnavalilable());
 		support.uploadFile("Death of Staff", "MOL Order", "UploadFileTest2.docx");
 		support.clickUpdate();
 		
@@ -247,6 +248,8 @@ public class StaffSergeant2 {
 		
 //		Verify can add details for both IIR and EOIR
 		sum.editDetailsAndCircumstances();
+		Assert.assertEquals(true, details.verifyIIRDetails());
+		Assert.assertEquals(true, details.verifyEOIRDetails());
 		details.addIIRDetails("Details for IIR 2");
 		details.addEOIRDetails("Details for EOIR 2");
 		details.clickUpdate();

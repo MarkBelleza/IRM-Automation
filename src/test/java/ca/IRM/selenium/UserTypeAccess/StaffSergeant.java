@@ -127,6 +127,7 @@ public class StaffSergeant {
 		
 		incidentFields.clickNext();
 		
+//		Both IIR and EOIR should be visible in all related sections
 		checklist.verifyPage();
 		Assert.assertEquals(true, checklist.verifyItem("IIR"));
 		checklist.expandItem("IIR");
