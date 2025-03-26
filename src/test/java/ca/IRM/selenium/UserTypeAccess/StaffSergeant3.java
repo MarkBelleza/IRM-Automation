@@ -109,13 +109,25 @@ public class StaffSergeant3 {
 		
 		incidentFields.expandItem("Emergency Situation");
 		incidentFields.selectItem("(P2) Disturbance");
-		
 		incidentFields.clickNext();
 		
+//		Only IIR is visible for all related sections
+		checklist.verifyPage();
+		Assert.assertEquals(true, checklist.verifyItem("IIR"));
+		Assert.assertEquals(false, checklist.verifyItem("EOIR"));
+		checklist.expandItem("IIR");
+		checklist.expandItem("Assault");
+		checklist.selectChecklistItem("CCRL notified if racially motivated", "Yes");
 		checklist.clickNext();
 		
+		support.verifyPage();
+		Assert.assertEquals(true, support.verifySupportDocumentUnavalilable());
 		support.clickNext();
 		
+		details.verifyPage();
+		Assert.assertEquals(true, details.verifyIIRDetails());
+		Assert.assertEquals(false, details.verifyEOIRDetails());
+		details.addIIRDetails("IIR details 1");
 		details.clickNext();
 		
 		contacted.selectReason(contacted.notPoliceMatter);
