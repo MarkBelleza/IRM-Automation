@@ -74,8 +74,8 @@ public class AdminToTheSuperintendent2 {
 	
 	@AfterTest(groups="testing")
 	public void close() {
-//		user.changeUserType(user.staff, user.algo);
-//		driver.quit();
+		user.changeUserType(user.staff, user.algo);
+		driver.quit();
 		System.out.println("After Test");
 	}
 	

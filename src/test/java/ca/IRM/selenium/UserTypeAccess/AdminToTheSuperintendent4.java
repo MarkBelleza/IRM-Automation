@@ -66,6 +66,132 @@ public class AdminToTheSuperintendent4 {
 		
 		WebUtils.setUpIrmPage(driver);
 		
+		System.out.println("Before Test");		
+	}
+	
+	
+	@AfterTest(groups="testing")
+	public void close() {
+		user.changeUserType(user.staff, user.algo);
+		driver.quit();
+		System.out.println("After Test");
+	}
+	
+//	TestCase ID: TC0011
+	@Test(groups="testing")
+	public void viewIIROnly() {
+//		Set user to Staff Sergeant and ALGOMA
+		user.changeUserType(user.staff, user.brock);
+		
+		nav.createNewReport();
+		
+//		Fill in the appropriate fields in Notification (set location to within the user location, ALGOMA)
+		notificationFields.selectPriority("One");
+		notificationFields.selectLocation("BROCKVILLE JAIL - ADULT (Institution)");
+		notificationFields.selectArea("Washroom");
+		notificationFields.clickNext();
+		
+		
+//		** Store the Incident Report ID
+		regionalFields.verifyPage();
+		IncidentID = regionalFields.getIncidentID();
+		System.out.println("Created Incident ID: " + IncidentID);
+		
+		regionalFields.clickNext();
+		
+		mediaFields.clickNext();
+		
+//		Both IIR and EOIR incident type should be visible
+		incidentFields.verifyPage();
+		Assert.assertEquals(incidentFields.verifyIIR(), true);
+		Assert.assertEquals(incidentFields.verifyEOIR(), true);
+		
+		incidentFields.expandItem("IIR");
+		incidentFields.expandItem("Assault");
+		incidentFields.expandItem("(P1) Serious Inmate on Inmate");
+		incidentFields.expandItem("Item thrown/contact");
+		incidentFields.selectItem("Bodily substance");
+		
+		incidentFields.expandItem("EOIR");
+		incidentFields.expandItem("Administrative");
+		incidentFields.selectItem("Good News Story");
+		
+		incidentFields.expandItem("Death of Staff");
+		incidentFields.selectItem("Off Duty");
+		
+		
+		incidentFields.clickNext();
+		
+		checklist.verifyPage();
+		checklist.expandItem("IIR");
+		checklist.expandItem("Assault");
+		checklist.selectChecklistItem("CCRL notified if racially motivated", "Yes");
+		
+		checklist.expandItem("EOIR");
+		checklist.expandItem("Death of Staff");
+		checklist.selectChecklistItem("Details and circumstances of incident", "Yes");
+		checklist.clickNext();
+		
+		support.verifyPage();
+		support.uploadFile("Death of Staff", "MOL Order", "UploadFileTest.docx");
+		support.clickNext();
+		
+		details.verifyPage();
+		details.addIIRDetails("IIR details 1");
+		details.addEOIRDetails("EOIR details 1");
+		details.clickNext();
+		
+		contacted.selectReason(contacted.notPoliceMatter);
+		contacted.clickNext();
+		
+		involve.addEmployee("Mark", "Belleza", "Other", "1", true);
+		involve.clickNext();
+		
+		report.selectContactPerson("Mark", "Belleza");
+		report.finalize(); 
+		report.clickSubmit();
+		
+//		Change user type to Admin to the Superintendent
+		user.changeUserType(user.admin, user.algo);
+		
+//		Verify Incident Report is saved
+		search.searchIncidentReport(IncidentID);
+		search.openIncidentReport(IncidentID);
+		
+//		In summary view, only IIR should be visible
+		Summary sum = new Summary(driver);
+		sum.verifyPage();
+		sum.verifyIncidentTypes("IIR");
+		sum.verifyIncidentTypes("Assault");
+		sum.verifyIncidentTypes("(P1) Serious Inmate on Inmate");
+		sum.verifyIncidentTypes("Item thrown/contact");
+		sum.verifyIncidentTypes("Bodily substance");
+		
+		sum.verifyIncidentTypesNotVisible("EOIR");
+		sum.verifyIncidentTypesNotVisible("Death of Staff");
+		sum.verifyIncidentTypesNotVisible("Off Duty");
+		
+		sum.verifyChecklistItem("Assault", "CCRL notified if racially motivated");
+		sum.verifyChecklistItemNotVisible("Details and circumstances of incident");
+		
+//		Verify Supporting Documents Section is not visible as EOIR is not visible
+		Assert.assertEquals(false, sum.editSupportingDocuments());
+		
+//		Verify Details and Circumstances is not visible for EOIR and is not editable
+		sum.verifyDetailsCircumstances("IIR", "IIR details 1");
+		sum.verifyDetailsCircumstancesNotVisible("EOIR", "EOIR details 1");
+		Assert.assertEquals(false, sum.editDetailsAndCircumstances());
+		
+//		Verify Involved Section is not visible as EOIR is not visible
+		Assert.assertEquals(false, sum.editInvolved());
+		
+//		Should not be able to edit Incident Type
+		Assert.assertEquals(sum.editIncidentType(), false);
+	}
+	
+//	TestCase ID: TC0012
+	@Test(groups="testing")
+	public void markIncidentReportConfidentialNot() {
 //		Set user to Staff Sergeant and ALGOMA
 		user.changeUserType(user.staff, user.brock);
 		
@@ -121,44 +247,6 @@ public class AdminToTheSuperintendent4 {
 //		Change user type to Admin to the Superintendent
 		user.changeUserType(user.admin, user.algo);
 		
-		System.out.println("Before Test");		
-	}
-	
-	
-	@AfterTest(groups="testing")
-	public void close() {
-		user.changeUserType(user.staff, user.algo);
-		driver.quit();
-		System.out.println("After Test");
-	}
-	
-//	TestCase ID: TC0011
-	@Test(groups="testing")
-	public void viewIIROnly() {
-//		Verify Incident Report is saved
-		search.searchIncidentReport(IncidentID);
-		search.openIncidentReport(IncidentID);
-		
-//		In summary view, only IIR should be visible
-		Summary sum = new Summary(driver);
-		sum.verifyPage();
-		sum.verifyIncidentTypes("IIR");
-		sum.verifyIncidentTypes("Assault");
-		sum.verifyIncidentTypes("(P1) Serious Inmate on Inmate");
-		sum.verifyIncidentTypes("Item thrown/contact");
-		sum.verifyIncidentTypes("Bodily substance");
-		
-		sum.verifyIncidentTypesNotVisible("EOIR");
-		sum.verifyIncidentTypesNotVisible("Death of Staff");
-		sum.verifyIncidentTypesNotVisible("Off Duty");
-		
-//		Should not be able to edit Incident Type
-		Assert.assertEquals(sum.editIncidentType(), false);
-	}
-	
-//	TestCase ID: TC0012
-	@Test(groups="testing")
-	public void markIncidentReportConfidentialNot() {
 //		Verify Incident Report is saved
 		search.searchIncidentReport(IncidentID);
 		search.openIncidentReport(IncidentID);
