@@ -38,7 +38,7 @@ public class DetailsAndCircumstances {
 	
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Details and Circumstances')]")));
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Details and Circumstances of Incident ID')]")));
 //		System.out.println("In Details and Circumstances page");
 	}
 	

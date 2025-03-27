@@ -113,10 +113,26 @@ public class AdminToTheSuperintendent {
 		
 		incidentFields.clickNext();
 		
+//		Only EOIR checklist items should be visible
+		checklist.verifyPage();
+		Assert.assertEquals(checklist.verifyItem("IIR"), false);
+		Assert.assertEquals(checklist.verifyItem("EOIR"), true);
+		checklist.expandItem("EOIR");
+		checklist.expandItem("Death of Staff");
+		checklist.selectChecklistItem("Details and circumstances of incident", "Yes");
 		checklist.clickNext();
 		
+//		Add supporting document
+		support.verifyPage();
+		Assert.assertEquals(false, support.verifySupportDocumentUnavalilable());
+		support.uploadFile("Death of Staff", "MOL Order", "UploadFileTest.docx");
 		support.clickNext();
 		
+//		Only EOIR details should be visible
+		details.verifyPage();
+		Assert.assertEquals(false, details.verifyIIRDetails());
+		Assert.assertEquals(true, details.verifyEOIRDetails());
+		details.addEOIRDetails("EOIR details 1");
 		details.clickNext();
 		
 		contacted.selectReason(contacted.notPoliceMatter);
