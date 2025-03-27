@@ -101,7 +101,8 @@ public class StaffSergeant2 {
 		
 //		Both IIR and EOIR incident type should be visible
 		incidentFields.verifyPage();
-		Assert.assertEquals(incidentFields.verifyIIR(), incidentFields.verifyEOIR());
+		Assert.assertEquals(incidentFields.verifyIIR(), true);
+		Assert.assertEquals(incidentFields.verifyEOIR(), true);
 		
 		incidentFields.expandItem("IIR");
 		incidentFields.expandItem("Assault");
@@ -179,8 +180,8 @@ public class StaffSergeant2 {
 		
 //		Both IIR and EOIR incident type should be visible
 		incidentFields.verifyPage();
-		Assert.assertEquals(true, incidentFields.verifyIIR());
-		Assert.assertEquals(true, incidentFields.verifyEOIR());
+		Assert.assertEquals(incidentFields.verifyIIR(), true);
+		Assert.assertEquals(incidentFields.verifyEOIR(), true);
 		
 		incidentFields.expandItem("IIR");
 		incidentFields.selectItem("Assault");  //Remove Assault

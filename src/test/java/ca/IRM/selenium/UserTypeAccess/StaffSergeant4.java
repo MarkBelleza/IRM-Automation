@@ -67,7 +67,19 @@ public class StaffSergeant4 {
 		
 //		Set user to Staff Sergeant and ALGOMA
 		user.changeUserType(user.staff, user.brock);
-		
+		System.out.println("Before Test");		
+	}
+	
+	
+	@AfterTest(groups="testing")
+	public void close() {
+//		driver.quit();
+		System.out.println("After Test");
+	}
+	
+//	TestCase ID: TC0005
+	@Test(groups="testing")
+	public void viewAndUpdateOnlyIIR() {		
 		nav.createNewReport();
 		
 //		Fill in the appropriate fields in Notification (set location to within the user location, ALGOMA)
@@ -88,7 +100,8 @@ public class StaffSergeant4 {
 		
 //		Both IIR and EOIR incident type should be visible
 		incidentFields.verifyPage();
-		Assert.assertEquals(incidentFields.verifyIIR(), incidentFields.verifyEOIR());
+		Assert.assertEquals(incidentFields.verifyIIR(), true);
+		Assert.assertEquals(incidentFields.verifyEOIR(), true);
 		
 		incidentFields.expandItem("IIR");
 		incidentFields.expandItem("Assault");
@@ -97,20 +110,38 @@ public class StaffSergeant4 {
 		incidentFields.selectItem("Bodily substance");
 		
 		incidentFields.expandItem("EOIR");
+		incidentFields.expandItem("Administrative");
+		incidentFields.selectItem("Good News Story");
+		
 		incidentFields.expandItem("Death of Staff");
 		incidentFields.selectItem("Off Duty");
 		
+		
 		incidentFields.clickNext();
 		
+		checklist.verifyPage();
+		checklist.expandItem("IIR");
+		checklist.expandItem("Assault");
+		checklist.selectChecklistItem("CCRL notified if racially motivated", "Yes");
+		
+		checklist.expandItem("EOIR");
+		checklist.expandItem("Death of Staff");
+		checklist.selectChecklistItem("Details and circumstances of incident", "Yes");
 		checklist.clickNext();
 		
+		support.verifyPage();
+		support.uploadFile("Death of Staff", "MOL Order", "UploadFileTest.docx");
 		support.clickNext();
 		
+		details.verifyPage();
+		details.addIIRDetails("IIR details 1");
+		details.addEOIRDetails("EOIR details 1");
 		details.clickNext();
 		
 		contacted.selectReason(contacted.notPoliceMatter);
 		contacted.clickNext();
 		
+		involve.addEmployee("Mark", "Belleza", "Other", "1", true);
 		involve.clickNext();
 		
 		report.selectContactPerson("Mark", "Belleza");
@@ -120,25 +151,11 @@ public class StaffSergeant4 {
 //		Change user location to Algoma
 		user.changeUserType(user.staff, user.algo);
 		
-		System.out.println("Before Test");		
-	}
-	
-	
-	@AfterTest(groups="testing")
-	public void close() {
-		driver.quit();
-		System.out.println("After Test");
-	}
-	
-//	TestCase ID: TC0005
-	@Test(groups="testing")
-	public void viewAndUpdateOnlyIIR() {
-		
 //		Verify Incident Report is saved
 		search.searchIncidentReport(IncidentID);
 		search.openIncidentReport(IncidentID);
 		
-//		In summary view, the IIR and EOIR should be visible
+//		In summary view, only IIR and all other sections related to IIR should be visible
 		Summary sum = new Summary(driver);
 		sum.verifyPage();
 		sum.verifyIncidentTypes("IIR");
@@ -150,6 +167,18 @@ public class StaffSergeant4 {
 		sum.verifyIncidentTypesNotVisible("EOIR");
 		sum.verifyIncidentTypesNotVisible("Death of Staff");
 		sum.verifyIncidentTypesNotVisible("Off Duty");
+		
+		sum.verifyChecklistItem("Assault", "CCRL notified if racially motivated");
+		sum.verifyChecklistItemNotVisible("Details and circumstances of incident");
+		
+//		Verify Supporting Documents Section is not visible as EOIR is not visible
+		Assert.assertEquals(false, sum.editSupportingDocuments());
+		
+		sum.verifyDetailsCircumstances("IIR", "IIR details 1");
+		sum.verifyDetailsCircumstancesNotVisible("EOIR", "EOIR details 1");
+		
+//		Verify Involved Section is not visible as EOIR is not visible
+		Assert.assertEquals(false, sum.editInvolved());
 		
 //		Edit Incident Report IIR
 		sum.editIncidentType();
@@ -181,6 +210,35 @@ public class StaffSergeant4 {
 		sum.verifyIncidentTypesNotVisible("EOIR");
 		sum.verifyIncidentTypesNotVisible("Death of Staff");
 		sum.verifyIncidentTypesNotVisible("Off Duty");
+		
+//		Verify only IIR in checklist is editable
+		sum.editStandardItemChecklist();
+		Assert.assertEquals(true, checklist.verifyItem("IIR"));
+		Assert.assertEquals(false, checklist.verifyItem("EOIR"));
+		
+		checklist.expandItem("IIR");
+		checklist.expandItem("Threat");
+		checklist.selectChecklistItem("Indicate if individuals are high profile", "Yes");
+		checklist.clickUpdate();
+		
+// 		Note: This "Assault" question was automatically removed when "Assault" was removed in the Incident Type page
+		sum.verifyChecklistItemNotVisible("CCRL notified if racially motivated"); 
+		sum.verifyChecklistItem("Threat", "Indicate if individuals are high profile");
+		
+		sum.verifyChecklistItemNotVisible("Link to the obituary notice");
+		sum.verifyChecklistItemNotVisible("Details and circumstances of incident");
+		
+//		Verify can add details for Only IIR
+		sum.editDetailsAndCircumstances();
+		Assert.assertEquals(true, details.verifyIIRDetails());
+		Assert.assertEquals(false, details.verifyEOIRDetails());
+		details.addIIRDetails("Details for IIR 2");
+		details.clickUpdate();
+		
+		sum.verifyDetailsCircumstances("IIR", "IIR details 1");
+		sum.verifyDetailsCircumstances("IIR", "Details for IIR 2");
+		sum.verifyDetailsCircumstancesNotVisible("EOIR", "EOIR details 1");
+		
 	}
 
 }

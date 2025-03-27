@@ -112,7 +112,8 @@ public class StaffSergeant {
 		
 //		Both IIR and EOIR incident type should be visible
 		incidentFields.verifyPage();
-		Assert.assertEquals(incidentFields.verifyIIR(), incidentFields.verifyEOIR());
+		Assert.assertEquals(incidentFields.verifyIIR(), true);
+		Assert.assertEquals(incidentFields.verifyEOIR(), true);
 		
 //		Select IIR and EOIR incident types
 		incidentFields.expandItem("IIR");
