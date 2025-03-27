@@ -108,12 +108,12 @@ public class Summary {
 	}
 	
 	public boolean editInvolved() {
-		wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]/../../..")));
-		
 		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(2));
 		Actions actions = new Actions(driver);
+		
 		try {
+			wait2.until(ExpectedConditions.visibilityOfElementLocated(
+					By.xpath("//h6[@class='" + header + "' and contains(text(), 'Involved')]/../../..")));
 			actions.moveToElement(wait2.until(ExpectedConditions.elementToBeClickable(buttonInvolved))).click().perform();
 		}catch(TimeoutException e) {
 			return false;
@@ -136,12 +136,12 @@ public class Summary {
 	}
 	
 	public boolean editSupportingDocuments() {
-		wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Supporting Documents')]/../../..")));
-		
 		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(2));
 		Actions actions = new Actions(driver);
+		
 		try {
+			wait2.until(ExpectedConditions.visibilityOfElementLocated(
+					By.xpath("//h6[@class='" + header + "' and contains(text(), 'Supporting Documents')]/../../..")));
 			actions.moveToElement(wait2.until(ExpectedConditions.elementToBeClickable(buttonSupportingDocuments))).click().perform();
 		}catch(TimeoutException e) {
 			return false;
@@ -308,6 +308,19 @@ public class Summary {
 					By.xpath(incidentType + "//td[text()='" + details + "' and @data-label='Details']/ancestor::tr")));
 			}catch(TimeoutException e) {
 				throw new NoSuchElementException("Incident " + incident + " with details " + details + " not found in Summary View.");
+			}
+	}
+	
+	public void verifyDetailsCircumstancesNotVisible(String incident, String details) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//h6[@class='" + header + "' and contains(text(), 'Details and Circumstances of Incident')]/../../..")));
+		
+		String incidentType = "//p[@class='mud-typography mud-typography-body1 pt-5' and text()='" + incident + "']/../following-sibling::div[@class='mud-grid-item mud-grid-item-md-12']";
+		try {		
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(
+					By.xpath(incidentType + "//td[text()='" + details + "' and @data-label='Details']/ancestor::tr")));
+			}catch(TimeoutException e) {
+				throw new NoSuchElementException("Incident " + incident + " with details " + details + " found in Summary View, but should not be visible.");
 			}
 	}
 
