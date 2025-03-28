@@ -39,7 +39,7 @@ public class IncidentTypeSelection {
 	
 	public void verifyPage(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Incident Types')]")));
+				By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Incident Types for Incident ID')]")));
 	}
 	
 	public String getItemSelector(String itemName) {

@@ -21,15 +21,15 @@ public class Summary {
 	By sectionsContent = By.xpath("//p[@class='mud-typography mud-typography-body1']");
 	
 	By button = By.xpath("//button[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-icon']");
-	By buttonIncidentType = By.xpath("/html/body/div[3]/div/div/div[5]/div[1]/div[2]/button");
-	By buttonReportPreparation = By.xpath("/html/body/div[3]/div/div/div[11]/div[1]/div[2]/button");
-	By buttonRegionalOffice = By.xpath("/html/body/div[3]/div/div/div[3]/div[1]/div[2]/button");
-	By buttonInvolved = By.xpath("/html/body/div[3]/div/div/div[10]/div[1]/div[2]/button");
-	By buttonStandItemChecklist = By.xpath("/html/body/div[3]/div/div/div[6]/div[1]/div[2]/button");
-	By buttonNotification = By.xpath("/html/body/div[3]/div/div/div[2]/div[1]/div[2]/button");
-	By buttonSupportingDocuments = By.xpath("/html/body/div[3]/div/div/div[7]/div[1]/div[2]/button");
-	By buttonPoliceContacted = By.xpath("/html/body/div[3]/div/div/div[9]/div[1]/div[2]/button");
-	By buttonDetailsCircumstances = By.xpath("/html/body/div[3]/div/div/div[8]/div[1]/div[2]/button");
+	By buttonIncidentType = By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Incident Type Selection Summary')]/../../..//button[@type='button']");
+	By buttonReportPreparation = By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Report Preparation')]/../../..//button[@type='button']");
+	By buttonRegionalOffice = By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Regional Office Details')]/../../..//button[@type='button']");
+	By buttonInvolved = By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Involved')]/../../..//button[@type='button']");
+	By buttonStandItemChecklist = By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Standard Item Checklist')]/../../..//button[@type='button']");
+	By buttonNotification = By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Notification')]/../../..//button[@type='button']");
+	By buttonSupportingDocuments = By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Supporting Documents')]/../../..//button[@type='button']");
+	By buttonPoliceContacted = By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Police Contacted')]/../../..//button[@type='button']");
+	By buttonDetailsCircumstances = By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Details and Circumstances of Incident')]/../../..//button[@type='button']");
 	By changeJournalButton = By.xpath("//button[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-icon' and @title='Open Change Journal']");
 	
 	By notificationArea = By.xpath("/html/body/div[3]/div/div/div[2]/div[2]/div/div[7]/p");
