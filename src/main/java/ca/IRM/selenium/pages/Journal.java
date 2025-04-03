@@ -118,33 +118,22 @@ public class Journal {
 			}
 		}
 		
-		if (facility.length() != 0) { // Location
-			if (!newVal.contains("Facility:" + facility)) {
-				throw new NoSuchElementException("Facility:" + facility + " not found in Journal's Incident row.");
-			}
-		}
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("Facility:", facility);
+		params.put("Priority:", priority);
+		params.put("GeneralLocation:", generalLocation);
+		params.put("UnitRange:", unitRange);
+		params.put("LocationDetails:", locationDetails);
 		
-		if (priority.length() != 0) {
-			if (!newVal.contains("Priority:" + priority)) {
-				throw new NoSuchElementException("Priority:" + priority + " not found in Journal's Incident row.");
-			}
-		}
-		
-		if (generalLocation.length() != 0) {
-			if (!newVal.contains("GeneralLocation:" + generalLocation)) {
-				throw new NoSuchElementException("GeneralLocation:" + generalLocation + " not found in Journal's Incident row.");
-			}
-		}
-		
-		if (unitRange.length() != 0) {
-			if (!newVal.contains("UnitRange:" + unitRange)) {
-				throw new NoSuchElementException("UnitRange:" + unitRange + " not found in Journal's Incident row.");
-			}
-		}
-		
-		if (locationDetails.length() != 0) {
-			if (!newVal.contains("LocationDetails:" + locationDetails)) {
-				throw new NoSuchElementException("LocationDetails:" + locationDetails + " not found in Journal's Incident row.");
+//		Verify the rest of the parameters
+		for  (Entry<String, String> entry : params.entrySet()) {
+		    String titleName = entry.getKey();
+		    String param = entry.getValue();
+		    
+		    if (param.length() != 0) {
+				if (!newVal.contains(titleName + param)) {
+					throw new NoSuchElementException(titleName + "\"" + param + "\" not found in Journal's InvolvedEmployee row.");
+				}
 			}
 		}
 	}
@@ -176,19 +165,24 @@ public class Journal {
 			throw new NoSuchElementException("Journal row with Date: " + dateUpdated + " and Time: " + timeUpdated + " not found.");
 		}
 		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("RegionAdvisedBy:", regionAdvisedBy);
+		params.put("RegionalOfficalNotified:", regionalOfficalNotified);
+		params.put("RegionlOfficial:", regionlOfficial);
+		
 //		Verify all the given info (the parameters) are present in the newVal string variable
-		if (regionAdvisedBy.length() != 0) {
-			if (!newVal.contains("RegionAdvisedBy:" + regionAdvisedBy)) {
-				throw new NoSuchElementException("RegionAdvisedBy:" + regionAdvisedBy + " not found in Journal's RegionalOfficeContacted row.");
+		for  (Entry<String, String> entry : params.entrySet()) {
+		    String titleName = entry.getKey();
+		    String param = entry.getValue();
+		    
+		    if (param.length() != 0) {
+				if (!newVal.contains(titleName + param)) {
+					throw new NoSuchElementException(titleName + "\"" + param + "\" not found in Journal's InvolvedEmployee row.");
+				}
 			}
 		}
 		
-		if (regionalOfficalNotified.length() != 0) {
-			if (!newVal.contains("RegionalOfficalNotified:" + regionalOfficalNotified)) {
-				throw new NoSuchElementException("RegionalOfficalNotified:" + regionalOfficalNotified + " not found in Journal's RegionalOfficeContacted row.");
-			}
-		}
-		
+//		Verify the rest of the parameters
 		if (regionAdvisedOn.length() != 0) { 
 			if (!newVal.contains("RegionAdvisedOn:" + regionAdvisedOn)) {
 				throw new NoSuchElementException("RegionAdvisedOn:" + regionAdvisedOn + " not found in Journal's RegionalOfficeContacted row.");
@@ -198,12 +192,6 @@ public class Journal {
 		if (regionAdvisedAt.length() != 0) {
 			if (!newVal.contains("RegionAdvisedAt:" + regionAdvisedOn + " " + regionAdvisedAt)) {
 				throw new NoSuchElementException("RegionAdvisedAt:" + regionAdvisedOn + " " + regionAdvisedAt + " not found in Journal's RegionalOfficeContacted row.");
-			}
-		}
-		
-		if (regionlOfficial.length() != 0) {
-			if (!newVal.contains("RegionlOfficial:" + regionlOfficial)) {
-				throw new NoSuchElementException("RegionlOfficial:" + regionlOfficial + " not found in Journal's RegionalOfficeContacted row.");
 			}
 		}
 	}
@@ -383,30 +371,24 @@ public class Journal {
 		}
 		
 //		Verify all the given info (the parameters) are present in the newVal string variable
-		if (isPoliceContacted.length() != 0) {
-			if (!newVal.contains("IsPoliceContacted:" + isPoliceContacted)) {
-				throw new NoSuchElementException("IsPoliceContacted:\"" + isPoliceContacted + "\" not found in Journal's PoliceContacted row.");
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("IsPoliceContacted:", isPoliceContacted);
+		params.put("ReasonPoliceNotContactedId:", reasonPoliceNotContactedId);
+		params.put("WillPoliceBeAttenting:", willPoliceBeAttenting);
+		params.put("CriminalCharges:", criminalCharges);
+		
+		for  (Entry<String, String> entry : params.entrySet()) {
+		    String titleName = entry.getKey();
+		    String param = entry.getValue();
+		    
+		    if (param.length() != 0) {
+				if (!newVal.contains(titleName + param)) {
+					throw new NoSuchElementException(titleName + "\"" + param + "\" not found in Journal's InvolvedEmployee row.");
+				}
 			}
 		}
 		
-		if (reasonPoliceNotContactedId.length() != 0) {
-			if (!newVal.contains("ReasonPoliceNotContactedId:" + reasonPoliceNotContactedId)) {
-				throw new NoSuchElementException("ReasonPoliceNotContactedId:\"" + reasonPoliceNotContactedId + "\" not found in Journal's PoliceContacted row.");
-			}
-		}
-		
-		if (willPoliceBeAttenting.length() != 0) {
-			if (!newVal.contains("WillPoliceBeAttenting:" + willPoliceBeAttenting)) {
-				throw new NoSuchElementException("WillPoliceBeAttenting:\"" + willPoliceBeAttenting + "\" not found in Journal's PoliceContacted row.");
-			}
-		}
-		
-		if (criminalCharges.length() != 0) {
-			if (!newVal.contains("CriminalCharges:" + criminalCharges)) {
-				throw new NoSuchElementException("CriminalCharges:\"" + criminalCharges + "\" not found in Journal's PoliceContacted row.");
-			}
-		}
-		
+//		Verify the rest of the parameters
 		if (policeContactedDate.length() != 0) {
 			if (!newVal.contains("PoliceContactedDate:" + policeContactedDate)) {
 				throw new NoSuchElementException("PoliceContactedDate:\"" + policeContactedDate + "\" not found in Journal's PoliceContacted row.");
@@ -429,7 +411,7 @@ public class Journal {
 	  * @param policeContactedBy (String: some name or "" if no change)
 	  * @param policeService (String: some service or "" if no change)
 	  * @param policeContactedMetnod (String: service or "" if no change)
-	  * @param policeTelephone (String: ie. "6471112222" or "" if no change)
+	  * @param policeTelephone (String: ie. "(647) 111 2222" or "" if no change)
 	  * @param policeCaseOccurance (String: some number or "" if no change)
 	  *  
 	  */
@@ -450,54 +432,22 @@ public class Journal {
 		}
 		
 //		Verify all the given info (the parameters) are present in the newVal string variable
-		if (personContacted.length() != 0) {
-			if (!newVal.contains("PersonContacted:" + personContacted)) {
-				throw new NoSuchElementException("PersonContacted:\"" + personContacted + "\" not found in Journal's PoliceContacted row.");
-			}
-		}
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("PersonContacted:", personContacted);
+		params.put("PoliceContactedBy:", policeContactedBy);
+		params.put("PoliceService:", policeService);
+		params.put("PoliceContactedMetnod:", policeContactedMetnod);
+		params.put("PoliceTelephone:", policeTelephone);
+		params.put("PoliceCaseOccurance:", policeCaseOccurance);
 		
-		if (policeContactedBy.length() != 0) {
-			if (!newVal.contains("PoliceContactedBy:" + policeContactedBy)) {
-				throw new NoSuchElementException("PoliceContactedBy:\"" + policeContactedBy + "\" not found in Journal's PoliceContacted row.");
-			}
-		}
-		
-		if (policeService.length() != 0) {
-			if (!newVal.contains("PoliceService:" + policeService)) {
-				throw new NoSuchElementException("PoliceService:\"" + policeService + "\" not found in Journal's PoliceContacted row.");
-			}
-		}
-		
-		if (policeContactedMetnod.length() != 0) {
-			if (!newVal.contains("PoliceContactedMetnod:" + policeContactedMetnod)) {
-				throw new NoSuchElementException("PoliceContactedMetnod:\"" + policeContactedMetnod + "\" not found in Journal's PoliceContacted row.");
-			}
-		}
-		
-		if (policeTelephone.length() != 0) {
-			String teleFormat = "";
-			for (int i = 0; i < policeTelephone.length(); i++) {
-			    char c = policeTelephone.charAt(i);
-			    if (i == 0) {
-			    	teleFormat = teleFormat + '(';
-			    }
-			    else if (i == 3) {
-			    	teleFormat = teleFormat + ") ";
-			    }
-			    else if (i == 6) {
-			    	teleFormat = teleFormat + ' ';
-			    }
-			    teleFormat = teleFormat + c;
-			}
-			System.out.println(teleFormat);
-			if (!newVal.contains("PoliceTelephone:" + teleFormat)) {
-				throw new NoSuchElementException("PoliceTelephone:\"" + teleFormat + "\" not found in Journal's PoliceContacted row.");
-			}
-		}
-		
-		if (policeCaseOccurance.length() != 0) {
-			if (!newVal.contains("PoliceCaseOccurance:" + policeCaseOccurance)) {
-				throw new NoSuchElementException("PoliceCaseOccurance:\"" + policeCaseOccurance + "\" not found in Journal's PoliceContacted row.");
+		for  (Entry<String, String> entry : params.entrySet()) {
+		    String titleName = entry.getKey();
+		    String param = entry.getValue();
+		    
+		    if (param.length() != 0) {
+				if (!newVal.contains(titleName + param)) {
+					throw new NoSuchElementException(titleName + "\"" + param + "\" not found in Journal's InvolvedEmployee row.");
+				}
 			}
 		}
 	}
