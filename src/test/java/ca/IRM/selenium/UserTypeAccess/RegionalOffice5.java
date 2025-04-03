@@ -103,7 +103,10 @@ public class RegionalOffice5 {
 		
 //		Both IIR and EOIR incident type should be visible
 		incidentFields.verifyPage();
-		Assert.assertEquals(incidentFields.verifyIIR(), incidentFields.verifyEOIR());
+		Assert.assertEquals(incidentFields.verifyIIR(), true);
+		Assert.assertEquals(incidentFields.verifyEOIR(), true);
+		
+//		Select IIR and EOIR incident types
 		incidentFields.expandItem("IIR");
 		incidentFields.expandItem("Assault");
 		incidentFields.expandItem("(P1) Serious Inmate on Inmate");
@@ -116,10 +119,29 @@ public class RegionalOffice5 {
 		
 		incidentFields.clickNext();
 		
+//		Both IIR and EOIR should be visible in all related sections
+		checklist.verifyPage();
+		Assert.assertEquals(true, checklist.verifyItem("IIR"));
+		checklist.expandItem("IIR");
+		checklist.expandItem("Assault");
+		checklist.selectChecklistItem("CCRL notified if racially motivated", "Yes");
+		
+		Assert.assertEquals(true, checklist.verifyItem("EOIR"));
+		checklist.expandItem("EOIR");
+		checklist.expandItem("Death of Staff");
+		checklist.selectChecklistItem("Details and circumstances of incident", "Yes");
 		checklist.clickNext();
 		
+		support.verifyPage();
+		Assert.assertEquals(false, support.verifySupportDocumentUnavalilable());
+		support.uploadFile("Death of Staff", "MOL Order", "UploadFileTest.docx");
 		support.clickNext();
 		
+		details.verifyPage();
+		Assert.assertEquals(true, details.verifyIIRDetails());
+		Assert.assertEquals(true, details.verifyEOIRDetails());
+		details.addIIRDetails("IIR details 1");
+		details.addEOIRDetails("EOIR details 1");
 		details.clickNext();
 		
 		contacted.selectReason(contacted.notPoliceMatter);
@@ -165,7 +187,10 @@ public class RegionalOffice5 {
 		
 //		Both IIR and EOIR incident type should be visible
 		incidentFields.verifyPage();
-		Assert.assertEquals(incidentFields.verifyIIR(), incidentFields.verifyEOIR());
+		Assert.assertEquals(incidentFields.verifyIIR(), true);
+		Assert.assertEquals(incidentFields.verifyEOIR(), true);
+		
+//		Select IIR and EOIR incident types
 		incidentFields.expandItem("IIR");
 		incidentFields.expandItem("Assault");
 		incidentFields.expandItem("(P1) Serious Inmate on Inmate");
@@ -178,10 +203,29 @@ public class RegionalOffice5 {
 		
 		incidentFields.clickNext();
 		
+//		Both IIR and EOIR should be visible in all related sections
+		checklist.verifyPage();
+		Assert.assertEquals(true, checklist.verifyItem("IIR"));
+		checklist.expandItem("IIR");
+		checklist.expandItem("Assault");
+		checklist.selectChecklistItem("CCRL notified if racially motivated", "Yes");
+		
+		Assert.assertEquals(true, checklist.verifyItem("EOIR"));
+		checklist.expandItem("EOIR");
+		checklist.expandItem("Death of Staff");
+		checklist.selectChecklistItem("Details and circumstances of incident", "Yes");
 		checklist.clickNext();
 		
+		support.verifyPage();
+		Assert.assertEquals(false, support.verifySupportDocumentUnavalilable());
+		support.uploadFile("Death of Staff", "MOL Order", "UploadFileTest.docx");
 		support.clickNext();
 		
+		details.verifyPage();
+		Assert.assertEquals(true, details.verifyIIRDetails());
+		Assert.assertEquals(true, details.verifyEOIRDetails());
+		details.addIIRDetails("IIR details 1");
+		details.addEOIRDetails("EOIR details 1");
 		details.clickNext();
 		
 		contacted.selectReason(contacted.notPoliceMatter);

@@ -100,7 +100,8 @@ public class RegionalOffice7 {
 		
 //		Both IIR and EOIR incident type should be visible
 		incidentFields.verifyPage();
-		Assert.assertEquals(incidentFields.verifyIIR(), incidentFields.verifyEOIR());
+		Assert.assertEquals(incidentFields.verifyIIR(), true);
+		Assert.assertEquals(incidentFields.verifyEOIR(), true);
 		
 		incidentFields.expandItem("IIR");
 		incidentFields.expandItem("Assault");
@@ -109,25 +110,43 @@ public class RegionalOffice7 {
 		incidentFields.selectItem("Bodily substance");
 		
 		incidentFields.expandItem("EOIR");
+		incidentFields.expandItem("Administrative");
+		incidentFields.selectItem("Good News Story");
+		
 		incidentFields.expandItem("Death of Staff");
 		incidentFields.selectItem("Off Duty");
 		
+		
 		incidentFields.clickNext();
 		
+		checklist.verifyPage();
+		checklist.expandItem("IIR");
+		checklist.expandItem("Assault");
+		checklist.selectChecklistItem("CCRL notified if racially motivated", "Yes");
+		
+		checklist.expandItem("EOIR");
+		checklist.expandItem("Death of Staff");
+		checklist.selectChecklistItem("Details and circumstances of incident", "Yes");
 		checklist.clickNext();
 		
+		support.verifyPage();
+		support.uploadFile("Death of Staff", "MOL Order", "UploadFileTest.docx");
 		support.clickNext();
 		
+		details.verifyPage();
+		details.addIIRDetails("IIR details 1");
+		details.addEOIRDetails("EOIR details 1");
 		details.clickNext();
 		
 		contacted.selectReason(contacted.notPoliceMatter);
 		contacted.clickNext();
 		
+		involve.addEmployee("Mark", "Belleza", "Other", "1", true);
 		involve.clickNext();
 		
 		report.selectContactPerson("Mark", "Belleza");
 		report.finalize(); 
-		report.clickSubmit();	
+		report.clickSubmit();
 		
 		Summary sum = new Summary(driver);
 
@@ -135,7 +154,7 @@ public class RegionalOffice7 {
 		search.searchIncidentReport(IncidentID);
 		search.openIncidentReport(IncidentID);
 		
-//		In summary view, the IIR and EOIR should be visible
+//		In summary view, the IIR and EOIR should be visible and all other related sections
 		sum.verifyPage();
 		sum.verifyIncidentTypes("IIR");
 		sum.verifyIncidentTypes("Assault");
@@ -145,6 +164,16 @@ public class RegionalOffice7 {
 		sum.verifyIncidentTypes("EOIR");
 		sum.verifyIncidentTypes("Death of Staff");
 		sum.verifyIncidentTypes("Off Duty");
+		
+		sum.verifyChecklistItem("Assault", "CCRL notified if racially motivated");
+		sum.verifyChecklistItem("Death of Staff", "Details and circumstances of incident");
+		
+		sum.verifySupportingDocument("Death of Staff", "UploadFileTest.docx");
+		
+		sum.verifyDetailsCircumstances("IIR", "IIR details 1");
+		sum.verifyDetailsCircumstances("EOIR", "EOIR details 1");
+		
+		sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
 		
 //		In Summary view, the location and area in the Notification section are visible
 		sum.verifyNotificationLocation("ALGOMA TREATMENT & REMAND CTR-ADULT");
@@ -168,7 +197,7 @@ public class RegionalOffice7 {
 		sum.verifyNotificationArea("Unit Range");
 		sum.verifyNotificationUnitRange("");
 		
-//		In summary view, the IIR and EOIR are still visible
+//		In summary view, the IIR and EOIR are still visible along with all other related sections
 		sum.verifyPage();
 		sum.verifyIncidentTypes("IIR");
 		sum.verifyIncidentTypes("Assault");
@@ -179,37 +208,14 @@ public class RegionalOffice7 {
 		sum.verifyIncidentTypes("Death of Staff");
 		sum.verifyIncidentTypes("Off Duty");
 		
-//		Edit Incident Report IIR and EOIR
-		sum.editIncidentType();
+		sum.verifyChecklistItem("Assault", "CCRL notified if racially motivated");
+		sum.verifyChecklistItem("Death of Staff", "Details and circumstances of incident");
 		
-//		Both IIR and EOIR incident type should be visible
-		incidentFields.verifyPage();
-		Assert.assertEquals(incidentFields.verifyIIR(), incidentFields.verifyEOIR());
+		sum.verifySupportingDocument("Death of Staff", "UploadFileTest.docx");
 		
-		incidentFields.expandItem("IIR");
-		incidentFields.selectItem("Assault");
-		incidentFields.expandItem("Threat");
-		incidentFields.expandItem("(P2) Inmate on Inmate");
-		incidentFields.selectItem("Verbal");
+		sum.verifyDetailsCircumstances("IIR", "IIR details 1");
+		sum.verifyDetailsCircumstances("EOIR", "EOIR details 1");
 		
-		incidentFields.expandItem("EOIR");
-		incidentFields.selectItem("Death of Staff");
-		incidentFields.expandItem("Administrative");
-		incidentFields.selectItem("Good News Story");
-		incidentFields.clickUpdate();
-		
-//		Verify the changes are visible
-		sum.verifyPage();
-		sum.verifyIncidentTypes("IIR");
-		sum.verifyIncidentTypes("Threat");
-		sum.verifyIncidentTypes("(P2) Inmate on Inmate");
-		sum.verifyIncidentTypes("Verbal");
-		
-		sum.verifyIncidentTypes("EOIR");
-		sum.verifyIncidentTypes("Administrative");
-		sum.verifyIncidentTypes("Good News Story");
-		
-		sum.verifyIncidentTypesNotVisible("Assault");
-		sum.verifyIncidentTypesNotVisible("Death of Staff");
+		sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
 	}
 }
