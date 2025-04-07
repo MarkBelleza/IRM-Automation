@@ -89,7 +89,8 @@ public class Department123 {
 		
 //		Both IIR and EOIR incident type should be visible
 		incidentFields.verifyPage();
-		Assert.assertEquals(incidentFields.verifyIIR(), incidentFields.verifyEOIR());
+		Assert.assertEquals(incidentFields.verifyIIR(), true);
+		Assert.assertEquals(incidentFields.verifyEOIR(), true);
 		
 		incidentFields.expandItem("IIR");
 		incidentFields.expandItem("Assault");
@@ -98,20 +99,38 @@ public class Department123 {
 		incidentFields.selectItem("Bodily substance");
 		
 		incidentFields.expandItem("EOIR");
+		incidentFields.expandItem("Administrative");
+		incidentFields.selectItem("Good News Story");
+		
 		incidentFields.expandItem("Death of Staff");
 		incidentFields.selectItem("Off Duty");
 		
+		
 		incidentFields.clickNext();
 		
+		checklist.verifyPage();
+		checklist.expandItem("IIR");
+		checklist.expandItem("Assault");
+		checklist.selectChecklistItem("CCRL notified if racially motivated", "Yes");
+		
+		checklist.expandItem("EOIR");
+		checklist.expandItem("Death of Staff");
+		checklist.selectChecklistItem("Details and circumstances of incident", "Yes");
 		checklist.clickNext();
 		
+		support.verifyPage();
+		support.uploadFile("Death of Staff", "MOL Order", "UploadFileTest.docx");
 		support.clickNext();
 		
+		details.verifyPage();
+		details.addIIRDetails("IIR details 1");
+		details.addEOIRDetails("EOIR details 1");
 		details.clickNext();
 		
 		contacted.selectReason(contacted.notPoliceMatter);
 		contacted.clickNext();
 		
+		involve.addEmployee("Mark", "Belleza", "Other", "1", true);
 		involve.clickNext();
 		
 		report.selectContactPerson("Mark", "Belleza");
@@ -222,8 +241,22 @@ public class Department123 {
 			sum.verifyIncidentTypes("Death of Staff");
 			sum.verifyIncidentTypes("Off Duty");
 			
-			//Verify Department 3 cannot Edit Incident Type
+			sum.verifyChecklistItem("Assault", "CCRL notified if racially motivated");
+			sum.verifyChecklistItem("Death of Staff", "Details and circumstances of incident");
+			
+			sum.verifySupportingDocument("Death of Staff", "UploadFileTest.docx");
+			
+			sum.verifyDetailsCircumstances("IIR", "IIR details 1");
+			sum.verifyDetailsCircumstances("EOIR", "EOIR details 1");
+			
+			sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
+			
+			//Verify Department 3 cannot Edit Incident Type, Checklist, Support Documents, Details and Circumstances and Involved
 			Assert.assertEquals(sum.editIncidentType(), false);
+			Assert.assertEquals(sum.editStandardItemChecklist(), false);
+			Assert.assertEquals(sum.editSupportingDocuments(), false);
+			Assert.assertEquals(sum.editDetailsAndCircumstances(), false);
+			Assert.assertEquals(sum.editInvolved(), false);
 			}
 	}
 	
