@@ -61,14 +61,37 @@ public class Notification {
 	}
 	
 	public void selectLocation(String location) {
+		clickLocationDropDown();
+		selectLocationFromDropDown(location);
+	}
+	
+	public void clickLocationDropDown() {
 		verifyPage();
-		Actions actions = new Actions(driver);
 		
 		wait.until(ExpectedConditions.elementToBeClickable(locationField)).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogDropdown));
+	}
+	
+	public void selectLocationFromDropDown(String location) {
+		Actions actions = new Actions(driver);
+		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogDropdown));
 		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + location + "']"))))
 				.click().perform();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(updateDialogDropdown));
+	}
+	
+	public void verifyLocationInDropDown(String location) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogDropdown));
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + location + "']")));
+	}
+	
+	public void verifyLocationNotInDropDown(String location) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(updateDialogDropdown));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//p[contains(@class, '" + selectDropdownOption +  "') and text()='" + location + "']")));
 	}
 	
 	public void selectArea(String area) {

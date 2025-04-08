@@ -1,5 +1,8 @@
 package ca.IRM.selenium.UserTypeAccess;
 
+import java.io.IOException;
+
+import org.apache.poi.EncryptedDocumentException;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -8,6 +11,7 @@ import org.testng.annotations.Test;
 import ca.IRM.selenium.components.NavBar;
 import ca.IRM.selenium.pages.Notification;
 import ca.IRM.selenium.pages.User;
+import ca.IRM.selenium.utils.ReadXLSData;
 import ca.IRM.selenium.utils.WebUtils;
 
 public class AdminToTheSuperintendent3 {
@@ -47,17 +51,20 @@ public class AdminToTheSuperintendent3 {
 	
 //	TestCase ID: TC0010
 	@Test(groups="testing")
-	public void createIncidentReportNot() {
+	public void createIncidentReportNot() throws EncryptedDocumentException, IOException {
+		ReadXLSData loc = new ReadXLSData();
+		String[] locations =loc.getData("Locations");
+		
 		nav.createNewReport();
 		
-//		Fill in the appropriate fields in Notification (set location to NOT within the user location, ALGOMA)
-		notificationFields.selectPriority("One");
-		notificationFields.selectLocation("BROCKVILLE JAIL - ADULT (Institution)");
-		notificationFields.selectArea("Washroom");
-		notificationFields.clickNext();
+//		Verify no locations are visible in the Locations drop down besides User location
+		notificationFields.clickLocationDropDown();
+		notificationFields.verifyLocationInDropDown("ALGOMA TREATMENT & REMAND CTR-ADULT (Institution)");
 		
-
-//		Verify access denied (cannot make incident reports NOT within user location)
-		utils.accessDeniedVerify();
+		for (String institution: locations) {
+			if (!institution.equals("ALGOMA TREATMENT & REMAND CTR-ADULT")) {				
+				notificationFields.verifyLocationNotInDropDown(institution + " (Institution)");
+			}
+		}
 	}
 }
