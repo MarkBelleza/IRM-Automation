@@ -20,6 +20,7 @@ import ca.IRM.selenium.pages.StandardItemChecklist;
 import ca.IRM.selenium.pages.Summary;
 import ca.IRM.selenium.pages.SupportingDocuments;
 import ca.IRM.selenium.pages.User;
+import ca.IRM.selenium.utils.ReadXLSData;
 import ca.IRM.selenium.utils.WebUtils;
 
 public class Department123 {
@@ -149,38 +150,37 @@ public class Department123 {
 	}
 	
 //	TestCase ID: TC0031
-	@Test(groups="testing")
-	public void department1ViewIIR() {
+	@Test(dataProvider="xmls", dataProviderClass=ReadXLSData.class, groups="testing")
+	public void Department1(String location) {
 		
 		Summary sum = new Summary(driver);
-		String[] locations = {"Correctional Services Oversight & Investigations",
-		                      "Family Liaison Support",
-		                      "Institution Admin Support",
-		                      "Operational Support Division",
-		                      "Safer Team",
-		                      "Statistical Analysis Unit"};
+		user.changeUserType(user.depart1, location);
 		
-		for (String loc: locations) {
-			user.changeUserType(user.depart1, loc);
-			
-//			Verify Incident Report is saved
-			search.searchIncidentReport(IncidentID);
-			search.openIncidentReport(IncidentID);
-			
-//			In summary view, only IIR should be visible
-			sum.verifyPage();
-			sum.verifyIncidentTypes("IIR");
-			sum.verifyIncidentTypes("Assault");
-			sum.verifyIncidentTypes("(P1) Serious Inmate on Inmate");
-			sum.verifyIncidentTypes("Item thrown/contact");
-			sum.verifyIncidentTypes("Bodily substance");
-			sum.verifyIncidentTypesNotVisible("EOIR");
-			sum.verifyIncidentTypesNotVisible("Death of Staff");
-			sum.verifyIncidentTypesNotVisible("Off Duty");
-			
-			//Verify Department 1 cannot Edit Incident Type
-			Assert.assertEquals(sum.editIncidentType(), false);
-			}
+//		Verify Incident Report is saved
+		search.searchIncidentReport(IncidentID);
+		search.openIncidentReport(IncidentID);
+		
+//		In summary view, only IIR and all other sections related to IIR should be visible
+		sum.verifyPage();
+		sum.verifyIncidentTypes("IIR");
+		sum.verifyIncidentTypes("Assault");
+		sum.verifyIncidentTypes("(P1) Serious Inmate on Inmate");
+		sum.verifyIncidentTypes("Item thrown/contact");
+		sum.verifyIncidentTypes("Bodily substance");
+		
+		sum.verifyIncidentTypesNotVisible("EOIR");
+		sum.verifyIncidentTypesNotVisible("Death of Staff");
+		sum.verifyIncidentTypesNotVisible("Off Duty");
+		
+		sum.verifyChecklistItem("Assault", "CCRL notified if racially motivated");
+		sum.verifyChecklistItemNotVisible("Details and circumstances of incident");
+		
+		//Verify Department 1 cannot Edit Incident Type
+		Assert.assertEquals(sum.editIncidentType(), false);
+		Assert.assertEquals(sum.editStandardItemChecklist(), false);
+		Assert.assertEquals(sum.editSupportingDocuments(), false);
+		Assert.assertEquals(sum.editDetailsAndCircumstances(), false);
+		Assert.assertEquals(sum.editInvolved(), false);
 					
 		}
 	
@@ -198,66 +198,68 @@ public class Department123 {
 			search.searchIncidentReport(IncidentID);
 			search.openIncidentReport(IncidentID);
 			
-//			In summary view, only IIR should be visible
+//			In summary view, only IIR and all other sections related to IIR should be visible
 			sum.verifyPage();
 			sum.verifyIncidentTypes("IIR");
 			sum.verifyIncidentTypes("Assault");
 			sum.verifyIncidentTypes("(P1) Serious Inmate on Inmate");
 			sum.verifyIncidentTypes("Item thrown/contact");
 			sum.verifyIncidentTypes("Bodily substance");
+			
 			sum.verifyIncidentTypesNotVisible("EOIR");
 			sum.verifyIncidentTypesNotVisible("Death of Staff");
 			sum.verifyIncidentTypesNotVisible("Off Duty");
 			
-			//Verify Department 2 cannot Edit Incident Type
-			Assert.assertEquals(sum.editIncidentType(), false);
-			}
- 	}
-	
-//	TestCase ID: TC0033
-	@Test(groups="testing")
-	public void department3ViewIIREOIR() {
-		
-		Summary sum = new Summary(driver);
-		String[] locations = {"ADM Office of the Institutional Services",
-								"Executive Directors Office",
-								"Information Management Unit"};
-		
-		for (String loc: locations) {
-			user.changeUserType(user.depart3, loc);
-			
-//			Verify Incident Report is saved
-			search.searchIncidentReport(IncidentID);
-			search.openIncidentReport(IncidentID);
-			
-//			In summary view, only IIR should be visible
-			sum.verifyPage();
-			sum.verifyIncidentTypes("IIR");
-			sum.verifyIncidentTypes("Assault");
-			sum.verifyIncidentTypes("(P1) Serious Inmate on Inmate");
-			sum.verifyIncidentTypes("Item thrown/contact");
-			sum.verifyIncidentTypes("Bodily substance");
-			sum.verifyIncidentTypes("EOIR");
-			sum.verifyIncidentTypes("Death of Staff");
-			sum.verifyIncidentTypes("Off Duty");
-			
 			sum.verifyChecklistItem("Assault", "CCRL notified if racially motivated");
-			sum.verifyChecklistItem("Death of Staff", "Details and circumstances of incident");
+			sum.verifyChecklistItemNotVisible("Details and circumstances of incident");
 			
-			sum.verifySupportingDocument("Death of Staff", "UploadFileTest.docx");
-			
-			sum.verifyDetailsCircumstances("IIR", "IIR details 1");
-			sum.verifyDetailsCircumstances("EOIR", "EOIR details 1");
-			
-			sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
-			
-			//Verify Department 3 cannot Edit Incident Type, Checklist, Support Documents, Details and Circumstances and Involved
+			//Verify Department 2 cannot Edit Incident Type
 			Assert.assertEquals(sum.editIncidentType(), false);
 			Assert.assertEquals(sum.editStandardItemChecklist(), false);
 			Assert.assertEquals(sum.editSupportingDocuments(), false);
 			Assert.assertEquals(sum.editDetailsAndCircumstances(), false);
 			Assert.assertEquals(sum.editInvolved(), false);
 			}
+ 	}
+	
+//	TestCase ID: TC0033
+	@Test(dataProvider="xmls", dataProviderClass=ReadXLSData.class, groups="testing")
+	public void Department3(String location) {
+		
+		Summary sum = new Summary(driver);
+		user.changeUserType(user.depart3, location);
+		
+//		Verify Incident Report is saved
+		search.searchIncidentReport(IncidentID);
+		search.openIncidentReport(IncidentID);
+		
+//		In summary view, IIR and EOIR are visible in all related sections
+		sum.verifyPage();
+		sum.verifyIncidentTypes("IIR");
+		sum.verifyIncidentTypes("Assault");
+		sum.verifyIncidentTypes("(P1) Serious Inmate on Inmate");
+		sum.verifyIncidentTypes("Item thrown/contact");
+		sum.verifyIncidentTypes("Bodily substance");
+		sum.verifyIncidentTypes("EOIR");
+		sum.verifyIncidentTypes("Death of Staff");
+		sum.verifyIncidentTypes("Off Duty");
+		
+		sum.verifyChecklistItem("Assault", "CCRL notified if racially motivated");
+		sum.verifyChecklistItem("Death of Staff", "Details and circumstances of incident");
+		
+		sum.verifySupportingDocument("Death of Staff", "UploadFileTest.docx");
+		
+		sum.verifyDetailsCircumstances("IIR", "IIR details 1");
+		sum.verifyDetailsCircumstances("EOIR", "EOIR details 1");
+		
+		sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
+		
+		//Verify Department 3 cannot Edit Incident Type, Checklist, Support Documents, Details and Circumstances and Involved
+		Assert.assertEquals(sum.editIncidentType(), false);
+		Assert.assertEquals(sum.editStandardItemChecklist(), false);
+		Assert.assertEquals(sum.editSupportingDocuments(), false);
+		Assert.assertEquals(sum.editDetailsAndCircumstances(), false);
+		Assert.assertEquals(sum.editInvolved(), false);
 	}
 	
 }
