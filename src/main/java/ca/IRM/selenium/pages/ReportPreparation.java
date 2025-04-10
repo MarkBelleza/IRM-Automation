@@ -28,6 +28,7 @@ public class ReportPreparation {
 	By radioButtonFinalYes = By.xpath("//span[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-radio mud-tertiary-text hover:mud-tertiary-hover']");
 	By radioButtonFinalNo = By.xpath("//span[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-radio mud-secondary-text hover:mud-secondary-hover']");
 	By selectedRadioButtonFinalYes = By.xpath("//span[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-radio mud-tertiary-text hover:mud-tertiary-hover mud-checked']");
+	By selectRadioButtonFinalNo = By.xpath("//span[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-radio mud-secondary-text hover:mud-secondary-hover mud-checked']");
 	
 	By confidentialPrompt = By.xpath("//p[@class='mud-typography mud-typography-body1' and text()='Confidential Incident Report']");
 	By radioButtonConfidentialNotSelected = By.xpath("//span[@class='mud-button-root mud-icon-button mud-ripple mud-ripple-radio mud-primary-text hover:mud-primary-hover']");
@@ -108,6 +109,13 @@ public class ReportPreparation {
 //		clickSubmit();
 //		TODO: Check visibility of the confirmation popup
 		
+	}
+	
+	public void notFinalize() {
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(radioButtonFinalNo))).click().perform();
+		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(selectRadioButtonFinalNo));
 	}
 	
 	
