@@ -9,6 +9,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import ca.IRM.selenium.components.DateTimeUI;
 import ca.IRM.selenium.components.NavBar;
 import ca.IRM.selenium.pages.DetailsAndCircumstances;
 import ca.IRM.selenium.pages.IncidentTypeSelection;
@@ -38,7 +39,7 @@ public class GenerateReports3 {
 	private ReportPreparation report;	
 	private User user;
 	private ReportSearch search;
-	
+	private DateTimeUI date;
 	private WebDriverWait wait;
 	
 	private EdgeDriver driver = new EdgeDriver();
@@ -63,7 +64,7 @@ public class GenerateReports3 {
 		report = new ReportPreparation(driver);		
 		user = new User(driver);
 		search = new ReportSearch(driver);
-		
+		date = new DateTimeUI(driver);
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		
 		WebUtils.setUpIrmPage(driver);
@@ -76,7 +77,7 @@ public class GenerateReports3 {
 	
 	@AfterTest(groups="testing")
 	public void close() {
-		driver.quit();
+//		driver.quit();
 		System.out.println("After Test");
 	}
 
@@ -118,6 +119,11 @@ public class GenerateReports3 {
 			incidentFields.expandItem("On Duty");
 			incidentFields.selectItem("On site");
 			
+			incidentFields.expandItem("Property Damage");
+			incidentFields.expandItem("Major Damage");
+			incidentFields.expandItem("Nonintentional");
+			incidentFields.selectItem("By accident");
+			
 			incidentFields.expandItem("Labour Activities");
 			incidentFields.selectItem("Information pickets");
 			
@@ -129,6 +135,9 @@ public class GenerateReports3 {
 			checklist.expandItem("EOIR");
 			checklist.expandItem("Death of Staff");
 			checklist.selectChecklistItem("Details and circumstances of incident", "Yes");
+			
+			checklist.expandItem("Property Damage");
+			checklist.selectChecklistItem("Cause of property damage, if known", "Yes");
 			
 			checklist.expandItem("Labour Activities");
 			checklist.selectChecklistItem("Local union consultation", "Yes");
@@ -182,7 +191,7 @@ public class GenerateReports3 {
 			
 	//		Verify Incident Report is saved
 			search.searchIncidentReport(IncidentID);
-			search.verifyIncident(IncidentID, "EOIR, Death of Staff, Labour Activities"); //level 2 and 3 are not displayed
+			search.verifyIncident(IncidentID, "EOIR, Death of Staff, Property Damage, Labour Activities"); //level 2 and 3 are not displayed
 		}
 	}
 	
@@ -216,11 +225,16 @@ public class GenerateReports3 {
 			Assert.assertEquals(incidentFields.verifyIIR(), true);
 			Assert.assertEquals(incidentFields.verifyEOIR(), true);
 			
-	//		Select EOIR incident types		
+			//		Select EOIR incident types		
 			incidentFields.expandItem("EOIR");
 			incidentFields.expandItem("Death of Staff");
 			incidentFields.expandItem("On Duty");
 			incidentFields.selectItem("On site");
+			
+			incidentFields.expandItem("Property Damage");
+			incidentFields.expandItem("Major Damage");
+			incidentFields.expandItem("Nonintentional");
+			incidentFields.selectItem("By accident");
 			
 			incidentFields.expandItem("Labour Activities");
 			incidentFields.selectItem("Information pickets");
@@ -233,6 +247,9 @@ public class GenerateReports3 {
 			checklist.expandItem("EOIR");
 			checklist.expandItem("Death of Staff");
 			checklist.selectChecklistItem("Details and circumstances of incident", "Yes");
+			
+			checklist.expandItem("Property Damage");
+			checklist.selectChecklistItem("Cause of property damage, if known", "Yes");
 			
 			checklist.expandItem("Labour Activities");
 			checklist.selectChecklistItem("Local union consultation", "Yes");
@@ -286,7 +303,7 @@ public class GenerateReports3 {
 			
 	//		Verify Incident Report is saved
 			search.searchIncidentReport(IncidentID);
-			search.verifyIncident(IncidentID, "EOIR, Death of Staff, Labour Activities"); //level 2 and 3 are not displayed
+			search.verifyIncident(IncidentID, "EOIR, Death of Staff, Property Damage, Labour Activities"); //level 2 and 3 are not displayed
 		}
 	}
 }

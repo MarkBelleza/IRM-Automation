@@ -9,6 +9,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import ca.IRM.selenium.components.DateTimeUI;
 import ca.IRM.selenium.components.NavBar;
 import ca.IRM.selenium.pages.DetailsAndCircumstances;
 import ca.IRM.selenium.pages.IncidentTypeSelection;
@@ -38,7 +39,7 @@ public class GenerateReports2 {
 	private ReportPreparation report;	
 	private User user;
 	private ReportSearch search;
-	
+	private DateTimeUI date;
 	private WebDriverWait wait;
 	
 	private EdgeDriver driver = new EdgeDriver();
@@ -63,7 +64,7 @@ public class GenerateReports2 {
 		report = new ReportPreparation(driver);		
 		user = new User(driver);
 		search = new ReportSearch(driver);
-		
+		date = new DateTimeUI(driver);
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		
 		WebUtils.setUpIrmPage(driver);
