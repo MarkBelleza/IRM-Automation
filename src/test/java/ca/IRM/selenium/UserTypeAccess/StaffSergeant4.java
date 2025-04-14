@@ -73,7 +73,7 @@ public class StaffSergeant4 {
 	
 	@AfterTest(groups="testing")
 	public void close() {
-		driver.quit();
+//		driver.quit();
 		System.out.println("After Test");
 	}
 	
@@ -177,8 +177,7 @@ public class StaffSergeant4 {
 		sum.verifyDetailsCircumstances("IIR", "IIR details 1");
 		sum.verifyDetailsCircumstancesNotVisible("EOIR", "EOIR details 1");
 		
-//		Verify Involved Section is not visible as EOIR is not visible
-		Assert.assertEquals(false, sum.editInvolved());
+		sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
 		
 //		Edit Incident Report IIR
 		sum.editIncidentType();
@@ -238,6 +237,11 @@ public class StaffSergeant4 {
 		sum.verifyDetailsCircumstances("IIR", "IIR details 1");
 		sum.verifyDetailsCircumstances("IIR", "Details for IIR 2");
 		sum.verifyDetailsCircumstancesNotVisible("EOIR", "EOIR details 1");
+		
+//		Verify Involved section visible and editable
+		sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
+		sum.editInvolved();
+		involve.verifyPage();
 		
 	}
 

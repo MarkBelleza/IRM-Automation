@@ -182,8 +182,10 @@ public class AdminToTheSuperintendent4 {
 		sum.verifyDetailsCircumstancesNotVisible("EOIR", "EOIR details 1");
 		Assert.assertEquals(false, sum.editDetailsAndCircumstances());
 		
-//		Verify Involved Section is not visible as EOIR is not visible
-		Assert.assertEquals(false, sum.editInvolved());
+//		Verify Involved section visible and editable
+		sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
+		sum.editInvolved();
+		involve.verifyPage();
 		
 //		Should not be able to edit Incident Type
 		Assert.assertEquals(sum.editIncidentType(), false);

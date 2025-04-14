@@ -179,8 +179,8 @@ public class DeputySuperintendent4 {
 		sum.verifyDetailsCircumstances("IIR", "IIR details 1");
 		sum.verifyDetailsCircumstancesNotVisible("EOIR", "EOIR details 1");
 		
-//		Verify Involved Section is not visible as EOIR is not visible
-		Assert.assertEquals(false, sum.editInvolved());
+//		Verify Involved Section is visible even when EOIR is not visible
+		sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
 		
 //		Edit Incident Report IIR
 		sum.editIncidentType();
@@ -240,6 +240,11 @@ public class DeputySuperintendent4 {
 		sum.verifyDetailsCircumstances("IIR", "IIR details 1");
 		sum.verifyDetailsCircumstances("IIR", "Details for IIR 2");
 		sum.verifyDetailsCircumstancesNotVisible("EOIR", "EOIR details 1");
+		
+//		Verify Involved section visible and editable
+		sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
+		sum.editInvolved();
+		involve.verifyPage();
 	}
 
 }
