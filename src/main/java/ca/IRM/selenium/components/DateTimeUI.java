@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -54,7 +55,7 @@ public class DateTimeUI {
 	    if (format.equals("full")) {
 	    	formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");	    	
 	    }
-	    if(format.equals("calendar")) {
+	    else if(format.equals("calendar")) {
 	    	formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");	  
 	    }
 	    else {	    	
@@ -65,8 +66,13 @@ public class DateTimeUI {
 	
 	
 	public void selectCurrentDate() {
-		wait.until(ExpectedConditions.elementToBeClickable(calendarButton)).click();
+		Actions actions = new Actions(driver);
 		String current = getCurrentDate("full");
+		
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(calendarButton))).perform();
+		wait.until(ExpectedConditions.elementToBeClickable(calendarButton)).click();
+		
+		actions.moveToElement(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@aria-label='" + current + "']")))).perform();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@aria-label='" + current + "']"))).click();
 	}
 
@@ -77,9 +83,10 @@ public class DateTimeUI {
 	  * @param minute (0-60)
 	  */
 	public void selectTimeUI(int hour, int minute) {
-		wait.until(ExpectedConditions.elementToBeClickable(timeButton)).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(innerHourHandCustom + "[" + hour + "]"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(minuteHandCustom + "[" + (minute + 1) +  "]"))).click();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(timeButton))).click().perform();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(By.xpath(innerHourHandCustom + "[" + hour + "]")))).click().perform();
+		actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(By.xpath(minuteHandCustom + "[" + (minute + 1) +  "]")))).click().perform();
 		
 	}
 	

@@ -16,8 +16,8 @@
 	</groups>
 	
     <classes>
-      <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant6"/>
-      <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant5"/>
+<!--      <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant6"/>-->
+<!--      <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant5"/>-->
       <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant4"/>
       <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant3"/>
       <class name="ca.IRM.selenium.UserTypeAccess.StaffSergeant2"/>

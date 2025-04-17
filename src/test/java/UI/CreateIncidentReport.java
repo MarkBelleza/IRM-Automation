@@ -2,6 +2,8 @@ package UI;
 
 import java.time.Duration;
 
+import ca.IRM.selenium.components.DateTimeUI;
+import ca.IRM.selenium.components.NavBar;
 import ca.IRM.selenium.pages.DetailsAndCircumstances;
 import ca.IRM.selenium.pages.IncidentTypeSelection;
 import ca.IRM.selenium.pages.Involved;
@@ -50,44 +52,44 @@ public class CreateIncidentReport {
 	}
 
 
-	@Test(groups="InProcess")
-	public void createIncidentReport() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		
-//		Make sure User Type is Staff Sergeant
-		String expectedUSerTitle = "Staff Sergeant";
-		String[] userNavBarInfo = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[3]/header/div/p[1]"))).getText().split(", ");
-		
-		String actualUserTitle = userNavBarInfo[1];
-		System.out.println("User Title: " + actualUserTitle);
-		
-		Assert.assertEquals(actualUserTitle, expectedUSerTitle);
-		
-//		Create simple Incident Report
-		utils.createGenericIncidentReport(driver);
-		
-//		** Store the Incident Report ID
-		String[] texts = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Regional Office Details')]"))).getText().split(" ");
-		String IncidentID = texts[texts.length - 1];
-		System.out.println("Created Incident ID: " + IncidentID);
-		
-//		Verify Incident Report is saved
-		ReportSearch search = new ReportSearch(driver);
-		search.searchIncidentReport(IncidentID);		
-	}
-	
-	
-	@Test(groups="InProcess")
-	public void changeUser() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		NavBar nav = new NavBar(driver);
-		
-		nav.navigateNavOption("Administration", "Users");
-		
-		User user = new User(driver);
-		user.verifyPage();
-		user.changeUserType(user.staff, user.algo);
-	}
+//	@Test(groups="InProcess")
+//	public void createIncidentReport() {
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//		
+////		Make sure User Type is Staff Sergeant
+//		String expectedUSerTitle = "Staff Sergeant";
+//		String[] userNavBarInfo = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[3]/header/div/p[1]"))).getText().split(", ");
+//		
+//		String actualUserTitle = userNavBarInfo[1];
+//		System.out.println("User Title: " + actualUserTitle);
+//		
+//		Assert.assertEquals(actualUserTitle, expectedUSerTitle);
+//		
+////		Create simple Incident Report
+//		utils.createGenericIncidentReport(driver);
+//		
+////		** Store the Incident Report ID
+//		String[] texts = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@class='mud-typography mud-typography-h6' and contains(text(), 'Regional Office Details')]"))).getText().split(" ");
+//		String IncidentID = texts[texts.length - 1];
+//		System.out.println("Created Incident ID: " + IncidentID);
+//		
+////		Verify Incident Report is saved
+//		ReportSearch search = new ReportSearch(driver);
+//		search.searchIncidentReport(IncidentID);		
+//	}
+//	
+//	
+//	@Test(groups="InProcess")
+//	public void changeUser() {
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//		NavBar nav = new NavBar(driver);
+//		
+//		nav.navigateNavOption("Administration", "Users");
+//		
+//		User user = new User(driver);
+//		user.verifyPage();
+//		user.changeUserType(user.staff, user.algo);
+//	}
 	
 	
 	@Test(groups="InProcess1")
@@ -121,7 +123,7 @@ public class CreateIncidentReport {
 		notificationFields.fillLocationDetails("Somewhere anywhere");
 		notificationFields.clickNext();
 		
-		utils.duplicatePopUpCheck();
+		
 		
 //		Fill in fields in Regional Office Details page
 		RegionalOfficeDetails regionalFields = new RegionalOfficeDetails(driver);

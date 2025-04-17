@@ -175,6 +175,8 @@ public class Department123 {
 		sum.verifyChecklistItem("Assault", "CCRL notified if racially motivated");
 		sum.verifyChecklistItemNotVisible("Details and circumstances of incident");
 		
+		sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
+		
 		//Verify Department 1 cannot Edit Incident Type
 		Assert.assertEquals(sum.editIncidentType(), false);
 		Assert.assertEquals(sum.editStandardItemChecklist(), false);
@@ -212,6 +214,8 @@ public class Department123 {
 			
 			sum.verifyChecklistItem("Assault", "CCRL notified if racially motivated");
 			sum.verifyChecklistItemNotVisible("Details and circumstances of incident");
+			
+			sum.verifyEmployeeInInvolved("Mark", "Belleza", "Other");
 			
 			//Verify Department 2 cannot Edit Incident Type
 			Assert.assertEquals(sum.editIncidentType(), false);

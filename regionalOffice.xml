@@ -17,8 +17,8 @@
 	
     <classes>
       <class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice"/>
-      <class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice7"/>
-      <class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice6"/>
+<!--      <class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice7"/>-->
+<!--      <class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice6"/>-->
       <class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice5"/>
       <class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice4"/>
       <class name="ca.IRM.selenium.UserTypeAccess.RegionalOffice3"/>

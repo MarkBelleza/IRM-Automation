@@ -91,7 +91,7 @@ public class Journal {
 	  *  
 	  */
 	public void verifyIncident(String dateUpdated, String timeUpdated, String incidentDate, String incidentTime, String facility, String priority, String generalLocation, String unitRange, String locationDetails) {
-		String incidentRowNewVal = "/following-sibling::td[text()='Incident' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue']";
+		String incidentRowNewVal = "/following-sibling::td[text()='Notification and Report preparation' and @data-label='FieldName']/following-sibling::td[@data-label='NewValue']";
 		String newVal;
 		
 //		Get the new value
